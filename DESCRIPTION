@@ -1,4 +1,4 @@
 Package: compendium
 Version: 0.1.0
-Depends: tidyverse, plotly, flexdashboard, clock
+Depends: tidyverse, plotly, flexdashboard, clock, fs
 
