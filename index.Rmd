@@ -1,0 +1,66 @@
+---
+title: "NEON4CAST Dashboard"
+output:
+  flexdashboard::flex_dashboard:
+    theme: 
+      version: 4
+      bootswatch: solar
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(clock)
+source("R/plotly_helpers.R")
+```
+
+```{r include=FALSE}
+combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv")
+```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Phenology
+
+```{r}
+start <- as.Date("2021-05-01")
+end <- start %>% clock::add_months(1)
+p <- combined %>%
+  filter(theme == "phenology",
+         target == "gcc_90",
+         forecast_start_time ==start,
+         time < end) %>% 
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+ geom_line(aes(time, mean, col = team)) +
+  facet_wrap(~siteID)
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Forecast Submissions
+
+```{r}
+gauge(42, min = 0, max = 100, symbol = '%', gaugeSectors(
+  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
+))
+```
+
+### Teams
+
+```{r}
+total <- combined %>% select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
+
