@@ -5,8 +5,10 @@ output:
     theme: 
       version: 4
       bootswatch: solar
-    orientation: columns
+    orientation: rows
     vertical_layout: fill
+    source_code: embed
+    social: menu
 ---
 
 ```{r setup, include=FALSE}
@@ -21,6 +23,9 @@ source("R/plotly_helpers.R")
 combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv")
 ```
 
+Phenology
+==========
+
 
 Column {data-width=650}
 -----------------------------------------------------------------------
@@ -28,8 +33,11 @@ Column {data-width=650}
 ### Phenology
 
 ```{r}
+## determine these more cleverly
 start <- as.Date("2021-05-01")
 end <- start %>% clock::add_months(1)
+
+
 p <- combined %>%
   filter(theme == "phenology",
          target == "gcc_90",
@@ -37,7 +45,8 @@ p <- combined %>%
          time < end) %>% 
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
- geom_line(aes(time, mean, col = team)) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
   facet_wrap(~siteID)
 
 gp <- plotly::ggplotly(p)
@@ -63,4 +72,26 @@ gauge(42, min = 0, max = 100, symbol = '%', gaugeSectors(
 total <- combined %>% select(team) %>% distinct() %>% count()
 flexdashboard::valueBox(total)
 ```
+
+### Leaderboard
+
+```{r}
+combined %>% 
+  filter(theme == "phenology") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
+
+
+Aquatic
+=======
+
+
+
+Terrestrial
+===========
+
+
 
