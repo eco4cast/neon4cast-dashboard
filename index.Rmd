@@ -5,7 +5,7 @@ output:
     theme: 
       version: 4
       bootswatch: solar
-    orientation: rows
+    orientation: columns
     vertical_layout: fill
     source_code: embed
     social: menu
@@ -19,9 +19,35 @@ library(clock)
 source("R/plotly_helpers.R")
 ```
 
+
+Home
+=====
+
+
+
 ```{r include=FALSE}
 combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv")
 ```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+
+### Teams
+
+```{r}
+total <- combined %>% select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
+
+
+
+
+
 
 Phenology
 ==========
@@ -69,7 +95,7 @@ gauge(42, min = 0, max = 100, symbol = '%', gaugeSectors(
 ### Teams
 
 ```{r}
-total <- combined %>% select(team) %>% distinct() %>% count()
+total <- combined %>% filter(theme == "phenology") %>% select(team) %>% distinct() %>% count()
 flexdashboard::valueBox(total)
 ```
 
@@ -85,13 +111,184 @@ combined %>%
 ```
 
 
-Aquatic
-=======
+Aquatics
+========
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+```{r}
+
+## Could consider displaying older ones
+start <- combined %>% 
+  filter(theme == "aquatics") %>%
+  select(forecast_start_time) %>% 
+  distinct() %>% 
+  arrange(desc(forecast_start_time))
+
+p <- combined %>%
+  filter(theme == "aquatics", forecast_start_time == start[[2,1]]) %>%
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
+  facet_wrap(target~siteID, scales = "free")
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
 
 
+### Leaderboard
+
+```{r}
+combined %>% 
+  filter(theme == "aquatics") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
 
 Terrestrial
 ===========
 
+Column {data-width=650}
+-----------------------------------------------------------------------
 
+```{r}
+## Could consider displaying older ones
+start <- combined %>% 
+  filter(theme == "terrestrial_daily") %>%
+  select(forecast_start_time) %>% 
+  distinct() %>% 
+  arrange(desc(forecast_start_time))
+
+p <- combined %>%
+  filter(theme == "terrestrial_daily", forecast_start_time == start[[2,1]]) %>%
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
+  facet_grid(target ~ siteID, scales = "free")
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
+
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+
+### Leaderboard
+
+```{r}
+combined %>% 
+  filter(theme == "terrestrial_daily") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
+
+
+Ticks
+=======
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+
+```{r}
+## Could consider displaying older ones
+start <- combined %>% 
+  filter(theme == "ticks") %>%
+  select(forecast_start_time) %>% 
+  distinct() %>% 
+  arrange(desc(forecast_start_time))
+
+p <- combined %>%
+  filter(theme == "ticks", forecast_start_time == start[[2,1]]) %>% # second most recent start time
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
+  facet_grid(target ~ siteID)
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Leaderboard
+
+```{r}
+combined %>% 
+  filter(theme == "ticks") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
+
+
+Beetles
+=======
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+
+```{r}
+## determine these more cleverly
+start <- combined %>% 
+  filter(theme == "beetles") %>%
+  select(forecast_start_time) %>% 
+  distinct() %>% 
+  arrange(desc(forecast_start_time))
+
+p <- combined %>%
+  filter(theme == "beetles", forecast_start_time == start[[1,1]]) %>% # second most recent start time
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
+  facet_wrap(~target)
+
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
+
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+
+### Leaderboard
+
+```{r}
+combined %>% 
+  filter(theme == "beetles") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
 
