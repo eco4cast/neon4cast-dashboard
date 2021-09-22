@@ -24,7 +24,7 @@ jobs:
       - name: Render
         shell: Rscript {0}
         run: |-
-          lapply(fs::dir_ls('.', glob='*.Rmd', recurse=TRUE), rmarkdown::render, envir = globalenv())
+          rmarkdown::render("index.Rmd", envir = globalenv())
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"

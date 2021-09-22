@@ -225,10 +225,10 @@ start <- combined %>%
 p <- combined %>%
   filter(theme == "ticks", forecast_start_time == start[[2,1]]) %>% # second most recent start time
   ggplot() +
-  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
-  geom_line(aes(time, mean, col = team)) +
-  geom_point(aes(time, obs)) + 
-  facet_grid(target ~ siteID)
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team, lty=target), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team, lty=target)) +
+  geom_point(aes(time, obs, shape=target)) + 
+  facet_wrap(~siteID)
 
 gp <- plotly::ggplotly(p)
 gp <- patch_legend(gp)
