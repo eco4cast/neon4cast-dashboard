@@ -117,6 +117,9 @@ Aquatics
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+
+### Aquatics Forecasts
+
 ```{r}
 
 ## Could consider displaying older ones
@@ -160,6 +163,8 @@ Terrestrial
 
 Column {data-width=650}
 -----------------------------------------------------------------------
+
+### Terrestrial Forecasts
 
 ```{r}
 ## Could consider displaying older ones
@@ -207,6 +212,7 @@ Ticks
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+### Ticks
 
 ```{r}
 ## Could consider displaying older ones
@@ -252,6 +258,7 @@ Beetles
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+### Beetles Forecasts
 
 ```{r}
 ## determine these more cleverly
