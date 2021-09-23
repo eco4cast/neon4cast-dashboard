@@ -102,8 +102,8 @@ Column {data-width=650}
 
 ```{r}
 ## determine these more cleverly
-start <- as.Date("2021-04-01")
-end <- start %>% clock::add_months(1)
+start <- as.Date("2021-05-01")
+end <- Sys.Date() %>% clock::add_months(1)
 
 ## Get most recent submission per team
 pheno_teams <- combined %>% filter(theme == "phenology") %>%
@@ -116,7 +116,7 @@ p <- inner_join(pheno_teams, combined) %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
-  geom_point(aes(time, obs)) + 
+  geom_point(aes(time, obs, size=.1)) + 
   facet_wrap(~siteID)
 
 gp <- plotly::ggplotly(p)
