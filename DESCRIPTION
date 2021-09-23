@@ -1,4 +1,5 @@
 Package: compendium
 Version: 0.1.0
-Depends: tidyverse, plotly, flexdashboard, clock, fs
+Depends: tidyverse, plotly, flexdashboard, clock, fs, bslib, thematic, sf, tmap
+Remotes: rstudio/flexdashboard, rstudio/bslib
 

@@ -4,11 +4,10 @@ output:
   flexdashboard::flex_dashboard:
     theme: 
       version: 4
-      bootswatch: solar
+      bootswatch: lux
     orientation: columns
     vertical_layout: fill
     source_code: embed
-    social: menu
 ---
 
 ```{r setup, include=FALSE}
@@ -17,6 +16,8 @@ library(tidyverse)
 library(plotly)
 library(clock)
 source("R/plotly_helpers.R")
+
+thematic::thematic_rmd(font = "auto")
 ```
 
 
@@ -33,17 +34,58 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+
+### NEON Forecast sites
+
+```{r}
+## FIXME color code by number of challenges at each site?
+
+challenges <- combined %>% select(theme, siteID) %>% distinct() %>%
+  separate(siteID, into = c("siteID", "plot")) %>%
+  select(theme, siteID) %>% 
+  distinct() 
+  
+
+
+library(sf)
+library(tmap)
+geo <- jsonlite::read_json("https://github.com/eco4cast/neon4cast/raw/main/inst/extdata/geo.json", TRUE)
+site_id <- gsub(", .*$", "", geo$geographicDescription)
+bb <- geo$boundingCoordinates[1:4] %>% mutate_all(as.numeric) %>% mutate(siteID = site_id)
+bb <- left_join(bb, challenges, by = "siteID")
+neon <- st_as_sf(bb, coords = c("westBoundingCoordinate", "northBoundingCoordinate"), crs = 4326)
+
+tmap::tmap_mode("view")
+tm_shape(neon) + tm_dots(col="theme", alpha=.4, size = .1)
+```
+
 Column {data-width=350}
 -----------------------------------------------------------------------
 
+## Stats
+
+### Challenges 
+
+
+```{r}
+flexdashboard::valueBox(5, color = "primary")
+```
 
 ### Teams
 
 ```{r}
-total <- combined %>% select(team) %>% distinct() %>% count()
-flexdashboard::valueBox(total)
+total_teams <- combined %>% select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total_teams, color = "success")
 ```
 
+
+
+### Total Forecasts
+
+```{r}
+total_forecasts <- combined %>% select(team, forecast_start_time) %>% distinct() %>% count()
+flexdashboard::valueBox(total_forecasts, color = "info")
+```
 
 
 
@@ -87,7 +129,10 @@ Column {data-width=350}
 ### Forecast Submissions
 
 ```{r}
-gauge(42, min = 0, max = 100, symbol = '%', gaugeSectors(
+pheno_forecasts <- combined %>% filter(theme == "phenology") %>%
+  select(team, forecast_start_time) %>% distinct() %>% count()
+
+gauge(pheno_forecasts/total_forecasts, min = 0, max = 100, symbol = '%', gaugeSectors(
   success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
 ))
 ```
