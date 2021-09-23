@@ -116,7 +116,7 @@ p <- inner_join(pheno_teams, combined) %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
-  geom_point(aes(time, obs, size=.1)) + 
+  geom_point(aes(time, obs), size = .1) + 
   facet_wrap(~siteID)
 
 gp <- plotly::ggplotly(p)
@@ -134,7 +134,7 @@ Column {data-width=350}
 pheno_forecasts <- combined %>% filter(theme == "phenology") %>%
   select(team, forecast_start_time) %>% distinct() %>% count()
 
-gauge(pheno_forecasts[[1]]/total_forecasts[[1]], min = 0, max = 100, symbol = '%', gaugeSectors(
+gauge(100* pheno_forecasts[[1]]/total_forecasts[[1]], min = 0, max = 100, symbol = '%', gaugeSectors(
   success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
 ))
 ```
