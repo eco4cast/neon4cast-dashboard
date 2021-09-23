@@ -102,15 +102,17 @@ Column {data-width=650}
 
 ```{r}
 ## determine these more cleverly
-start <- as.Date("2021-05-01")
+start <- as.Date("2021-04-01")
 end <- start %>% clock::add_months(1)
 
+## Get most recent submission per team
+pheno_teams <- combined %>% filter(theme == "phenology") %>%
+  select(team, forecast_start_time) %>% distinct() %>%
+  group_by(team) %>%
+  slice_max(forecast_start_time)
 
-p <- combined %>%
-  filter(theme == "phenology",
-         target == "gcc_90",
-         forecast_start_time ==start,
-         time < end) %>% 
+p <- inner_join(pheno_teams, combined) %>% 
+  filter(time > start, time < end) %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
@@ -132,7 +134,7 @@ Column {data-width=350}
 pheno_forecasts <- combined %>% filter(theme == "phenology") %>%
   select(team, forecast_start_time) %>% distinct() %>% count()
 
-gauge(pheno_forecasts/total_forecasts, min = 0, max = 100, symbol = '%', gaugeSectors(
+gauge(pheno_forecasts[[1]]/total_forecasts[[1]], min = 0, max = 100, symbol = '%', gaugeSectors(
   success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
 ))
 ```
