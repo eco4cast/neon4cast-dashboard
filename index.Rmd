@@ -212,7 +212,7 @@ Terrestrial
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Terrestrial Forecasts
+### Terrestrial Forecasts (Daily)
 
 ```{r}
 ## Could consider displaying older ones
@@ -237,12 +237,35 @@ gp
 ```
 
 
+### Terrestrial Forecasts (30 minute)
+
+```{r}
+## Could consider displaying older ones
+start <- combined %>% 
+  filter(theme == "terrestrial_30min") %>%
+  select(forecast_start_time) %>% 
+  distinct() %>% 
+  arrange(desc(forecast_start_time))
+
+p <- combined %>%
+  filter(theme == "terrestrial_30min", forecast_start_time == start[[2,1]]) %>%
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs)) + 
+  facet_grid(target ~ siteID, scales = "free")
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
 
 Column {data-width=350}
 -----------------------------------------------------------------------
 
 
-### Leaderboard
+### Leaderboard (daily)
 
 ```{r}
 combined %>% 
@@ -252,7 +275,16 @@ combined %>%
   arrange(mean_crps) %>%
   rmarkdown::paged_table()
 ```
+### Leaderboard (30 minute)
 
+```{r}
+combined %>% 
+  filter(theme == "terrestrial_daily") %>%
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
 
 Ticks
 =======
