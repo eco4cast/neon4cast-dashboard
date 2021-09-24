@@ -98,7 +98,7 @@ Phenology
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Phenology
+### Phenology (Greeness)
 
 ```{r}
 ## determine these more cleverly
@@ -114,7 +114,7 @@ pheno_teams <- combined %>% filter(theme == "phenology") %>%
 pheno_latest <- inner_join(pheno_teams, combined)
 
 p <- pheno_latest %>% 
-  filter(time > start, time < end) %>%
+  filter(time > start, time < end, target == "gcc_90") %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
@@ -126,7 +126,22 @@ gp <- patch_legend(gp)
 
 gp
 ```
+### Phenology (Redness)
 
+```{r}
+p <- pheno_latest %>% 
+  filter(time > start, time < end, target == "rcc_90") %>%
+  ggplot() +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
+  geom_line(aes(time, mean, col = team)) +
+  geom_point(aes(time, obs), size = .1) + 
+  facet_wrap(~siteID)
+
+gp <- plotly::ggplotly(p)
+gp <- patch_legend(gp)
+
+gp
+```
 Column {data-width=350}
 -----------------------------------------------------------------------
 
@@ -148,16 +163,30 @@ total <- combined %>% filter(theme == "phenology") %>% select(team) %>% distinct
 flexdashboard::valueBox(total)
 ```
 
-### Leaderboard
+### Leaderboard (target: Greeness)
 
 ```{r}
-pheno_latest %>% 
+combined %>% 
+  filter(theme == "phenology", target == "gcc_90", !is.na(crps)) %>% 
   group_by(team) %>%
-  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
+  summarise(mean_crps = mean(crps),
+            total_forecasted_days = n()) %>%
   arrange(mean_crps) %>%
   rmarkdown::paged_table()
 ```
 
+### Leaderboard (target: redness)
+
+```{r}
+
+combined %>% 
+  filter(theme == "phenology", target == "rcc_90") %>% 
+  group_by(team) %>%
+  summarise(mean_crps = mean(crps,na.rm=TRUE),
+            total_forecasted_days = n()) %>%
+  arrange(mean_crps) %>%
+  rmarkdown::paged_table()
+```
 
 Aquatics
 ========
@@ -178,7 +207,7 @@ start <- combined %>%
   arrange(desc(forecast_start_time))
 
 p <- combined %>%
-  filter(theme == "aquatics", forecast_start_time == start[[2,1]]) %>%
+  filter(theme == "aquatics", forecast_start_time == start[[2,1]], target == "temperature") %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
