@@ -7,6 +7,7 @@ name: render-rmarkdown
 jobs:
   render-rmarkdown:
     runs-on: ubuntu-latest
+    container: rocker/geospatial
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
