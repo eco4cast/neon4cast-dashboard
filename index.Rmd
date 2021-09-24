@@ -111,7 +111,9 @@ pheno_teams <- combined %>% filter(theme == "phenology") %>%
   group_by(team) %>%
   slice_max(forecast_start_time)
 
-p <- inner_join(pheno_teams, combined) %>% 
+pheno_latest <- inner_join(pheno_teams, combined)
+
+p <- pheno_latest %>% 
   filter(time > start, time < end) %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
@@ -149,8 +151,7 @@ flexdashboard::valueBox(total)
 ### Leaderboard
 
 ```{r}
-combined %>% 
-  filter(theme == "phenology") %>%
+pheno_latest %>% 
   group_by(team) %>%
   summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
   arrange(mean_crps) %>%
