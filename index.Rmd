@@ -308,7 +308,7 @@ combined %>%
 
 ```{r}
 combined %>% 
-  filter(theme == "terrestrial_daily") %>%
+  filter(theme == "terrestrial_30min") %>%
   group_by(team) %>%
   summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
   arrange(mean_crps) %>%
