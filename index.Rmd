@@ -35,7 +35,7 @@ Column {data-width=650}
 -----------------------------------------------------------------------
 
 
-### NEON Forecast sites
+### NEON Ecological Forecasting Challenge sites
 
 ```{r}
 ## FIXME color code by number of challenges at each site?
@@ -45,8 +45,6 @@ challenges <- combined %>% select(theme, siteID) %>% distinct() %>%
   select(theme, siteID) %>% 
   distinct() 
   
-
-
 library(sf)
 library(tmap)
 geo <- jsonlite::read_json("https://github.com/eco4cast/neon4cast/raw/main/inst/extdata/geo.json", TRUE)
@@ -163,7 +161,7 @@ total <- combined %>% filter(theme == "phenology") %>% select(team) %>% distinct
 flexdashboard::valueBox(total)
 ```
 
-### Leaderboard (target: Greeness)
+### Leaderboard (target: greeness)
 
 ```{r}
 combined %>% 
