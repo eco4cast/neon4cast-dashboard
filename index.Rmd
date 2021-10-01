@@ -14,6 +14,7 @@ output:
 library(flexdashboard)
 library(tidyverse)
 library(plotly)
+library(ggiraph)
 library(clock)
 source("R/plotly_helpers.R")
 
@@ -143,16 +144,6 @@ gp
 Column {data-width=350}
 -----------------------------------------------------------------------
 
-### Forecast Submissions
-
-```{r}
-pheno_forecasts <- combined %>% filter(theme == "phenology") %>%
-  select(team, forecast_start_time) %>% distinct() %>% count()
-
-gauge(100* pheno_forecasts[[1]]/total_forecasts[[1]], min = 0, max = 100, symbol = '%', gaugeSectors(
-  success = c(80, 100), warning = c(40, 79), danger = c(0, 39)
-))
-```
 
 ### Teams
 
@@ -186,6 +177,18 @@ combined %>%
   rmarkdown::paged_table()
 ```
 
+### Days remaining
+
+```{r}
+#days <- (pheno_end_date - Sys.Date() ) 
+#max <- pheno_end_date - pheno_start_date
+#gauge(days, min = 0, max = max, symbol = '', gaugeSectors(
+#  success = c(81, max), warning = c(10, 3), danger = c(0, 2)
+#))
+```
+
+
+
 Aquatics
 ========
 
@@ -197,20 +200,23 @@ Column {data-width=650}
 
 ```{r}
 
-## Could consider displaying older ones
-start <- combined %>% 
-  filter(theme == "aquatics") %>%
-  select(forecast_start_time) %>% 
-  distinct() %>% 
-  arrange(desc(forecast_start_time))
+start <- as.Date("2021-05-31")
+end <- as.Date("2021-08-31")
 
-p <- combined %>%
-  filter(theme == "aquatics", forecast_start_time == start[[2,1]], target == "temperature") %>%
+## Get most recent submission per team
+aq_teams <- combined %>% filter(theme == "aquatics") %>%
+  select(team, forecast_start_time) %>% distinct() %>%
+  group_by(team) %>%
+  slice_max(forecast_start_time)
+
+## Heck show all the forecasts
+p <- combined %>% #inner_join(aq_teams) %>%
+  filter(theme == "aquatics", time >= start, time <= end) %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
-  geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs)) + 
-  facet_wrap(target~siteID, scales = "free")
+  geom_line(aes(time, mean, col = team)) +
+  facet_grid(target~siteID, scales = "free")
 
 gp <- plotly::ggplotly(p)
 gp <- patch_legend(gp)
@@ -221,6 +227,12 @@ gp
 Column {data-width=350}
 -----------------------------------------------------------------------
 
+### Teams
+
+```{r}
+total <- combined %>% filter(theme == "aquatics") %>% select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
 
 ### Leaderboard
 
@@ -232,6 +244,17 @@ combined %>%
   arrange(mean_crps) %>%
   rmarkdown::paged_table()
 ```
+
+### Days elapsed
+
+```{r}
+days <- end-start
+gauge(days, min = 0, max = end-start, symbol = '', gaugeSectors(
+  success = c(11, max), warning = c(10, 3), danger = c(0, 2)
+))
+```
+
+
 
 Terrestrial
 ===========
@@ -292,6 +315,24 @@ Column {data-width=350}
 -----------------------------------------------------------------------
 
 
+### Teams: `terrestrial_daily`
+
+```{r}
+total <- combined %>% filter(theme == "terrestrial_daily") %>%
+  select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
+
+### Teams: `terrestrial_30min`
+
+```{r}
+total <- combined %>% filter(theme == "terrestrial_30min") %>% 
+  select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
+
+
+
 ### Leaderboard (daily)
 
 ```{r}
@@ -319,6 +360,9 @@ Ticks
 Column {data-width=650}
 -----------------------------------------------------------------------
 
+
+
+
 ### Ticks
 
 ```{r}
@@ -332,20 +376,33 @@ start <- combined %>%
 p <- combined %>%
   filter(theme == "ticks", forecast_start_time == start[[2,1]]) %>% # second most recent start time
   ggplot() +
-  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team, lty=target), alpha = 0.2) +
+  geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, 
+                  fill = team, lty=target), alpha = 0.2) +
   geom_line(aes(time, mean, col = team, lty=target)) +
   geom_point(aes(time, obs, shape=target)) + 
   facet_wrap(~siteID)
 
-gp <- plotly::ggplotly(p)
-gp <- patch_legend(gp)
 
-gp
+## ggiraph also supports ggplot-syntax-based controls
+ggiraph(ggobj = p)
+
+
 ```
 
 
 Column {data-width=350}
 -----------------------------------------------------------------------
+
+
+### Teams
+
+```{r}
+total <- combined %>% filter(theme == "ticks") %>% 
+  select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
+
+
 
 ### Leaderboard
 
@@ -367,7 +424,7 @@ Column {data-width=650}
 
 ### Beetles Forecasts
 
-```{r}
+```{r fig.width=8, fig.height=16}
 ## determine these more cleverly
 start <- combined %>% 
   filter(theme == "beetles") %>%
@@ -376,23 +433,32 @@ start <- combined %>%
   arrange(desc(forecast_start_time))
 
 p <- combined %>%
-  filter(theme == "beetles", forecast_start_time == start[[1,1]]) %>% # second most recent start time
+  filter(theme == "beetles", 
+         target == "richness",
+         forecast_start_time == start[[1,1]]) %>% # second most recent start time
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs)) + 
-  facet_wrap(~target)
+  facet_wrap(~siteID)
+
+ggiraph(ggobj = p)
 
 
-gp <- plotly::ggplotly(p)
-gp <- patch_legend(gp)
-
-gp
 ```
 
 
 Column {data-width=350}
 -----------------------------------------------------------------------
+
+
+### Teams
+
+```{r}
+total <- combined %>% filter(theme == "ticks") %>% 
+  select(team) %>% distinct() %>% count()
+flexdashboard::valueBox(total)
+```
 
 
 ### Leaderboard
