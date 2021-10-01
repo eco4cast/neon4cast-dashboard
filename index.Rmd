@@ -250,7 +250,7 @@ combined %>%
 ```{r}
 days <- end-start
 gauge(days, min = 0, max = end-start, symbol = '', gaugeSectors(
-  success = c(11, max), warning = c(10, 3), danger = c(0, 2)
+  success = c(11, as.numeric(end-start)), warning = c(10, 3), danger = c(0, 2)
 ))
 ```
 
