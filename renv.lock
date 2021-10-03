@@ -51,6 +51,13 @@
       "Repository": "RSPM",
       "Hash": "e031418365a7f7a766181ab5a41a5716"
     },
+    "RSQLite": {
+      "Package": "RSQLite",
+      "Version": "2.2.8",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "1eab1dd4df2b76758fd8acab09a0e9b6"
+    },
     "Rcpp": {
       "Package": "Rcpp",
       "Version": "1.0.7",
@@ -279,6 +286,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "1e14e4c5b2814de5225312394bc316da"
+    },
+    "duckdb": {
+      "Package": "duckdb",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "725744f0118305163151c41350436909"
     },
     "e1071": {
       "Package": "e1071",
@@ -607,6 +621,13 @@
       "Repository": "RSPM",
       "Hash": "61e4a10781dd00d7d81dd06ca9b94e95"
     },
+    "memoise": {
+      "Package": "memoise",
+      "Version": "2.0.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "a0bc51650201a56d00a4798523cc91b3"
+    },
     "mgcv": {
       "Package": "mgcv",
       "Version": "1.8-35",
@@ -662,6 +683,13 @@
       "Source": "Repository",
       "Repository": "RSPM",
       "Hash": "01f28d4278f15c76cddbea05899c5d6f"
+    },
+    "plogr": {
+      "Package": "plogr",
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "09eb987710984fc2905c7129c7d85e65"
     },
     "plotly": {
       "Package": "plotly",
