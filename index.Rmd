@@ -155,12 +155,41 @@ flexdashboard::valueBox(total)
 ### Leaderboard (target: greeness)
 
 ```{r}
-combined %>% 
-  filter(theme == "phenology", target == "gcc_90", !is.na(crps)) %>% 
-  group_by(team) %>%
-  summarise(mean_crps = mean(crps),
-            total_forecasted_days = n()) %>%
-  arrange(mean_crps) %>%
+con <- DBI::dbConnect(RSQLite::SQLite(), tempfile())
+dbWriteTable(con, "combined", combined, overwrite=TRUE)
+
+pheno <- tbl(con, "combined") %>% filter(theme == "phenology") %>%
+  select(siteID, target, time, team, forecast_start_time, crps)
+
+## expand a table to all possible observations (target, siteID, time)
+## for each team, for each forecast_start_time:
+all <- pheno %>% expand(team, target, siteID, time, forecast_start_time)
+
+## Use this list to make explicit NA for any observation for which a forecast was not provided
+na_filled <- pheno %>% right_join(all)
+
+## Fill in any missing observation with the most recent forecast made prior to the start_time
+self_fill <- na_filled %>%
+  window_order(team, target, time, forecast_start_time) %>% # 
+  group_by(team, target, siteID, time) %>% 
+  fill(crps, .direction="up")
+
+## We will now fill all remaining NAs using the NULL forecast:
+null_score <- self_fill %>% ungroup() %>%
+  filter(team == "EFInull") %>% rename(null = crps) %>% select(-team)
+
+all_filled <- self_fill %>%
+  left_join(null_score) %>% # add null-score as a separate column
+  mutate(filled_crps = case_when(is.na(crps) ~ null,
+                                 !is.na(crps) ~ crps))
+
+
+scores <- all_filled %>% filter(target == "gcc_90") %>%
+  group_by(team) %>% 
+  summarise(mean_crps = mean(filled_crps)) %>%
+  collect() %>% arrange(mean_crps)
+
+scores %>%
   rmarkdown::paged_table()
 ```
 
@@ -168,12 +197,12 @@ combined %>%
 
 ```{r}
 
-combined %>% 
-  filter(theme == "phenology", target == "rcc_90") %>% 
-  group_by(team) %>%
-  summarise(mean_crps = mean(crps,na.rm=TRUE),
-            total_forecasted_days = n()) %>%
-  arrange(mean_crps) %>%
+scores <- all_filled %>% filter(target == "rcc_90") %>%
+  group_by(team) %>% 
+  summarise(mean_crps = mean(filled_crps)) %>%
+  collect() %>% arrange(mean_crps)
+
+scores %>%
   rmarkdown::paged_table()
 ```
 
