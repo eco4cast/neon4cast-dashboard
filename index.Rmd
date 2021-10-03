@@ -16,6 +16,8 @@ library(tidyverse)
 library(plotly)
 library(ggiraph)
 library(clock)
+library(dbplyr)
+library(RSQLite)
 source("R/plotly_helpers.R")
 
 thematic::thematic_rmd(font = "auto")
