@@ -12,12 +12,18 @@ output:
 
 ```{r setup, include=FALSE}
 library(flexdashboard)
-library(tidyverse)
+library(thematic)
+library(clock)
+
 library(plotly)
 library(ggiraph)
-library(clock)
+
 library(dbplyr)
 library(RSQLite)
+library(duckdb)
+library(tidyverse)
+library(neon4cast)
+
 source("R/plotly_helpers.R")
 
 thematic::thematic_rmd(font = "auto")
@@ -50,11 +56,17 @@ challenges <- combined %>% select(theme, siteID) %>% distinct() %>%
   
 library(sf)
 library(tmap)
+
+if(!file.exists("neon_sites.rds")){
 geo <- jsonlite::read_json("https://github.com/eco4cast/neon4cast/raw/main/inst/extdata/geo.json", TRUE)
 site_id <- gsub(", .*$", "", geo$geographicDescription)
 bb <- geo$boundingCoordinates[1:4] %>% mutate_all(as.numeric) %>% mutate(siteID = site_id)
 bb <- left_join(bb, challenges, by = "siteID")
 neon <- st_as_sf(bb, coords = c("westBoundingCoordinate", "northBoundingCoordinate"), crs = 4326)
+saveRDS(neon, "neon_sites.rds")
+} else {
+  neon <- readRDS("neon_sites.rds")
+}
 
 tmap::tmap_mode("view")
 tm_shape(neon) + tm_dots(col="theme", alpha=.4, size = .1)
@@ -127,6 +139,8 @@ gp <- patch_legend(gp)
 
 gp
 ```
+
+
 ### Phenology (Redness)
 
 ```{r}
@@ -146,6 +160,19 @@ gp
 Column {data-width=350}
 -----------------------------------------------------------------------
 
+### Days remaining
+
+```{r}
+pheno_end_date <- as.Date("2021-12-31")
+pheno_start_date <- as.Date("2021-02-01")
+days <- (pheno_end_date - Sys.Date() ) 
+max <- pheno_end_date - pheno_start_date
+gauge(days, min = 0, max = max, symbol = '', gaugeSectors(
+  success = c(81, max), warning = c(10, 3), danger = c(0, 2)
+))
+```
+
+
 
 ### Teams
 
@@ -157,69 +184,77 @@ flexdashboard::valueBox(total)
 ### Leaderboard (target: greeness)
 
 ```{r}
-con <- DBI::dbConnect(RSQLite::SQLite(), tempfile())
-dbWriteTable(con, "combined", combined, overwrite=TRUE)
-
-pheno <- tbl(con, "combined") %>% filter(theme == "phenology") %>%
-  select(siteID, target, time, team, forecast_start_time, crps)
-
-## expand a table to all possible observations (target, siteID, time)
-## for each team, for each forecast_start_time:
-all <- pheno %>% expand(team, target, siteID, time, forecast_start_time)
-
-## Use this list to make explicit NA for any observation for which a forecast was not provided
-na_filled <- pheno %>% right_join(all)
-
-## Fill in any missing observation with the most recent forecast made prior to the start_time
-self_fill <- na_filled %>%
-  window_order(team, target, time, forecast_start_time) %>% # 
-  group_by(team, target, siteID, time) %>% 
-  fill(crps, .direction="up")
-
-## We will now fill all remaining NAs using the NULL forecast:
-null_score <- self_fill %>% ungroup() %>%
-  filter(team == "EFInull") %>% rename(null = crps) %>% select(-team)
-
-all_filled <- self_fill %>%
-  left_join(null_score) %>% # add null-score as a separate column
-  mutate(filled_crps = case_when(is.na(crps) ~ null,
-                                 !is.na(crps) ~ crps))
+null_filled <- combined %>% 
+  filter(theme == "phenology", target == "gcc_90") %>% 
+  fill_scores()
+```
 
 
-scores <- all_filled %>% filter(target == "gcc_90") %>%
-  group_by(team) %>% 
-  summarise(mean_crps = mean(filled_crps)) %>%
-  collect() %>% arrange(mean_crps)
+```{r}
+scores <- null_filled %>%
+  mean_scores() 
 
-scores %>%
-  rmarkdown::paged_table()
+rmarkdown::paged_table(scores)
+```
+
+
+```{r}
+A <- null_filled %>% 
+  collect() %>% 
+  mutate(time = as.Date(time), 
+         forecast_start_time  = as.Date(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+best <- head(scores$team, n=6)
+```
+
+
+#### Score by horizon 
+
+(top 6 teams)
+
+```{r}
+A %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>%
+  filter(team %in% best) %>%
+  ggplot(aes(horizon, mean_crps, col=team)) + 
+  geom_point() + facet_grid(~target)
+```
+
+#### Scores over time
+
+```{r}
+A %>%
+  group_by(theme, target, team, time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(time, mean_crps, col=team)) + 
+  geom_line() + facet_grid(~target)
+```
+
+#### Scores by site
+
+```{r}
+A %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(team, mean_crps, fill=siteID)) + 
+  geom_col(position="dodge") + scale_fill_viridis_d()
+  
 ```
 
 ### Leaderboard (target: redness)
 
 ```{r}
-
-scores <- all_filled %>% filter(target == "rcc_90") %>%
-  group_by(team) %>% 
-  summarise(mean_crps = mean(filled_crps)) %>%
-  collect() %>% arrange(mean_crps)
-
-scores %>%
-  rmarkdown::paged_table()
+combined %>% 
+  filter(theme == "phenology", target == "rcc_90") %>% 
+  fill_scores(null_team = "climatology") %>% mean_scores()
 ```
-
-### Days remaining
-
-```{r}
-#days <- (pheno_end_date - Sys.Date() ) 
-#max <- pheno_end_date - pheno_start_date
-#gauge(days, min = 0, max = max, symbol = '', gaugeSectors(
-#  success = c(81, max), warning = c(10, 3), danger = c(0, 2)
-#))
-```
-
-
-
 Aquatics
 ========
 
