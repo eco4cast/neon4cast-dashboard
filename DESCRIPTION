@@ -1,6 +1,6 @@
 Package: compendium
 Version: 0.1.0
 Depends: tidyverse, plotly, flexdashboard, clock, fs, bslib, thematic, sf,
-         tmap, ggiraph, RSQLite, duckdb, neonstore, dbplyr
+         tmap, ggiraph, RSQLite, duckdb, neonstore, dbplyr, neon4cast
 Remotes: rstudio/flexdashboard, rstudio/bslib
 
