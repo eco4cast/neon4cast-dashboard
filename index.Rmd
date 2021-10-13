@@ -11,6 +11,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(message=FALSE, error=FALSE, 
+                      warning = FALSE, fig.showtext=TRUE)
+
 library(flexdashboard)
 library(thematic)
 library(clock)
@@ -111,7 +115,10 @@ Phenology
 Column {data-width=650}
 -----------------------------------------------------------------------
 
-### Phenology (Greeness)
+### Forecasts
+
+
+#### Phenology
 
 ```{r}
 ## determine these more cleverly
@@ -132,7 +139,7 @@ p <- pheno_latest %>%
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs), size = .1) + 
-  facet_wrap(~siteID)
+  facet_wrap(~siteID)+ ggtitle("Greeness")
 
 gp <- plotly::ggplotly(p)
 gp <- patch_legend(gp)
@@ -141,7 +148,6 @@ gp
 ```
 
 
-### Phenology (Redness)
 
 ```{r}
 p <- pheno_latest %>% 
@@ -150,13 +156,88 @@ p <- pheno_latest %>%
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs), size = .1) + 
-  facet_wrap(~siteID)
+  facet_wrap(~siteID) + ggtitle("Redness")
 
 gp <- plotly::ggplotly(p)
 gp <- patch_legend(gp)
 
 gp
 ```
+
+
+```{r}
+null_filled <- combined %>% 
+  filter(theme == "phenology", target == "gcc_90") %>% 
+  fill_scores()
+```
+
+
+```{r}
+scores <- null_filled %>%
+  mean_scores() 
+```
+
+
+```{r}
+A <- null_filled %>% 
+  collect() %>% 
+  mutate(time = as.Date(time), 
+         forecast_start_time  = as.Date(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+best <- head(scores$team, n=6)
+```
+
+### Scores
+
+#### Score by horizon 
+
+(top 6 teams)
+
+```{r}
+p <- A %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>%
+  filter(team %in% best) %>%
+  ggplot(aes(horizon, mean_crps, col=team)) + 
+  geom_point() + facet_grid(~target) 
+
+plotly::ggplotly(p)
+```
+
+#### Scores over time
+
+```{r}
+p <- A %>%
+  group_by(theme, target, team, time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(time, mean_crps, col=team)) + 
+  geom_line() + facet_grid(~target)
+plotly::ggplotly(p)
+
+```
+
+#### Scores by site
+
+```{r}
+p  <- A %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(team, mean_crps, fill=siteID)) + 
+  geom_col(position="dodge") + scale_fill_viridis_d()
+
+plotly::ggplotly(p)
+
+  
+```
+
+
+
 Column {data-width=350}
 -----------------------------------------------------------------------
 
@@ -184,77 +265,20 @@ flexdashboard::valueBox(total)
 ### Leaderboard (target: greeness)
 
 ```{r}
-null_filled <- combined %>% 
-  filter(theme == "phenology", target == "gcc_90") %>% 
-  fill_scores()
+scores %>% filter(target == "gcc_90") %>% select(-target) %>% rmarkdown::paged_table(scores)
 ```
 
-
-```{r}
-scores <- null_filled %>%
-  mean_scores() 
-
-rmarkdown::paged_table(scores)
-```
-
-
-```{r}
-A <- null_filled %>% 
-  collect() %>% 
-  mutate(time = as.Date(time), 
-         forecast_start_time  = as.Date(forecast_start_time),
-         horizon = as.integer(time - forecast_start_time))
-
-best <- head(scores$team, n=6)
-```
-
-
-#### Score by horizon 
-
-(top 6 teams)
-
-```{r}
-A %>%
-  group_by(theme, target, team, horizon) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
-            .groups = "drop") %>%
-  filter(team %in% best) %>%
-  ggplot(aes(horizon, mean_crps, col=team)) + 
-  geom_point() + facet_grid(~target)
-```
-
-#### Scores over time
-
-```{r}
-A %>%
-  group_by(theme, target, team, time) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
-            .groups = "drop") %>% 
-  filter(team %in% best) %>%
-  ggplot(aes(time, mean_crps, col=team)) + 
-  geom_line() + facet_grid(~target)
-```
-
-#### Scores by site
-
-```{r}
-A %>%
-  group_by(theme, target, team, siteID) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
-            .groups = "drop") %>% 
-  filter(team %in% best) %>%
-  ggplot(aes(team, mean_crps, fill=siteID)) + 
-  geom_col(position="dodge") + scale_fill_viridis_d()
-  
-```
-
-### Leaderboard (target: redness)
+### Leaderboard (Fall redness)
 
 ```{r}
 combined %>% 
   filter(theme == "phenology", target == "rcc_90") %>% 
-  fill_scores(null_team = "climatology") %>% mean_scores()
+  fill_scores(null_team = "climatology") %>% mean_scores() %>%
+  rmarkdown::paged_table()
+
 ```
+
+
 Aquatics
 ========
 
@@ -290,6 +314,85 @@ gp <- patch_legend(gp)
 gp
 ```
 
+
+### Scores
+
+```{r}
+null_filled <- combined %>% 
+  filter(theme == "aquatics") %>% 
+  fill_scores()
+```
+
+
+```{r}
+scores <- null_filled %>%
+  mean_scores() 
+
+```
+
+
+```{r}
+A <- null_filled %>% 
+  collect() %>% 
+  mutate(time = as.Date(time), 
+         forecast_start_time  = as.Date(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+best <- head(scores$team, n=6)
+```
+
+
+#### Score by horizon 
+
+(top 6 teams)
+
+```{r}
+p <- A %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>%
+  filter(team %in% best) %>%
+  ggplot(aes(horizon, mean_crps, col=team)) + 
+  geom_point() + facet_wrap(~target, scales="free")
+
+ggplotly(p)
+```
+
+#### Scores over time
+
+```{r}
+p <- A %>%
+  group_by(theme, target, team, time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(time, mean_crps, col=team)) + 
+  geom_line() + facet_wrap(~target, scales="free")
+ggplotly(p)
+
+```
+
+#### Scores by site
+
+```{r}
+p <- A %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop") %>% 
+  filter(team %in% best) %>%
+  ggplot(aes(team, mean_crps, fill=siteID)) + 
+  geom_col(position="dodge") + scale_fill_viridis_d() + 
+  facet_wrap(~target, scales = "free")
+ggplotly(p)
+
+  
+```
+
+
+
+
+
+
 Column {data-width=350}
 -----------------------------------------------------------------------
 
@@ -298,17 +401,6 @@ Column {data-width=350}
 ```{r}
 total <- combined %>% filter(theme == "aquatics") %>% select(team) %>% distinct() %>% count()
 flexdashboard::valueBox(total)
-```
-
-### Leaderboard
-
-```{r}
-combined %>% 
-  filter(theme == "aquatics") %>%
-  group_by(team) %>%
-  summarise(mean_crps = mean(crps,na.rm=TRUE)) %>%
-  arrange(mean_crps) %>%
-  rmarkdown::paged_table()
 ```
 
 ### Days elapsed
@@ -321,6 +413,12 @@ gauge(days, min = 0, max = end-start, symbol = '', gaugeSectors(
 ```
 
 
+### Leaderboard
+
+```{r}
+rmarkdown::paged_table(scores)
+
+```
 
 Terrestrial
 ===========
@@ -446,7 +544,7 @@ p <- combined %>%
                   fill = team, lty=target), alpha = 0.2) +
   geom_line(aes(time, mean, col = team, lty=target)) +
   geom_point(aes(time, obs, shape=target)) + 
-  facet_wrap(~siteID)
+  facet_wrap(~siteID, scales = "free")
 
 
 ## ggiraph also supports ggplot-syntax-based controls
@@ -506,7 +604,7 @@ p <- combined %>%
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs)) + 
-  facet_wrap(~siteID)
+  facet_wrap(~siteID, scales = "free")
 
 ggiraph(ggobj = p)
 
