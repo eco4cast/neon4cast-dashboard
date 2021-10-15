@@ -125,21 +125,14 @@ Column {data-width=650}
 start <- as.Date("2021-05-01")
 end <- Sys.Date() %>% clock::add_months(1)
 
-## Get most recent submission per team
-pheno_teams <- combined %>% filter(theme == "phenology") %>%
-  select(team, forecast_start_time) %>% distinct() %>%
-  group_by(team) %>%
-  slice_max(forecast_start_time)
-
-pheno_latest <- inner_join(pheno_teams, combined)
-
-p <- pheno_latest %>% 
+p <-   combined %>% 
+  filter(theme == "phenology", horizon == 30) %>%
   filter(time > start, time < end, target == "gcc_90") %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
   geom_point(aes(time, obs), size = .1) + 
-  facet_wrap(~siteID)+ ggtitle("Greeness")
+  facet_wrap(~siteID)+ ggtitle("Greeness Forecasts at 30 day horizon")
 
 gp <- plotly::ggplotly(p)
 gp <- patch_legend(gp)
@@ -150,7 +143,8 @@ gp
 
 
 ```{r}
-p <- pheno_latest %>% 
+p <- combined %>% 
+  filter(theme == "phenology", horizon == 30) %>% 
   filter(time > start, time < end, target == "rcc_90") %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
