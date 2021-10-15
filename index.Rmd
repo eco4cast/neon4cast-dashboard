@@ -145,7 +145,7 @@ gp
 ```{r}
 p <- combined %>% 
   filter(theme == "phenology", horizon == 30) %>% 
-  filter(time > start, time < end, target == "rcc_90") %>%
+  filter(target == "rcc_90") %>%
   ggplot() +
   geom_ribbon(aes(x = time, ymin = lower95, ymax = upper95, fill = team), alpha = 0.2) +
   geom_line(aes(time, mean, col = team)) +
