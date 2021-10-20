@@ -17,7 +17,7 @@ library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
-thematic::thematic_rmd(font = "auto")
+thematic::thematic_rmd()
 ```
 
 ```{r include=FALSE}
