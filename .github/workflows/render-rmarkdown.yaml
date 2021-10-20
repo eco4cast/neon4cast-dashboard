@@ -30,7 +30,7 @@ jobs:
       - name: Render
         shell: Rscript {0}
         run: |-
-          rmarkdown::render("index.Rmd", envir = globalenv())
+          rmarkdown::render("phenology.Rmd", envir = globalenv())
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
