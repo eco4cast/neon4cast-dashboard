@@ -35,11 +35,12 @@ sites <- c("BART", "CLBJ", "DELA", "GRSM", "HARV", "SCBI", "STEI", "UKFS")
 greenness_forecasts <-
   combined %>%
   filter(siteID %in% sites[-2]) %>%
-  filter(theme == "phenology", target == "gcc_90", horizon > 30) %>% 
+  filter(theme == "phenology", target == "gcc_90",
+         horizon > 30, time > as.Date("2021-01-01")) %>% 
   group_by(time, siteID, team) %>%
   slice_min(horizon) %>% 
   ggplot() +
-  geom_point(aes(time, obs), size = .1) + 
+  geom_point(aes(time, obs), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                               fill = team, data_id = team, tooltip = team),
                           alpha = 0.2, show.legend=FALSE) +
@@ -76,7 +77,7 @@ score_by_horizon <- null_filled %>%
   ggplot(aes(horizon, score, col=team, shape=metric)) + 
   geom_line_interactive(aes(tooltip = team, data_id = team),
                         lwd = 1, show.legend=FALSE) + 
-  facet_wrap(~metric, scales="free") 
+  facet_wrap(~metric, scales="free")
 
 ```
 
@@ -93,6 +94,41 @@ score_by_time <- null_filled %>%
   facet_wrap(~target)
 ```
 
+```{r score_by_site}
+score_by_site  <- null_filled %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE) + 
+  facet_wrap(~siteID)
+
+
+  
+```
+
+```{r score_total}
+score_total  <- null_filled %>%
+  group_by(theme, target, team) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE)
+
+
+  
+```
+
 Section {.tabset}
 -------------------------------------
 
@@ -101,37 +137,31 @@ Section {.tabset}
 Mouse over a trajectory to focus on a team. 
 Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
 
-```{r girafe, fig.width = 12, fig.height = 9}
-ggob <- greenness_forecasts + score_by_horizon / score_by_time
-girafe(ggobj = ggob, width_svg = 12, height_svg = 9,
+```{r girafe, fig.width = 10, fig.height = 7.5}
+ggob <- greenness_forecasts +
+  (score_total) / 
+  (score_by_horizon) /
+  (score_by_time)
+girafe(ggobj = ggob, width_svg = 10, height_svg = 7.5,
   options = list(
-    opts_hover_inv(css = "opacity:0.05;"),
-    opts_hover(css = "stroke-width:2;"),
-    opts_zoom(max = 8)
+    opts_hover_inv(css = "opacity:0.03;"),
+    opts_hover(css = "stroke-width:1;"),
+    opts_zoom(max = 4)
   ))
 ```
 
 
-```{r score_by_site}
-score_by_site  <- null_filled %>%
-  group_by(theme, target, team, siteID) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
-            .groups = "drop") %>% 
-  ggplot(aes(team, mean_crps, fill=siteID)) + 
-  geom_col(position="dodge") + scale_fill_viridis_d()
 
 
-  
-```
 
+### Redness {data-height=1500 data.width=500}
 
-### Redness {data-height=2000 data.width=500}
-
-```{r}
+```{r redness, fig.width = 10, fig.height = 7.5}
 redness <-
   combined %>%
   filter(siteID %in% sites[-2]) %>%
-  filter(theme == "phenology", target == "rcc_90", horizon > 30) %>% 
+  filter(theme == "phenology", target == "rcc_90",
+         horizon > 30, time > as.Date("2021-01-01")) %>% 
   group_by(time, siteID, team) %>%
   slice_min(horizon) %>% 
   ggplot() +
@@ -147,7 +177,7 @@ girafe(ggobj = redness, width_svg = 12, height_svg = 9,
   options = list(
     opts_hover_inv(css = "opacity:0.05;"),
     opts_hover(css = "stroke-width:2;"),
-    opts_zoom(max = 8)
+    opts_zoom(max = 4)
   ))
 ```  
 
