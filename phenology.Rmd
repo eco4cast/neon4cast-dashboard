@@ -187,7 +187,6 @@ girafe(ggobj = redness, width_svg = 12, height_svg = 9,
 ```  
 
 
-# Statistics
 
 ### Days remaining
 
