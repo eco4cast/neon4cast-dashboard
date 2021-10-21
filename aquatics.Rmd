@@ -35,7 +35,7 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 
 
 ```{r}
-
+## For some reason a bunch of teams aren't making predictions 7 days out..
 oxygen_forecasts <-
   combined %>%
   filter(theme == "aquatics", target == "oxygen",
@@ -50,7 +50,7 @@ oxygen_forecasts <-
                                alpha = 0.2, show.legend=FALSE) +
   geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
   facet_wrap(~siteID, ncol=1, scales = "free") + 
-  ggtitle("forecast 6 days out")
+  ggtitle("5th day ahead")
 ```
 
 
