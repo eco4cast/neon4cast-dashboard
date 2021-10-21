@@ -7,6 +7,12 @@ output:
       version: 4
       bootswatch: lux
     source_code: "https://github.com/eco4cast/neon4cast-dashboard"
+    navbar:
+    - { title: "Phenology", icon: "fas fa-leaf", href: "phenology", target: "_blank"}
+    - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
+    - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
+    - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}    
 ---
 
 ```{r setup, include=FALSE}
@@ -25,8 +31,7 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 ```
 
 <!-- Heading 1: navbar -->
-Phenology
-==========================
+
 
 
 ```{r}
