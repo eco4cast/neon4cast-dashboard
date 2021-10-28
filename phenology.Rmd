@@ -186,9 +186,9 @@ girafe(ggobj = redness, width_svg = 12, height_svg = 9,
   ))
 ```  
 
+### Statistics
 
-
-### Days remaining
+#### Days remaining
 
 ```{r}
 pheno_end_date <- as.Date("2021-12-31")
@@ -202,14 +202,14 @@ gauge(days, min = 0, max = max, symbol = '', gaugeSectors(
 
 
 
-### Teams
+#### Teams
 
 ```{r}
 total <- combined %>% filter(theme == "phenology") %>% select(team) %>% distinct() %>% count()
 flexdashboard::valueBox(total)
 ```
 
-### Leaderboard (target: greeness)
+#### Leaderboard (target: greeness)
 
 ```{r}
 scores %>% filter(target == "gcc_90") %>% select(-target) %>% rmarkdown::paged_table(scores)
