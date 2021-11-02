@@ -23,6 +23,10 @@ library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
+library(lubridate)
+library(tools)
+library(phenopix)
+library(zoo)
 thematic::thematic_rmd()
 ```
 
@@ -39,9 +43,9 @@ sites <- c("BART", "CLBJ", "DELA", "GRSM", "HARV", "SCBI", "STEI", "UKFS")
 
 greenness_forecasts <-
   combined %>%
-  filter(siteID %in% sites[-2]) %>%
+  #filter(siteID %in% sites[-2]) %>%
   filter(theme == "phenology", target == "gcc_90",
-         horizon > 30, time > as.Date("2021-01-01")) %>% 
+         horizon > 30, time > as_date("2021-01-01"), time < (Sys.Date() + days(35))) %>% 
   group_by(time, siteID, team) %>%
   slice_min(horizon) %>% 
   ggplot() +
@@ -51,11 +55,15 @@ greenness_forecasts <-
                           alpha = 0.2, show.legend=FALSE) +
   geom_line_interactive(aes(time, mean, col = team, 
                             tooltip = team, data_id = team), show.legend=FALSE) +
-  facet_wrap(~siteID, ncol=2) + ggtitle("30th day ahead prediction")
+  labs(y = "greenness index (gcc 90)") +
+  facet_wrap(~siteID, ncol=2) + 
+  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
+  ggtitle("30th day ahead or longer prediction") 
 ```
 
 
 ```{r fill_scores}
+
 null_filled <- combined %>% 
   filter(theme == "phenology", target == "gcc_90") %>% 
   fill_scores() %>% 
@@ -68,35 +76,108 @@ scores <- null_filled %>%
   mean_scores()
 
 ```
+```{r}
+###File to Calculate and Save Transition Dates for PhenoCam Sites
 
+if(!file.exists("phenology_spring2021_transitions.csv")){
+
+  
+  ##Note: submittedForecasts comes from main script 
+  
+  site_names <- c("HARV", "BART", "SCBI", "STEI", "UKFS", "GRSM", "DELA", "CLBJ")
+  allTransitions <- data.frame(matrix(ncol=13,nrow=length(site_names)))
+  colnames(allTransitions) <- c("siteID","day15","value15","sd15","day50","value50","sd50","day85","value85","sd85","rangeLength",
+                                "minimum","maximum")
+  allTransitions$siteID <- site_names
+  desiredTransitions <- c(0.15,0.5,0.85)
+  
+  for(s in 1:length(site_names)){
+    subDat <- combined %>% 
+      filter(siteID == site_names[s],
+             time > as_date("2021-01-01"),
+             time < as_date("2021-06-30"),
+             team == "climatology",
+             target == "gcc_90",
+             time == forecast_start_time+1)
+    
+    
+    #subDat <- subDat[subDat$time == (subDat$forecast_start_time+1),] ## only need each day once
+    p <- zoo(na.approx(subDat$obs))
+    
+    outE <- ElmoreFit(p, uncert = TRUE) #Calculates seasonal fit
+    
+    transitionDys <- numeric()
+    vls <- numeric()
+    sds <- numeric()
+    for(t in desiredTransitions){
+      vl <- min(outE$fit$predicted)+t*diff(range(outE$fit$predicted))
+      vls <- c(vls,vl)
+      newDy <- min(which(outE$fit$predicted>vl))
+      sds <- c(sds,sd(outE$uncertainty$predicted[newDy,]))
+      transitionDys <- c(transitionDys,newDy)
+    }
+    # PhenoPlot(outE,"GCC",main=site_names[s],ylab="GCC",xlab="Day of Year")
+    # points(p,pch=20)
+    # abline(v=transitionDys,col="red")
+    allTransitions[s,c(2,5,8)] <- transitionDys + lubridate::yday(subDat$time[1]) - 1
+    allTransitions[s,c(3,6,9,11)] <- c(vls,diff(outE$fit$sf))
+    allTransitions[s,c(4,7,10)] <- sds
+    allTransitions$minimum[s] <- min(outE$fit$predicted)
+    allTransitions$maximum[s] <- max(outE$fit$predicted)
+  }
+  
+  allTransitions2 <-  allTransitions %>% 
+    select(siteID,  day15, day50, day85) %>% 
+    mutate(day50 = as_date("2020-12-31") + days(day50),
+           day15 = as_date("2020-12-31") + days(day15),
+           day85 = as_date("2020-12-31") + days(day85))
+  
+  write_csv(allTransitions2, "phenology_spring2021_transitions.csv")
+}else{
+  allTransitions2 <- read_csv("phenology_spring2021_transitions.csv")
+}
+
+null_filled <- left_join(null_filled, allTransitions2)
+
+```
 
 ```{r score_by_horizon}
 score_by_horizon <- null_filled %>%
+  filter(time == day50) %>% 
+  mutate(horizon = -horizon) %>% 
   group_by(theme, target, team, horizon) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+  summarise(mean_crps = mean(crps, na.rm =TRUE),
             mean_logs = mean(filled_logs, na.rm = TRUE),
             .groups = "drop") %>%
   pivot_longer(cols = c("mean_crps", "mean_logs"), 
                names_to = "metric", values_to="score") %>%
   filter(metric == "mean_crps") %>%
+  filter(!is.na(score)) %>% 
   ggplot(aes(horizon, score, col=team, shape=metric)) + 
   geom_line_interactive(aes(tooltip = team, data_id = team),
                         lwd = 1, show.legend=FALSE) + 
-  facet_wrap(~metric, scales="free")
+    geom_point_interactive(aes(tooltip = team, data_id = team),
+                        lwd = 1, show.legend=FALSE) +
+  labs(x = "days prior to site-specific green out", title = "site-level mean score")
 
 ```
 
 
 ```{r score_by_time}
 score_by_time <- null_filled %>%
-  group_by(theme, target, team, time) %>%  # average over siteID
-  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+  mutate(relative_date = as.numeric(time - day50)) %>% 
+  filter(horizon > 30, time < as_date("2021-06-30")) %>% 
+  group_by(theme, target, team, relative_date) %>%  # average over siteID
+  summarise(mean_crps = mean(crps, na.rm =TRUE),
             .groups = "drop") %>% 
+  filter(!is.na(mean_crps)) %>% 
  # filter(team %in% best) %>%
-  ggplot(aes(time, mean_crps, col=team)) + 
+  ggplot(aes(relative_date, mean_crps, col=team)) + 
   geom_line_interactive(aes(tooltip = team, data_id = team),
                         show.legend = FALSE, lwd=1) + 
-  facet_wrap(~target)
+    geom_point_interactive(aes(tooltip = team, data_id = team),
+                        show.legend = FALSE, lwd=1) +
+  labs(x = "days relative to site-specific green out", y = "score")
 ```
 
 ```{r score_by_site}
@@ -128,7 +209,8 @@ score_total  <- null_filled %>%
   filter(metric == "mean_crps") %>%
   ggplot(aes(metric, score, fill=team)) + 
   geom_col_interactive(aes(tooltip = team, data_id = team),
-                       position="dodge", show.legend = FALSE)
+                       position="dodge", show.legend = FALSE) +
+  labs(x = "")
 
 
   
