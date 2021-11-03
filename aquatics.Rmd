@@ -24,6 +24,7 @@ library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
+library(lubridate)
 thematic::thematic_rmd()
 ```
 
@@ -38,26 +39,39 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 ## For some reason a bunch of teams aren't making predictions 7 days out..
 oxygen_forecasts <-
   combined %>%
-  filter(theme == "aquatics", target == "oxygen",
-         horizon > 4) %>% 
-  group_by(time, siteID, team) %>%
-  slice_min(horizon) %>% 
-  na.omit() %>%
+  filter(theme == "aquatics",
+         horizon <= 7,
+         time >= as_date("2021-05-01") & time < as_date("2021-09-01"),
+         target == "oxygen",
+         team != "example_null") %>% 
+  mutate(forecast_start_time = ifelse(forecast_start_time > as_date("2021-04-25") & forecast_start_time < as_date("2021-05-05"), as_date("2021-05-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-05-25") & forecast_start_time < as_date("2021-06-05"), as_date("2021-06-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-06-25") & forecast_start_time < as_date("2021-07-05"), as_date("2021-07-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-07-25") & forecast_start_time < as_date("2021-08-05"), as_date("2021-08-01"), as_date(forecast_start_time)),
+         forecast_start_time = as_date(forecast_start_time)
+         ) %>% 
+  group_by(time, siteID, team, target, forecast_start_time) %>%
+  filter(!is.na(mean)) %>% 
+  #slice_min(horizon) %>% 
   ggplot() +
   geom_point(aes(time, obs), size = .05) + 
-   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
+  geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                                fill = team, data_id = team),
                                alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
-  facet_wrap(~siteID, ncol=1, scales = "free") + 
-  ggtitle("5th day ahead")
+  geom_line_interactive(aes(x = time, y = mean, col = team, data_id = team), show.legend=FALSE) +
+  facet_grid(forecast_start_time~siteID,scales = "free") + 
+  ggtitle("Oxygen forecasts for 4 submission dates") +
+  labs(y = "Dissolved oxygen (mg/L)")
 ```
 
 
 
 ```{r fill_scores}
 null_filled <- combined %>% 
-  filter(theme == "aquatics") %>% 
+   filter(theme == "aquatics",
+         horizon <= 7,
+         team != "example_null",
+         time >= as_date("2021-05-01") & time < as_date("2021-09-01")) %>% 
   fill_scores() %>% 
   collect() %>% 
   mutate(time = as.Date(time), 
@@ -92,16 +106,18 @@ score_by_horizon %>% filter(target == "oxygen", !is.nan(score)) %>%
 
 ```{r score_by_time}
 score_by_time <- null_filled %>%
-  group_by(theme, target, team, time) %>%  # average over siteID
+  group_by(theme, target, team, forecast_start_time) %>%  # average over siteID
   summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
             .groups = "drop")
 
-oxygen_time <- 
+oxygen_time <-  
 score_by_time %>% filter(target == "oxygen") %>% 
-  ggplot(aes(time, mean_crps, col=team)) + 
-  geom_line_interactive(aes(tooltip = team, data_id = team),
+  filter(!is.na(mean_crps)) %>% 
+  ggplot(aes(forecast_start_time, mean_crps, col=team)) + 
+  geom_point_interactive(aes(tooltip = team, data_id = team),
                         show.legend = FALSE, lwd=1) + 
-  facet_wrap(~target)
+  facet_wrap(~target) +
+  labs(x = "Forecast submission date", y = "Score")
 ```
 
 ```{r score_by_site}
@@ -153,7 +169,9 @@ Mouse over a trajectory to focus on a team.
 Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
 
 ```{r girafe}
-girafe(ggobj = oxygen_forecasts + oxygen_total / oxygen_horizon / oxygen_time, 
+
+#ggobj = oxygen_forecasts +  oxygen_total / oxygen_horizon / oxygen_time
+girafe(ggobj = oxygen_forecasts +  (oxygen_total / oxygen_horizon / oxygen_time),
        width_svg = 10, height_svg = 7.5,
   options = list(
     opts_hover_inv(css = "opacity:0.03;"),

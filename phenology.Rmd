@@ -146,7 +146,7 @@ score_by_horizon <- null_filled %>%
   filter(time == day50) %>% 
   mutate(horizon = -horizon) %>% 
   group_by(theme, target, team, horizon) %>%  # average over siteID
-  summarise(mean_crps = mean(crps, na.rm =TRUE),
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
             mean_logs = mean(filled_logs, na.rm = TRUE),
             .groups = "drop") %>%
   pivot_longer(cols = c("mean_crps", "mean_logs"), 
@@ -168,7 +168,7 @@ score_by_time <- null_filled %>%
   mutate(relative_date = as.numeric(time - day50)) %>% 
   filter(horizon > 30, time < as_date("2021-06-30")) %>% 
   group_by(theme, target, team, relative_date) %>%  # average over siteID
-  summarise(mean_crps = mean(crps, na.rm =TRUE),
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
             .groups = "drop") %>% 
   filter(!is.na(mean_crps)) %>% 
  # filter(team %in% best) %>%
