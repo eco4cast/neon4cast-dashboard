@@ -37,8 +37,7 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 
 ```{r}
 ## For some reason a bunch of teams aren't making predictions 7 days out..
-oxygen_forecasts <-
-  combined %>%
+oxygen_forecasts <- combined %>%
   filter(theme == "aquatics",
          horizon <= 7,
          time >= as_date("2021-05-01") & time < as_date("2021-09-01"),
@@ -71,6 +70,7 @@ null_filled <- combined %>%
    filter(theme == "aquatics",
          horizon <= 7,
          team != "example_null",
+         target == "oxygen",
          time >= as_date("2021-05-01") & time < as_date("2021-09-01")) %>% 
   fill_scores() %>% 
   collect() %>% 
@@ -156,14 +156,12 @@ score_total %>% filter(target == "oxygen") %>%
   geom_col_interactive(aes(tooltip = team, data_id = team),
                        position="dodge", show.legend = FALSE)
 
-
-  
 ```
 
-Aquatic Oxygen {.tabset}
+Aquatic Challenge {.tabset}
 -------------------------------------
 
-### Forecasts {data-height=2000 data.width=500}
+### Oxygen {data-height=2000 data.width=500}
 
 Mouse over a trajectory to focus on a team. 
 Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
@@ -180,7 +178,139 @@ girafe(ggobj = oxygen_forecasts +  (oxygen_total / oxygen_horizon / oxygen_time)
   ))
 ```
 
+```{r}
+## For some reason a bunch of teams aren't making predictions 7 days out..
+temperature_forecasts <- combined %>%
+  filter(theme == "aquatics",
+         horizon <= 7,
+         time >= as_date("2021-05-01") & time < as_date("2021-09-01"),
+         target == "temperature",
+         team != "example_null") %>% 
+  mutate(forecast_start_time = ifelse(forecast_start_time > as_date("2021-04-25") & forecast_start_time < as_date("2021-05-05"), as_date("2021-05-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-05-25") & forecast_start_time < as_date("2021-06-05"), as_date("2021-06-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-06-25") & forecast_start_time < as_date("2021-07-05"), as_date("2021-07-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-07-25") & forecast_start_time < as_date("2021-08-05"), as_date("2021-08-01"), as_date(forecast_start_time)),
+         forecast_start_time = as_date(forecast_start_time)
+         ) %>% 
+  group_by(time, siteID, team, target, forecast_start_time) %>%
+  filter(!is.na(mean)) %>% 
+  #slice_min(horizon) %>% 
+  ggplot() +
+  geom_point(aes(time, obs), size = .05) + 
+  geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
+                               fill = team, data_id = team),
+                               alpha = 0.2, show.legend=FALSE) +
+  geom_line_interactive(aes(x = time, y = mean, col = team, data_id = team), show.legend=FALSE) +
+  facet_grid(forecast_start_time~siteID,scales = "free") + 
+  ggtitle("Temperature forecasts for 4 submission dates") +
+  labs(y = "Water temperature (celsius)")
+```
 
 
-Aquatic Temp {.tabset}
--------------------------------------
+
+```{r}
+null_filled <- combined %>% 
+   filter(theme == "aquatics",
+         horizon <= 7,
+         team != "example_null",
+         target == "temperature",
+         time >= as_date("2021-05-01") & time < as_date("2021-09-01")) %>% 
+  fill_scores() %>% 
+  collect() %>% 
+  mutate(time = as.Date(time), 
+         forecast_start_time  = as.Date(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+scores <- null_filled %>%
+  mean_scores()
+
+```
+
+
+```{r}
+score_by_horizon <- null_filled %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>%
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+temperature_horizon <- 
+score_by_horizon %>% filter(target == "temperature", !is.nan(score)) %>%
+  ggplot(aes(horizon, score, col=team, shape=metric)) + 
+  geom_line_interactive(aes(tooltip = team, data_id = team),
+                        lwd = 1, show.legend=FALSE) + 
+  facet_wrap(~metric, scales="free")
+
+```
+
+
+```{r}
+score_by_time <- null_filled %>%
+  group_by(theme, target, team, forecast_start_time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop")
+
+temperature_time <-  
+score_by_time %>% filter(target == "temperature") %>% 
+  filter(!is.na(mean_crps)) %>% 
+  ggplot(aes(forecast_start_time, mean_crps, col=team)) + 
+  geom_point_interactive(aes(tooltip = team, data_id = team),
+                        show.legend = FALSE, lwd=1) + 
+  facet_wrap(~target) +
+  labs(x = "Forecast submission date", y = "Score")
+```
+
+```{r eval=FALSE}
+score_by_site  <- null_filled %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+temperature_site <- score_by_site %>% filter(target == "temperature") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE) + 
+  facet_wrap(~siteID)
+```
+
+```{r}
+score_total  <- null_filled %>%
+  group_by(theme, target, team) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+temperature_total <- 
+score_total %>% filter(target == "temperature") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE)
+
+```
+
+### Temperature {data-height=2000 data.width=500}
+
+Mouse over a trajectory to focus on a team. 
+Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
+
+```{r}
+
+#ggobj = oxygen_forecasts +  oxygen_total / oxygen_horizon / oxygen_time
+girafe(ggobj = temperature_forecasts +  (temperature_total / temperature_horizon / temperature_time),
+       width_svg = 10, height_svg = 7.5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.03;"),
+    opts_hover(css = "stroke-width:1;"),
+    opts_zoom(max = 4)
+  ))
+```
