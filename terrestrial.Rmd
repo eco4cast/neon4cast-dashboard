@@ -1,0 +1,178 @@
+---
+title: "NEON4CAST Dashboard"
+output:
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+    theme: 
+      version: 4
+      bootswatch: lux
+    source_code: "https://github.com/eco4cast/neon4cast-dashboard"
+    navbar:
+    - { title: "Phenology", icon: "fas fa-leaf", href: "phenology", target: "_blank"}
+    - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
+    - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
+    - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE)
+library(flexdashboard)
+library(thematic)
+library(ggiraph)
+library(patchwork)
+library(tidyverse)
+library(neon4cast)
+library(lubridate)
+thematic::thematic_rmd()
+```
+
+```{r include=FALSE}
+combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+```
+
+<!-- Heading 1: navbar -->
+
+
+```{r}
+## For some reason a bunch of teams aren't making predictions 7 days out..
+nee_forecasts <- combined %>%
+  filter(theme == "terrestrial_30min",
+         horizon <= (35*24),
+         time >= as_datetime("2021-02-01"),
+         target == "nee") %>% 
+  mutate(forecast_start_time = ifelse(forecast_start_time > as_date("2021-04-25") & forecast_start_time < as_date("2021-05-05"), as_date("2021-05-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-05-25") & forecast_start_time < as_date("2021-06-05"), as_date("2021-06-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-06-25") & forecast_start_time < as_date("2021-07-05"), as_date("2021-07-01"), as_date(forecast_start_time)),
+         forecast_start_time = ifelse(forecast_start_time > as_date("2021-07-25") & forecast_start_time < as_date("2021-08-05"), as_date("2021-08-01"), as_date(forecast_start_time)),
+         forecast_start_time = as_date(forecast_start_time)
+         ) %>% 
+  group_by(time, siteID, team, target, forecast_start_time) %>%
+  filter(!is.na(mean)) %>% 
+  #slice_min(horizon) %>% 
+  ggplot() +
+  geom_point(aes(time, obs), size = .05) + 
+  geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
+                               fill = team, data_id = team),
+                               alpha = 0.2, show.legend=FALSE) +
+  geom_line_interactive(aes(x = time, y = mean, col = team, data_id = team), show.legend=FALSE) +
+  facet_grid(siteID~forecast_start_time,scales = "free") + 
+  ggtitle("Net Ecosystem Exchange") +
+  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
+  labs(y = "umol/m3/sec")
+```
+
+
+
+```{r eval=FALSE}
+null_filled <- combined %>% 
+  filter(theme == "terrestrial_30min",
+         horizon <= (35*24),
+         time >= as_datetime("2021-02-01"),
+         target == "nee") %>% 
+  fill_scores() %>% 
+  collect() %>% 
+  mutate(time = as_datetime(time), 
+         forecast_start_time  = as_datetime(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+scores <- null_filled %>%
+  mean_scores()
+
+```
+
+
+```{r eval=FALSE}
+score_by_horizon <- null_filled %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>%
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+oxygen_horizon <- 
+score_by_horizon %>% filter(target == "oxygen", !is.nan(score)) %>%
+  ggplot(aes(horizon, score, col=team, shape=metric)) + 
+  geom_line_interactive(aes(tooltip = team, data_id = team),
+                        lwd = 1, show.legend=FALSE) + 
+  facet_wrap(~metric, scales="free")
+
+```
+
+
+```{r eval=FALSE}
+score_by_time <- null_filled %>%
+  group_by(theme, target, team, forecast_start_time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop")
+
+oxygen_time <-  
+score_by_time %>% filter(target == "oxygen") %>% 
+  filter(!is.na(mean_crps)) %>% 
+  ggplot(aes(forecast_start_time, mean_crps, col=team)) + 
+  geom_point_interactive(aes(tooltip = team, data_id = team),
+                        show.legend = FALSE, lwd=1) + 
+  facet_wrap(~target) +
+  labs(x = "Forecast submission date", y = "Score")
+```
+
+```{r eval=FALSE}
+score_by_site  <- null_filled %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+oxygen_site <- score_by_site %>% filter(target == "oxygen") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE) + 
+  facet_wrap(~siteID)
+
+
+  
+```
+
+```{r eval=FALSE}
+score_total  <- null_filled %>%
+  group_by(theme, target, team) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+oxygen_total <- 
+score_total %>% filter(target == "oxygen") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE)
+
+```
+
+Aquatic Challenge {.tabset}
+-------------------------------------
+
+### Oxygen {data-height=2000 data.width=500}
+
+Mouse over a trajectory to focus on a team. 
+Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
+
+```{r girafe}
+
+#ggobj = oxygen_forecasts +  oxygen_total / oxygen_horizon / oxygen_time
+girafe(ggobj = nee_forecasts,
+       height_svg = 10, width_svg = 7.5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.03;"),
+    opts_hover(css = "stroke-width:1;"),
+    opts_zoom(max = 4)
+  ))
+```
