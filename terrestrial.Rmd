@@ -24,10 +24,7 @@ library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
-<<<<<<< HEAD
 library(lubridate)
-=======
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
 thematic::thematic_rmd()
 ```
 
@@ -40,7 +37,6 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 
 ```{r}
 ## For some reason a bunch of teams aren't making predictions 7 days out..
-<<<<<<< HEAD
 nee_forecasts <- combined %>%
   filter(theme == "terrestrial_30min",
          horizon <= (35*24),
@@ -65,23 +61,6 @@ nee_forecasts <- combined %>%
   ggtitle("Net Ecosystem Exchange") +
   theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
   labs(y = "umol/m3/sec")
-=======
-oxygen_forecasts <-
-  combined %>%
-  filter(theme == "aquatics", target == "oxygen",
-         horizon > 4) %>% 
-  group_by(time, siteID, team) %>%
-  slice_min(horizon) %>% 
-  na.omit() %>%
-  ggplot() +
-  geom_point(aes(time, obs), size = .05) + 
-   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
-                               fill = team, data_id = team),
-                               alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
-  facet_wrap(~siteID, ncol=1, scales = "free") + 
-  ggtitle("5th day ahead")
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
 ```
 
 
@@ -97,15 +76,6 @@ null_filled <- combined %>%
   collect() %>% 
   mutate(time = as_datetime(time), 
          forecast_start_time  = as_datetime(forecast_start_time),
-=======
-```{r fill_scores}
-null_filled <- combined %>% 
-  filter(theme == "aquatics") %>% 
-  fill_scores() %>% 
-  collect() %>% 
-  mutate(time = as.Date(time), 
-         forecast_start_time  = as.Date(forecast_start_time),
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
          horizon = as.integer(time - forecast_start_time))
 
 scores <- null_filled %>%
@@ -114,11 +84,7 @@ scores <- null_filled %>%
 ```
 
 
-<<<<<<< HEAD
 ```{r eval=FALSE}
-=======
-```{r score_by_horizon}
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
 score_by_horizon <- null_filled %>%
   group_by(theme, target, team, horizon) %>%  # average over siteID
   summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
@@ -138,7 +104,6 @@ score_by_horizon %>% filter(target == "oxygen", !is.nan(score)) %>%
 ```
 
 
-<<<<<<< HEAD
 ```{r eval=FALSE}
 score_by_time <- null_filled %>%
   group_by(theme, target, team, forecast_start_time) %>%  # average over siteID
@@ -156,7 +121,7 @@ score_by_time %>% filter(target == "oxygen") %>%
 ```
 
 ```{r eval=FALSE}
-=======
+
 ```{r score_by_time}
 score_by_time <- null_filled %>%
   group_by(theme, target, team, time) %>%  # average over siteID
@@ -172,7 +137,6 @@ score_by_time %>% filter(target == "oxygen") %>%
 ```
 
 ```{r score_by_site}
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
 score_by_site  <- null_filled %>%
   group_by(theme, target, team, siteID) %>%  # average over siteID
   summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
@@ -192,11 +156,8 @@ oxygen_site <- score_by_site %>% filter(target == "oxygen") %>%
   
 ```
 
-<<<<<<< HEAD
+
 ```{r eval=FALSE}
-=======
-```{r score_total}
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
 score_total  <- null_filled %>%
   group_by(theme, target, team) %>%  # average over siteID
   summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
@@ -212,7 +173,6 @@ score_total %>% filter(target == "oxygen") %>%
   geom_col_interactive(aes(tooltip = team, data_id = team),
                        position="dodge", show.legend = FALSE)
 
-<<<<<<< HEAD
 ```
 
 Aquatic Challenge {.tabset}
@@ -228,32 +188,17 @@ Aquatic Oxygen {.tabset}
 -------------------------------------
 
 ### Forecasts {data-height=2000 data.width=500}
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
-
 Mouse over a trajectory to focus on a team. 
 Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
 
 ```{r girafe}
-<<<<<<< HEAD
 
 #ggobj = oxygen_forecasts +  oxygen_total / oxygen_horizon / oxygen_time
 girafe(ggobj = nee_forecasts,
        height_svg = 10, width_svg = 7.5,
-=======
-girafe(ggobj = oxygen_forecasts + oxygen_total / oxygen_horizon / oxygen_time, 
-       width_svg = 10, height_svg = 7.5,
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
   options = list(
     opts_hover_inv(css = "opacity:0.03;"),
     opts_hover(css = "stroke-width:1;"),
     opts_zoom(max = 4)
   ))
 ```
-<<<<<<< HEAD
-=======
-
-
-
-Aquatic Temp {.tabset}
--------------------------------------
->>>>>>> 73f257acb134252fa29dfb76168941888b5181fb
