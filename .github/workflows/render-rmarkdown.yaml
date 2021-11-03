@@ -31,6 +31,8 @@ jobs:
         shell: Rscript {0}
         run: |-
           rmarkdown::render("phenology.Rmd", envir = globalenv())
+          rmarkdown::render("aquatics.Rmd", envir = globalenv())
+          rmarkdown::render("terrestrial.Rmd", envir = globalenv())
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
