@@ -1,0 +1,169 @@
+---
+title: "NEON4CAST Dashboard"
+output:
+  flexdashboard::flex_dashboard:
+    vertical_layout: scroll
+    theme: 
+      version: 4
+      bootswatch: lux
+    source_code: "https://github.com/eco4cast/neon4cast-dashboard"
+    navbar:
+    - { title: "Phenology", icon: "fas fa-leaf", href: "phenology", target: "_blank"}
+    - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
+    - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
+    - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(cache=FALSE)
+library(flexdashboard)
+library(thematic)
+library(ggiraph)
+library(patchwork)
+library(tidyverse)
+library(neon4cast)
+thematic::thematic_rmd()
+```
+
+```{r include=FALSE}
+combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+```
+
+<!-- Heading 1: navbar -->
+
+
+```{r}
+## For some reason a bunch of teams aren't making predictions 7 days out..
+forecasts <-
+  combined %>%
+  filter(theme == "ticks", horizon > 12) %>% 
+  group_by(time, siteID, team) %>%
+  slice_min(horizon) %>% 
+  na.omit() %>% ungroup()
+forecasts %>% count(siteID, team)
+%>%
+  ggplot() +
+  geom_point(aes(time, obs), size = .05) + 
+   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
+                               fill = team, data_id = team),
+                               alpha = 0.2, show.legend=FALSE) +
+  geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
+  facet_wrap(~siteID, ncol=1, scales = "free") + 
+  ggtitle("11th day ahead")
+```
+
+
+
+```{r fill_scores}
+null_filled <- combined %>% 
+  filter(theme == "ticks") %>% 
+  fill_scores() %>% 
+  collect() %>% 
+  mutate(time = as.Date(time), 
+         forecast_start_time  = as.Date(forecast_start_time),
+         horizon = as.integer(time - forecast_start_time))
+
+scores <- null_filled %>%
+  mean_scores()
+
+```
+
+
+```{r score_by_horizon}
+score_by_horizon <- null_filled %>%
+  group_by(theme, target, team, horizon) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>%
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+horizon <- 
+score_by_horizon %>% filter(!is.nan(score)) %>%
+  ggplot(aes(horizon, score, col=team, shape=metric)) + 
+  geom_line_interactive(aes(tooltip = team, data_id = team),
+                        lwd = 1, show.legend=FALSE) + 
+  facet_wrap(~target, scales="free")
+
+```
+
+
+```{r score_by_time}
+score_by_time <- null_filled %>%
+  group_by(theme, target, team, time) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            .groups = "drop")
+
+oxygen_time <- 
+score_by_time %>% filter(target == "oxygen") %>% 
+  ggplot(aes(time, mean_crps, col=team)) + 
+  geom_line_interactive(aes(tooltip = team, data_id = team),
+                        show.legend = FALSE, lwd=1) + 
+  facet_wrap(~target)
+```
+
+```{r score_by_site}
+score_by_site  <- null_filled %>%
+  group_by(theme, target, team, siteID) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+oxygen_site <- score_by_site %>% filter(target == "oxygen") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE) + 
+  facet_wrap(~siteID)
+
+
+  
+```
+
+```{r score_total}
+score_total  <- null_filled %>%
+  group_by(theme, target, team) %>%  # average over siteID
+  summarise(mean_crps = mean(filled_crps, na.rm =TRUE),
+            mean_logs = mean(filled_logs, na.rm = TRUE),
+            .groups = "drop") %>% 
+  pivot_longer(cols = c("mean_crps", "mean_logs"), 
+               names_to = "metric", values_to="score") %>%
+  filter(metric == "mean_crps")
+
+oxygen_total <- 
+score_total %>% filter(target == "oxygen") %>%
+  ggplot(aes(metric, score, fill=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team),
+                       position="dodge", show.legend = FALSE)
+
+
+  
+```
+
+Aquatic Oxygen {.tabset}
+-------------------------------------
+
+### Forecasts {data-height=2000 data.width=500}
+
+Mouse over a trajectory to focus on a team. 
+Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
+
+```{r girafe}
+girafe(ggobj = oxygen_forecasts + oxygen_total / oxygen_horizon / oxygen_time, 
+       width_svg = 10, height_svg = 7.5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.03;"),
+    opts_hover(css = "stroke-width:1;"),
+    opts_zoom(max = 4)
+  ))
+```
+
+
+
+Aquatic Temp {.tabset}
+-------------------------------------
