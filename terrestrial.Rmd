@@ -32,7 +32,7 @@ thematic::thematic_rmd()
 #combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
 
 source("R/combined_scores.R")
-combined <- combined_scores("terrestrial") %>% collect()
+combined <- combined_scores("terrestrial")
 ```
 
 <!-- Heading 1: navbar -->
