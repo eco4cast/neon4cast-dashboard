@@ -32,7 +32,7 @@ thematic::thematic_rmd()
 #combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
 
 source("R/combined_scores.R")
-combined <- combined_scores("terrestrial")
+combined <- combined_scores("terrestrial_30min")
 ```
 
 <!-- Heading 1: navbar -->
@@ -64,5 +64,15 @@ nee_forecasts <- combined %>%
   ggtitle("Net Ecosystem Exchange") +
   theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
   labs(y = "umol/m3/sec")
+
+
+```
+```{r}
+girafe(ggobj = nee_forecasts, width_svg = 10, height_svg = 7.5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.03;"),
+    opts_hover(css = "stroke-width:1;"),
+    opts_zoom(max = 4)
+  ))
 ```
 
