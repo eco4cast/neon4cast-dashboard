@@ -29,7 +29,10 @@ thematic::thematic_rmd()
 ```
 
 ```{r include=FALSE}
-combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+
+source("R/combined_scores.R")
+combined <- combined_scores("terrestrial") %>% collect()
 ```
 
 <!-- Heading 1: navbar -->
@@ -52,7 +55,7 @@ nee_forecasts <- combined %>%
   filter(!is.na(mean)) %>% 
   #slice_min(horizon) %>% 
   ggplot() +
-  geom_point(aes(time, obs), size = .05) + 
+  geom_point(aes(time, observed), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                                fill = team, data_id = team),
                                alpha = 0.2, show.legend=FALSE) +

@@ -28,7 +28,10 @@ thematic::thematic_rmd()
 ```
 
 ```{r include=FALSE}
-combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+
+source("R/combined_scores.R")
+combined <- combined_scores("beetles") %>% collect()
 ```
 
 <!-- Heading 1: navbar -->
@@ -36,7 +39,7 @@ combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_s
 
 ```{r}
 ## We will focus on sites with the most data.  A good number of sites stopped data collection during the pandemic, leaving teams without recent data to train on, and in many cases, without observations to score against.
-df <- combined %>% filter(theme == "beetles", time > as.Date("2019-01-01"), !is.na(obs))
+df <- combined %>% filter(theme == "beetles", time > as.Date("2019-01-01"), !is.na(observed))
 top_sites <- df %>% 
   select(siteID, time) %>% distinct()  %>% count(siteID, sort=TRUE) %>% pull(siteID) %>% head()
 
@@ -64,7 +67,7 @@ forecasts <-
   slice_min(horizon) %>% 
   na.omit() %>%
   ggplot() +
-  geom_point(aes(time, obs), size = .05) + 
+  geom_point(aes(time, observed), size = .05) + 
    geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                                fill = team, data_id = team),
                                alpha = 0.2, show.legend=FALSE) +

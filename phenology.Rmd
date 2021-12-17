@@ -31,7 +31,9 @@ thematic::thematic_rmd()
 ```
 
 ```{r include=FALSE}
-combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+source("R/combined_scores.R")
+combined <- combined_scores("phenology") %>% collect()
 ```
 
 <!-- Heading 1: navbar -->
@@ -49,7 +51,7 @@ greenness_forecasts <-
   group_by(time, siteID, team) %>%
   slice_min(horizon) %>% 
   ggplot() +
-  geom_point(aes(time, obs), size = .05) + 
+  geom_point(aes(time, observed), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                               fill = team, data_id = team, tooltip = team),
                           alpha = 0.2, show.legend=FALSE) +
@@ -102,7 +104,7 @@ if(!file.exists("phenology_spring2021_transitions.csv")){
     
     
     #subDat <- subDat[subDat$time == (subDat$forecast_start_time+1),] ## only need each day once
-    p <- zoo(na.approx(subDat$obs))
+    p <- zoo(na.approx(subDat$observed))
     
     outE <- ElmoreFit(p, uncert = TRUE) #Calculates seasonal fit
     
@@ -252,7 +254,7 @@ redness <-
   group_by(time, siteID, team) %>%
   slice_min(horizon) %>% 
   ggplot() +
-  geom_point(aes(time, obs), size = .1) + 
+  geom_point(aes(time, observed), size = .1) + 
   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
                               fill = team, data_id = team, tooltip = team),
                           alpha = 0.2, show.legend=FALSE) +
