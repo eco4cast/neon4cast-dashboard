@@ -30,7 +30,7 @@ jobs:
       - name: Render
         run: |
           R -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
-          R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
+#          R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
           R -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
       - name: Commit results
         run: |
