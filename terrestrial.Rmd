@@ -32,7 +32,12 @@ thematic::thematic_rmd()
 #combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
 
 source("R/combined_scores.R")
-combined <- combined_scores("terrestrial_30min")
+
+nee_forecasts <- combined_scores("terrestrial_30min", collect=FALSE) %>% 
+  filter(horizon <= (35*24),
+         time >= as_datetime("2021-02-01"),
+         target == "nee") %>% 
+  collect()
 ```
 
 <!-- Heading 1: navbar -->
@@ -40,11 +45,7 @@ combined <- combined_scores("terrestrial_30min")
 
 ```{r}
 ## For some reason a bunch of teams aren't making predictions 7 days out..
-nee_forecasts <- combined %>%
-  filter(theme == "terrestrial_30min",
-         horizon <= (35*24),
-         time >= as_datetime("2021-02-01"),
-         target == "nee") %>% 
+nee_forecasts <- nee_forecasts %>%
   mutate(forecast_start_time = ifelse(forecast_start_time > as_date("2021-04-25") & forecast_start_time < as_date("2021-05-05"), as_date("2021-05-01"), as_date(forecast_start_time)),
          forecast_start_time = ifelse(forecast_start_time > as_date("2021-05-25") & forecast_start_time < as_date("2021-06-05"), as_date("2021-06-01"), as_date(forecast_start_time)),
          forecast_start_time = ifelse(forecast_start_time > as_date("2021-06-25") & forecast_start_time < as_date("2021-07-05"), as_date("2021-07-01"), as_date(forecast_start_time)),

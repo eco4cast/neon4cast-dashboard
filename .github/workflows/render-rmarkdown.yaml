@@ -28,11 +28,10 @@ jobs:
           Rscript -e "remotes::install_deps()"
           Rscript -e "remotes::install_github('eco4cast/neon4cast')"
       - name: Render
-        shell: Rscript {0}
-        run: |-
-          rmarkdown::render("phenology.Rmd", envir = globalenv())
-          rmarkdown::render("aquatics.Rmd", envir = globalenv())
-#          rmarkdown::render("terrestrial.Rmd", envir = globalenv())
+        run: |
+          R -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
