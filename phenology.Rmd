@@ -78,7 +78,10 @@ scores <- null_filled %>%
   mean_scores()
 
 ```
-```{r}
+
+
+
+```{r }
 ###File to Calculate and Save Transition Dates for PhenoCam Sites
 
 if(!file.exists("phenology_spring2021_transitions.csv")){
@@ -142,6 +145,9 @@ if(!file.exists("phenology_spring2021_transitions.csv")){
 null_filled <- left_join(null_filled, allTransitions2)
 
 ```
+
+
+
 
 ```{r score_by_horizon}
 score_by_horizon <- null_filled %>%
@@ -274,7 +280,7 @@ girafe(ggobj = redness, width_svg = 12, height_svg = 9,
 
 #### Days remaining
 
-```{r}
+```{r }
 pheno_end_date <- as.Date("2021-12-31")
 pheno_start_date <- as.Date("2021-02-01")
 days <- (pheno_end_date - Sys.Date() ) 
@@ -288,17 +294,15 @@ gauge(days, min = 0, max = max, symbol = '', gaugeSectors(
 
 #### Teams
 
-```{r}
+```{r }
 total <- combined %>% filter(theme == "phenology") %>% select(team) %>% distinct() %>% count()
 flexdashboard::valueBox(total)
 ```
 
 #### Leaderboard (target: greeness)
 
-```{r}
+```{r }
 scores %>% filter(target == "gcc_90") %>% select(-target) %>% rmarkdown::paged_table(scores)
 ```
-
-
 
 

@@ -11,10 +11,10 @@
   "Packages": {
     "DBI": {
       "Package": "DBI",
-      "Version": "1.1.1",
+      "Version": "1.1.2",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "030aaec5bc6553f35347cbb1e70b1a17"
+      "Hash": "dcd1743af4336156873e3ce3c950b8b9"
     },
     "EML": {
       "Package": "EML",
@@ -109,17 +109,17 @@
     },
     "RcppArmadillo": {
       "Package": "RcppArmadillo",
-      "Version": "0.10.7.3.0",
+      "Version": "0.10.7.5.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "82b411caa086a4f007ec43a288fba990"
+      "Hash": "14ad1fed2ee50fbfdfd52ace20eb02d0"
     },
     "V8": {
       "Package": "V8",
-      "Version": "3.6.0",
+      "Version": "4.0.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "075e000b3f9f5eb05f22e3d7bef9f016"
+      "Hash": "916996b97ed2c882b0e748b79c75a0ec"
     },
     "XML": {
       "Package": "XML",
@@ -224,12 +224,12 @@
       "Version": "0.3.1.9000",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "bslib",
-      "RemoteRef": "master",
-      "RemoteSha": "bea8ee5253b8daeee8300e1d5d4988cdd6161026",
       "RemoteHost": "api.github.com",
-      "Hash": "3275c7ef8cae6e17cd90dc7c2982a1e2"
+      "RemoteRepo": "bslib",
+      "RemoteUsername": "rstudio",
+      "RemoteRef": "master",
+      "RemoteSha": "888fbe064491692deb56fd90dc23455052e31073",
+      "Hash": "c2e9b702caee191106b39a52847ba6f8"
     },
     "cachem": {
       "Package": "cachem",
@@ -358,9 +358,9 @@
       "RemoteHost": "api.github.com",
       "RemoteRepo": "dbplyr",
       "RemoteUsername": "tidyverse",
-      "RemoteRef": "expand-needs-cross-join",
-      "RemoteSha": "b9c0e8ace813b89c7aeedddae982da948b74dc39",
-      "Hash": "81f3c99c59726d437bd7bfa667cec604"
+      "RemoteRef": "HEAD",
+      "RemoteSha": "912bb234e051321d6a4f361277b2a22980428147",
+      "Hash": "209ddd29607cef4e3a3e94884f8ae5a9"
     },
     "desc": {
       "Package": "desc",
@@ -472,12 +472,12 @@
       "Version": "0.5.2.9000",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteUsername": "rstudio",
-      "RemoteRepo": "flexdashboard",
-      "RemoteRef": "master",
-      "RemoteSha": "69e46f47a27d14ca6af36596b4084c3ba988146d",
       "RemoteHost": "api.github.com",
-      "Hash": "3478500da35603b7bb07949601575350"
+      "RemoteRepo": "flexdashboard",
+      "RemoteUsername": "rstudio",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "33458eaae7c4164ed300a02be30bcb61d14a4f20",
+      "Hash": "c5c543d0cc5ca75c89e422dc39f7e372"
     },
     "fontawesome": {
       "Package": "fontawesome",
@@ -593,10 +593,10 @@
     },
     "glue": {
       "Package": "glue",
-      "Version": "1.5.1",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "e01bc1fe0c20954ec97eac86640abc70"
+      "Hash": "b8bb7aaf248e45bac08ebed86f3a0aa4"
     },
     "googledrive": {
       "Package": "googledrive",
@@ -754,10 +754,10 @@
     },
     "knitr": {
       "Package": "knitr",
-      "Version": "1.36",
+      "Version": "1.37",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "46344b93f8854714cdf476433a59ed10"
+      "Hash": "a4ec675eb332a33fe7b7fe26f70e1f98"
     },
     "labeling": {
       "Package": "labeling",
@@ -915,8 +915,8 @@
       "RemoteRepo": "neon4cast",
       "RemoteUsername": "eco4cast",
       "RemoteRef": "HEAD",
-      "RemoteSha": "d031434854dae8957f3e361b25d9cd2c8945969d",
-      "Hash": "7d50b451784edcd91d6fc52f4a77509e"
+      "RemoteSha": "886340167188156333669bf75490f4069f4c0814",
+      "Hash": "aaa79a75be7a5898a3b82882b677e218"
     },
     "neonstore": {
       "Package": "neonstore",
@@ -941,17 +941,17 @@
     },
     "openssl": {
       "Package": "openssl",
-      "Version": "1.4.5",
+      "Version": "1.4.6",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "5406fd37ef0bf9b88c8a4f264d6ec220"
+      "Hash": "69fdf291af288f32fd4cd93315084ea8"
     },
     "parallelly": {
       "Package": "parallelly",
-      "Version": "1.29.0",
+      "Version": "1.30.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "b5f399c9ce96977e22ef32c20b6cfe87"
+      "Hash": "67db13907a9cea89c118cf82d448799f"
     },
     "patchwork": {
       "Package": "patchwork",
@@ -1074,10 +1074,10 @@
     },
     "raster": {
       "Package": "raster",
-      "Version": "3.5-9",
+      "Version": "3.5-11",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "43e3d05ce0266c336afab6bf17cde70c"
+      "Hash": "6a546739cc335285ca43025c54e3f557"
     },
     "readr": {
       "Package": "readr",
@@ -1110,10 +1110,9 @@
     "renv": {
       "Package": "renv",
       "Version": "0.14.0",
-      "OS_type": NA,
-      "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Source": "Repository"
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "30e5eba91b67f7f4d75d31de14bbfbdc"
     },
     "reprex": {
       "Package": "reprex",
@@ -1206,10 +1205,10 @@
     },
     "sf": {
       "Package": "sf",
-      "Version": "1.0-4",
+      "Version": "1.0-5",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "05ff2d3c63d954272f44deff24952879"
+      "Hash": "200bfddf8f0ca222a7edfd2d64425fb9"
     },
     "sfheaders": {
       "Package": "sfheaders",
@@ -1241,10 +1240,10 @@
     },
     "stars": {
       "Package": "stars",
-      "Version": "0.5-4",
+      "Version": "0.5-5",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "c10644b06dcdd6a20faa383148b1e509"
+      "Hash": "b116254371e0d6681ab063bae82f0ece"
     },
     "storr": {
       "Package": "storr",
@@ -1346,10 +1345,10 @@
     },
     "tinytex": {
       "Package": "tinytex",
-      "Version": "0.35",
+      "Version": "0.36",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "1d7220fe46159fb9f5c99a44354a2bff"
+      "Hash": "130fe4c61e55b271a2655b3a284a205f"
     },
     "tmap": {
       "Package": "tmap",
