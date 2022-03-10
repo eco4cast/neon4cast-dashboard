@@ -21,16 +21,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-#      - uses: r-lib/actions/setup-renv@v1
-      - name: Install
-        run: |
-          Rscript -e "install.packages('remotes')"
-          Rscript -e "remotes::install_deps()"
-          Rscript -e "remotes::install_github('eco4cast/neon4cast')"
+      - uses: r-lib/actions/setup-renv@v1
+#      - name: Install
+#        run: |
+#          Rscript -e "install.packages('remotes')"
+#          Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
-          R -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
-          R -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
