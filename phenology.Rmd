@@ -22,7 +22,6 @@ library(thematic)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
-library(neon4cast)
 library(lubridate)
 library(tools)
 library(phenopix)
@@ -34,31 +33,33 @@ thematic::thematic_rmd()
 #combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
 source("R/combined_scores.R")
 combined <- combined_scores("phenology")
+combined <- fill_scores(combined)
 ```
 
 <!-- Heading 1: navbar -->
 
-
-
 ```{r}
 sites <- c("BART", "CLBJ", "DELA", "GRSM", "HARV", "SCBI", "STEI", "UKFS")
 
-greenness_forecasts <-
-  combined %>%
-  #filter(siteID %in% sites[-2]) %>%
-  filter(theme == "phenology", target == "gcc_90",
-         horizon > 30, time > as_date("2021-01-01"), time < (Sys.Date() + days(35))) %>% 
-  group_by(time, siteID, team) %>%
-  slice_min(horizon) %>% 
+combined %>% summarise(max = max(issue_date))
+
+gcc <-
+  combined %>% filter(issue_date == "2022-03-01") %>%
+  filter(theme == "phenology", target == "gcc_90")
+```
+
+
+```{r}
+greenness_forecasts <- gcc %>% filter(site=="BART") %>%
   ggplot() +
   geom_point(aes(time, observed), size = .05) + 
-  geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
+  geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
                               fill = team, data_id = team, tooltip = team),
                           alpha = 0.2, show.legend=FALSE) +
   geom_line_interactive(aes(time, mean, col = team, 
                             tooltip = team, data_id = team), show.legend=FALSE) +
   labs(y = "greenness index (gcc 90)") +
-  facet_wrap(~siteID, ncol=2) + 
+  facet_wrap(~site, ncol=2) + 
   theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
   ggtitle("30th day ahead or longer prediction") 
 ```
@@ -71,10 +72,7 @@ Mouse over a trajectory to focus on a team.
 Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
 
 ```{r girafe, fig.width = 10, fig.height = 7.5}
-ggob <- greenness_forecasts +
-  (score_total) / 
-  (score_by_horizon) /
-  (score_by_time)
+ggob <- greenness_forecasts 
 girafe(ggobj = ggob, width_svg = 10, height_svg = 7.5,
   options = list(
     opts_hover_inv(css = "opacity:0.03;"),
