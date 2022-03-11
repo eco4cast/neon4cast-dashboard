@@ -1,6 +1,4 @@
 Package: compendium
 Version: 0.1.0
-Depends: tidyverse, plotly, flexdashboard, clock, fs, bslib, thematic, sf,
-         tmap, ggiraph, RSQLite, dbplyr, patchwork, 
-         phenopix
-
+Depends: tidyverse, plotly, flexdashboard, fs, bslib, thematic, DT,
+         ggiraph, arrow, patchwork, glue

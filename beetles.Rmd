@@ -2,7 +2,7 @@
 title: "NEON4CAST Dashboard"
 output:
   flexdashboard::flex_dashboard:
-    vertical_layout: scroll
+    storyboard: true
     theme: 
       version: 4
       bootswatch: lux
@@ -12,8 +12,7 @@ output:
     - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
     - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
     - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
-    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}
-
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}    
 ---
 
 ```{r setup, include=FALSE}
@@ -23,67 +22,91 @@ library(thematic)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
-library(neon4cast)
+library(DT)
 thematic::thematic_rmd()
 ```
 
-```{r include=FALSE}
-#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
-
+```{r include=FALSE, cache=TRUE}
 source("R/combined_scores.R")
-beetles <- combined_scores("beetles")
+combined <- combined_scores("beetles")
+filled_scores <- fill_scores(combined)
 ```
 
+
+```{r}
+
+## problems with matching ISOweek dates mean no scores...
+
+leaderboard <-  filled_scores %>% 
+  group_by(target, team) %>%
+  summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs, na.rm=TRUE),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+```
 <!-- Heading 1: navbar -->
 
+```{r}
+board1 <- 
+leaderboard %>% filter(target == "richness") %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(team, score, fill=team, col=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) + 
+  ggtitle("richness forecasts")
+```
+
+
 
 ```{r}
-## We will focus on sites with the most data.  A good number of sites stopped data collection during the pandemic, leaving teams without recent data to train on, and in many cases, without observations to score against.
-df <- beetles %>% filter(time > as.Date("2019-01-01"), 
-                         !is.na(observed))
-top_sites <- df %>% 
-  select(siteID, time) %>% distinct()  %>%
-  count(siteID, sort=TRUE) %>% 
-  pull(siteID) %>% head()
 
+by_start <-  filled_scores %>% 
+  filter(target == "richness")  %>% 
+  group_by(target, team, forecast_start_time) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+
+board2 <- 
+  by_start %>% 
+  ggplot(aes(forecast_start_time, crps, col=team)) + 
+    geom_point_interactive(aes(tooltip = team, data_id = team), size=2, show.legend = FALSE) +
+    geom_line_interactive(aes(tooltip = team, data_id = team), size=1, show.legend = FALSE)
 ```
 
 
+## Row {data-height=650 }
 
-```{r}
-richness_forecasts <-
-  beetles %>% 
-  filter( horizon > 30, target == "richness") %>% 
-  group_by(time, siteID, team) %>%
-  slice_min(horizon) %>% 
-  na.omit() %>% 
-  ungroup()
+### Chart 1
 
-multipoint <- richness_forecasts %>% filter(team != "EFI_avg_null") %>% 
-  count(siteID, team, sort=TRUE) %>% 
-  filter(n>1) %>% select(-n)
-inner_join(multipoint, richness_forecasts) %>%
-  ggplot() +
-  geom_point(aes(time, observed), size = .05) + 
-   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
-                               fill = team, data_id = team),
-                               alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
-  facet_wrap(~siteID, ncol=1, scales = "free") + 
-  ggtitle("30th day ahead")
+
+```{r girafe, fig.width=8, fig.height=5}
+ggob <- board1 / board2 # patchwork stack
+girafe(ggobj = ggob,
+       width_svg = 8, height_svg = 5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
+    opts_zoom(max = 4)
+  ))
 ```
 
+***
 
 
-```{r fill_scores}
-null_filled <- beetles %>% # fill scores not working...
-  fill_scores("EFI_ave_null") %>% 
-  collect() %>% 
-  mutate(time = as.Date(time), 
-         forecast_start_time  = as.Date(forecast_start_time),
-         horizon = as.integer(time - forecast_start_time))
+Overall team rankings by forecast skill, as well as skill by date of initial forecast.
 
-scores <- null_filled %>%
-  mean_scores()
 
-```
+**Top plots**: Forecast skill measured by CRPS and log skill. 
+Lower values indicate better predictions. Both score  probabilistic forecasts,
+but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
+
+
+**Tip**: _Mouse over a color to highlight the scores of one a team_
+

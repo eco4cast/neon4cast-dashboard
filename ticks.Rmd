@@ -2,7 +2,7 @@
 title: "NEON4CAST Dashboard"
 output:
   flexdashboard::flex_dashboard:
-    vertical_layout: scroll
+    storyboard: true
     theme: 
       version: 4
       bootswatch: lux
@@ -12,8 +12,7 @@ output:
     - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
     - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
     - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
-    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}
-
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}    
 ---
 
 ```{r setup, include=FALSE}
@@ -23,36 +22,44 @@ library(thematic)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
-library(neon4cast)
+library(DT)
 thematic::thematic_rmd()
 ```
 
-```{r include=FALSE}
-#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
-
+```{r include=FALSE, cache=TRUE}
 source("R/combined_scores.R")
+## TICKS HAVE NO OBSERVED DATA?
 combined <- combined_scores("ticks")
+filled_scores <- fill_scores(combined)
 ```
-
-<!-- Heading 1: navbar -->
 
 
 ```{r}
-## For some reason a bunch of teams aren't making predictions 7 days out..
-forecasts <-
-  combined %>%
-  filter(theme == "ticks", horizon > 12) %>% 
-  group_by(time, siteID, team) %>%
-  slice_min(horizon) %>% 
-  na.omit() %>% ungroup()
-forecasts %>%
-  ggplot() +
-  geom_point(aes(time, observed), size = .05) + 
-   geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
-                               fill = team, data_id = team),
-                               alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = team, data_id = team)) +
-  facet_wrap(~siteID, ncol=1, scales = "free") + 
-  ggtitle("11th day ahead")
+
+leaderboard <-  combined %>% 
+  group_by(target, team) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs)) %>% 
+  arrange(crps)
+leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+```
+<!-- Heading 1: navbar -->
+
+```{r }
+board1 <- 
+leaderboard %>% filter(target == "amblyomma_americanum") %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(team, score, fill=team, col=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) + 
+  ggtitle("amblyomma_americanum forecasts")
 ```
 
+
+
+
+***
+
+No observed data seems to be available right now...

@@ -2,7 +2,7 @@
 title: "NEON4CAST Dashboard"
 output:
   flexdashboard::flex_dashboard:
-    vertical_layout: scroll
+    storyboard: true
     theme: 
       version: 4
       bootswatch: lux
@@ -12,8 +12,7 @@ output:
     - { title: "Aquatics", icon: "fa fa-tint", href: "aquatics", target: "_blank"}
     - { title: "Terrestrial", icon: "fa fa-thermometer-4", href: "terrestrial", target: "_blank"}
     - { title: "Ticks", icon: "fa fa-search", href: "ticks", target: "_blank"}
-    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}
-
+    - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}    
 ---
 
 ```{r setup, include=FALSE}
@@ -23,57 +22,154 @@ library(thematic)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
-library(neon4cast)
-library(lubridate)
+library(DT)
 thematic::thematic_rmd()
 ```
 
-```{r include=FALSE}
-#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
-
+```{r include=FALSE, cache=TRUE}
 source("R/combined_scores.R")
-
-nee_forecasts <- combined_scores("terrestrial_30min", collect=FALSE) %>% 
-  filter(horizon <= (35*24),
-         time >= as_datetime("2021-02-01"),
-         target == "nee") %>% 
-  collect()
+combined <- combined_scores("terrestrial_daily")
+filled_scores <- fill_scores(combined)
 ```
-
-<!-- Heading 1: navbar -->
 
 
 ```{r}
-## For some reason a bunch of teams aren't making predictions 7 days out..
-nee_forecasts <- nee_forecasts %>%
-  mutate(forecast_start_time = ifelse(forecast_start_time > as_date("2021-04-25") & forecast_start_time < as_date("2021-05-05"), as_date("2021-05-01"), as_date(forecast_start_time)),
-         forecast_start_time = ifelse(forecast_start_time > as_date("2021-05-25") & forecast_start_time < as_date("2021-06-05"), as_date("2021-06-01"), as_date(forecast_start_time)),
-         forecast_start_time = ifelse(forecast_start_time > as_date("2021-06-25") & forecast_start_time < as_date("2021-07-05"), as_date("2021-07-01"), as_date(forecast_start_time)),
-         forecast_start_time = ifelse(forecast_start_time > as_date("2021-07-25") & forecast_start_time < as_date("2021-08-05"), as_date("2021-08-01"), as_date(forecast_start_time)),
-         forecast_start_time = as_date(forecast_start_time)
-         ) %>% 
-  group_by(time, siteID, team, target, forecast_start_time) %>%
-  filter(!is.na(mean)) %>% 
-  #slice_min(horizon) %>% 
-  ggplot() +
-  geom_point(aes(time, observed), size = .05) + 
-  geom_ribbon_interactive(aes(x = time, ymin = lower95, ymax = upper95,
-                               fill = team, data_id = team),
-                               alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(x = time, y = mean, col = team, data_id = team), show.legend=FALSE) +
-  facet_grid(siteID~forecast_start_time,scales = "free") + 
-  ggtitle("Net Ecosystem Exchange") +
-  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
-  labs(y = "umol/m3/sec")
 
-
+leaderboard <-  filled_scores %>% 
+  group_by(target, team) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
 ```{r}
-girafe(ggobj = nee_forecasts, width_svg = 10, height_svg = 7.5,
+by_start <-  filled_scores %>% 
+  group_by(target, team, forecast_start_time, site) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+```
+
+
+## Row {data-height=650 }
+
+### `nee` Daily
+
+
+```{r}
+board1 <- 
+leaderboard %>% 
+  filter(target == "nee") %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(team, score, fill=team, col=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) + 
+  ggtitle("nee forecasts")
+```
+
+
+
+```{r}
+board2 <- 
+  by_start %>% 
+  filter(target == "nee")  %>% 
+  filter(percent_na < .01) %>%
+  ggplot(aes(forecast_start_time, crps, col=team)) + 
+    geom_point_interactive(aes(tooltip = team, data_id = team), size=2, show.legend = FALSE) +
+    geom_line_interactive(aes(tooltip = team, data_id = team), size=1, show.legend = FALSE) + 
+  facet_wrap(~site)
+```
+
+
+```{r girafe, fig.width=8, fig.height=5}
+ggob <- board1 / board2 # patchwork stack
+girafe(ggobj = ggob,
+       width_svg = 8, height_svg = 5,
   options = list(
-    opts_hover_inv(css = "opacity:0.03;"),
-    opts_hover(css = "stroke-width:1;"),
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
     opts_zoom(max = 4)
   ))
 ```
+
+***
+
+
+Overall team rankings by forecast skill, as well as skill by date of initial forecast.
+
+
+**Top plots**: Forecast skill measured by CRPS and log skill. 
+Lower values indicate better predictions. Both score  probabilistic forecasts,
+but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
+
+
+**Tip**: _Mouse over a color to highlight the scores of one a team_
+
+
+
+### `le` Daily
+
+
+```{r}
+board1 <- 
+leaderboard %>% 
+  filter(target == "le") %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(team, score, fill=team, col=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) + 
+  ggtitle("nee forecasts")
+```
+
+
+
+```{r}
+board2 <- 
+  by_start %>% 
+  filter(target == "le")  %>% 
+  filter(percent_na < .01) %>%
+  ggplot(aes(forecast_start_time, crps, col=team)) + 
+    geom_point_interactive(aes(tooltip = team, data_id = team), size=2, show.legend = FALSE) +
+    geom_line_interactive(aes(tooltip = team, data_id = team), size=1, show.legend = FALSE) + 
+  facet_wrap(~site)
+```
+
+
+```{r, fig.width=8, fig.height=5}
+ggob <- board1 / board2 # patchwork stack
+girafe(ggobj = ggob,
+       width_svg = 8, height_svg = 5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
+    opts_zoom(max = 4)
+  ))
+```
+
+***
+
+
+Overall team rankings by forecast skill, as well as skill by date of initial forecast.
+
+
+**Top plots**: Forecast skill measured by CRPS and log skill. 
+Lower values indicate better predictions. Both score  probabilistic forecasts,
+but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
+
+
+**Tip**: _Mouse over a color to highlight the scores of one a team_
+
+
+
+
 

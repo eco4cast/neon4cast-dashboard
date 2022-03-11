@@ -2,7 +2,7 @@
 title: "NEON4CAST Dashboard"
 output:
   flexdashboard::flex_dashboard:
-    vertical_layout: scroll
+    storyboard: true
     theme: 
       version: 4
       bootswatch: lux
@@ -22,35 +22,112 @@ library(thematic)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
-library(lubridate)
-library(tools)
-library(phenopix)
-library(zoo)
+library(DT)
 thematic::thematic_rmd()
 ```
 
-```{r include=FALSE}
-#combined <- read_csv("https://data.ecoforecast.org/analysis/combined_forecasts_scores.csv.gz")
+```{r include=FALSE, cache=TRUE}
 source("R/combined_scores.R")
 combined <- combined_scores("phenology")
-combined <- fill_scores(combined)
+filled_scores <- fill_scores(combined)
 ```
 
+
+```{r}
+
+leaderboard <-  filled_scores %>% 
+  group_by(target, team) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+```
 <!-- Heading 1: navbar -->
 
 ```{r}
-sites <- c("BART", "CLBJ", "DELA", "GRSM", "HARV", "SCBI", "STEI", "UKFS")
-
-combined %>% summarise(max = max(issue_date))
-
-gcc <-
-  combined %>% filter(issue_date == "2022-03-01") %>%
-  filter(theme == "phenology", target == "gcc_90")
+board1 <- 
+leaderboard %>% pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(team, score, fill=team, col=team)) + 
+  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())
 ```
 
 
+
 ```{r}
-greenness_forecasts <- gcc %>% filter(site=="BART") %>%
+
+by_start <-  filled_scores %>% 
+  group_by(target, team, forecast_start_time) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_team))) %>% 
+  arrange(crps)
+
+board2 <- 
+  by_start %>% 
+  filter(percent_na < .1) %>%
+  ggplot(aes(forecast_start_time, crps, col=team)) + 
+  geom_line_interactive(aes(tooltip = team, data_id = team), size=1, show.legend = FALSE)  +
+  labs(title = "Forecast skill")
+
+## caption doesn't display all that nicely, better to use storyboard
+      #caption = 
+      #   "Top: Forecast skill measured by CRPS and log skill.\\n
+      #   Lower values indicate better predictions. Both score\\n
+      #   probablistic forecasts, but log skill penalizes     \\n
+      #   observations outside expected range much more heavily.")
+```
+
+
+### Greenness {data-height=650 data-width=350}
+
+
+```{r girafe, fig.width=8, fig.height=5}
+ggob <- board1 / board2 # patchwork stack
+girafe(ggobj = ggob,
+       width_svg = 8, height_svg = 5,
+  options = list(
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
+    opts_zoom(max = 4)
+  ))
+```
+
+
+*** 
+
+Overall team rankings by forecast skill, as well as skill by date of initial forecast.
+
+
+**Top plots**: Forecast skill measured by CRPS and log skill. 
+Lower values indicate better predictions. Both score  probabilistic forecasts,
+but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Many phenology teams submit a new 35-day forecast daily.
+This plot summarizes the score of each of those 35-day forecasts 
+(over all 35 days and over all sites) as the challenge progresses.
+Note how the scores of most teams are worst in spring and fall as leaves
+come out and fall!
+
+
+**Tip**: _Mouse over a color to highlight the scores of one a team_
+
+
+
+
+
+
+
+```{r}
+## more possible stuff, not plotted
+some_sites <- c("BART", "HARV", "WOOD", "DELA")
+greenness_forecasts <-
+  combined %>%
+  filter(issue_date==max(issue_date, na.rm=TRUE), site %in% some_sites) %>%
+  filter(theme == "phenology", target == "gcc_90") %>% 
   ggplot() +
   geom_point(aes(time, observed), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
@@ -62,22 +139,5 @@ greenness_forecasts <- gcc %>% filter(site=="BART") %>%
   facet_wrap(~site, ncol=2) + 
   theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
   ggtitle("30th day ahead or longer prediction") 
-```
-
-
-
-### Greenness {data-height=2000 data.width=500}
-
-Mouse over a trajectory to focus on a team. 
-Activate zoom/pan with magnifying glass and then use mouse scroll to zoom.
-
-```{r girafe, fig.width = 10, fig.height = 7.5}
-ggob <- greenness_forecasts 
-girafe(ggobj = ggob, width_svg = 10, height_svg = 7.5,
-  options = list(
-    opts_hover_inv(css = "opacity:0.03;"),
-    opts_hover(css = "stroke-width:1;"),
-    opts_zoom(max = 4)
-  ))
 ```
 
