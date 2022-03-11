@@ -143,10 +143,10 @@ board2 <-
 ```
 
 
-```{r, fig.width=8, fig.height=5}
+```{r, fig.width=8, fig.height=4}
 ggob <- board1 / board2 # patchwork stack
 girafe(ggobj = ggob,
-       width_svg = 8, height_svg = 5,
+       width_svg = 8, height_svg = 4,
   options = list(
     opts_hover_inv(css = "opacity:0.20;"),
     opts_hover(css = "stroke-width:2;"),

@@ -29,6 +29,10 @@ jobs:
       - name: Render
         run: |
           R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("ticks.Rmd", envir = globalenv())'
+          R -e 'rmarkdown::render("beetles.Rmd", envir = globalenv())'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
