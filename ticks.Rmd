@@ -34,6 +34,8 @@ filled_scores <- fill_scores(combined)
 ```
 
 
+## {data-height: 350}
+
 ```{r}
 
 leaderboard <-  combined %>% 

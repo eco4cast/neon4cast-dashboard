@@ -81,7 +81,7 @@ board2 <-
 
 ## Row {data-height=650 }
 
-### Chart 1
+### Species Richness: forecast skill
 
 
 ```{r girafe, fig.width=8, fig.height=4}

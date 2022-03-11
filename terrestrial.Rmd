@@ -53,9 +53,9 @@ by_start <-  filled_scores %>%
 ```
 
 
-## Row {data-height=650 }
+##  {data-height=650 }
 
-### `nee` Daily
+### `nee` daily
 
 
 ```{r}
