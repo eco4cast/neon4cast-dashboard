@@ -47,7 +47,8 @@ leaderboard <-  filled_scores %>%
 
 ```{r}
 board1 <- 
-leaderboard %>% pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+leaderboard %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
   ggplot(aes(team, score, fill=team, col=team)) + 
   geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
   facet_wrap(~metric, scales = "free_y") + 

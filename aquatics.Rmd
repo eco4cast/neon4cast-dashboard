@@ -2,7 +2,6 @@
 title: "NEON4CAST Dashboard"
 output:
   flexdashboard::flex_dashboard:
-    vertical_layout: scroll
     storyboard: true
     theme: 
       version: 4
@@ -79,12 +78,12 @@ board2 <-
 ```
 
 
-## {data-height=350 }
+## { }
 
 ### Oxygen
 
 
-```{r girafe, fig.width=8, fig.height=8}
+```{r girafe,}
 ggob <- board1 / board2 # patchwork stack
 girafe(ggobj = ggob,
        width_svg = 8, height_svg = 4,
