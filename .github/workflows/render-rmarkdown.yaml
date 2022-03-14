@@ -24,7 +24,7 @@ jobs:
       - uses: r-lib/actions/setup-renv@v1
       - name: Install
         run: |
-          Rscript -e "install.packages('remotes')"
+          Rscript -e "install.packages(c('remotes', 'renv'))"
           Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
