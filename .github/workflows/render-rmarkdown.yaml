@@ -21,14 +21,14 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: r-lib/actions/setup-renv@v1
-#      - name: Install
-#        run: |
-#          Rscript -e "install.packages('remotes')"
-#          Rscript -e "remotes::install_deps()"
+#      - uses: r-lib/actions/setup-renv@v1
+      - name: Install
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
-          R -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
+          Rscript -e 'rmarkdown::render("phenology.Rmd", envir = globalenv())'
           R -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
           R -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
           R -e 'rmarkdown::render("ticks.Rmd", envir = globalenv())'
