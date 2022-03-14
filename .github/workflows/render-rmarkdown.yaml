@@ -28,11 +28,11 @@ jobs:
 #          Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
-          R -e 'suppressWarnings( rmarkdown::render("phenology.Rmd") )'
-          R -e 'suppressWarnings( rmarkdown::render("aquatics.Rmd") )'
-          R -e 'suppressWarnings( rmarkdown::render("terrestrial.Rmd") )'
-          R -e 'suppressWarnings( rmarkdown::render("ticks.Rmd") )'
-          R -e 'suppressWarnings( rmarkdown::render("beetles.Rmd") )'
+          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("phenology.Rmd") )'
+          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("aquatics.Rmd") )'
+          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("terrestrial.Rmd") )'
+          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("ticks.Rmd") )'
+          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("beetles.Rmd") )'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
