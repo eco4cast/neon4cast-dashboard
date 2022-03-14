@@ -21,18 +21,18 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-#      - uses: r-lib/actions/setup-renv@v1
-      - name: Install
-        run: |
-          Rscript -e "install.packages(c('remotes', 'renv'))"
-          Rscript -e "remotes::install_deps()"
+      - uses: r-lib/actions/setup-renv@v1
+#      - name: Install
+#        run: |
+#          Rscript -e "install.packages(c('remotes', 'renv'))"
+#          Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
-          r -e 'rmarkdown::render("phenology.Rmd")'
-          r -e 'rmarkdown::render("aquatics.Rmd", envir = globalenv())'
-          r -e 'rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
-          r -e 'rmarkdown::render("ticks.Rmd", envir = globalenv())'
-          r -e 'rmarkdown::render("beetles.Rmd", envir = globalenv())'
+          r -e 'source("renv/activate.R"); rmarkdown::render("phenology.Rmd")'
+          r -e 'source("renv/activate.R"); rmarkdown::render("aquatics.Rmd", envir = globalenv())'
+          r -e 'source("renv/activate.R"); rmarkdown::render("terrestrial.Rmd", envir = globalenv())'
+          r -e 'source("renv/activate.R"); rmarkdown::render("ticks.Rmd", envir = globalenv())'
+          r -e 'source("renv/activate.R"); rmarkdown::render("beetles.Rmd", envir = globalenv())'
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
