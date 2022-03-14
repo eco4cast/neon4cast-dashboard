@@ -27,12 +27,9 @@ jobs:
 #          Rscript -e "install.packages(c('remotes', 'renv'))"
 #          Rscript -e "remotes::install_deps()"
       - name: Render
+        shell: Rscript {0}
         run: |
-          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("phenology.Rmd") )'
-          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("aquatics.Rmd") )'
-          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("terrestrial.Rmd") )'
-          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("ticks.Rmd") )'
-          r -e 'source("renv/activate.R"); suppressWarnings( rmarkdown::render("beetles.Rmd") )'
+          rmarkdown::render("phenology.Rmd")
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
