@@ -22,10 +22,10 @@ jobs:
         with:
           fetch-depth: 0
       - uses: r-lib/actions/setup-renv@v1
-#      - name: Install
-#        run: |
-#          Rscript -e "install.packages('remotes')"
-#          Rscript -e "remotes::install_deps()"
+      - name: Install
+        run: |
+          Rscript -e "install.packages('remotes')"
+          Rscript -e "remotes::install_deps()"
       - name: Render
         run: |
           r -e 'renv::activate(); rmarkdown::render("phenology.Rmd")'
