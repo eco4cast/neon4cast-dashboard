@@ -22,14 +22,14 @@ jobs:
         with:
           fetch-depth: 0
       - uses: r-lib/actions/setup-renv@v1
-#      - name: Install
-#        run: |
-#          Rscript -e "install.packages(c('remotes', 'renv'))"
-#          Rscript -e "remotes::install_deps()"
       - name: Render
         shell: Rscript {0}
         run: |
           rmarkdown::render("phenology.Rmd")
+          rmarkdown::render("aquatics.Rmd")
+          rmarkdown::render("terrestrial.Rmd")
+          rmarkdown::render("ticks.Rmd")
+          rmarkdown::render("beetles.Rmd")
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
