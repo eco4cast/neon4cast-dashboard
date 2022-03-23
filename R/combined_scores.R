@@ -8,7 +8,7 @@ library(tidyr)
 
 combined_scores <- function(theme = NA,
                             collect = TRUE,
-                            endpoint = "minio.carlboettiger.info"){
+                            endpoint = "data.ecoforecast.org"){
   Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
   Sys.unsetenv("AWS_ACCESS_KEY_ID")
   Sys.unsetenv("AWS_SECRET_ACCESS_KEY")
@@ -16,7 +16,7 @@ combined_scores <- function(theme = NA,
   Sys.unsetenv("AWS_S3_ENDPOINT")
 
   #GENERALIZATION: THIS IS A SPECIFIC ENDPOINT
-  s3 <- arrow::s3_bucket(bucket = "scores",
+  s3 <- arrow::s3_bucket(bucket = "scores/parquet",
                          endpoint_override = endpoint)
   ds <- arrow::open_dataset(s3, partition=c("theme", "year"))
   if (!is.na(theme)) {
