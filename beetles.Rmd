@@ -38,10 +38,10 @@ filled_scores <- fill_scores(combined)
 ## problems with matching ISOweek dates mean no scores...
 
 leaderboard <-  filled_scores %>% 
-  group_by(target, team) %>%
+  group_by(variable, model_id) %>%
   summarise(crps = mean(crps, na.rm=TRUE),
             logs = mean(logs, na.rm=TRUE),
-            percent_na = mean(is.na(crps_team))) %>% 
+            percent_na = mean(is.na(crps_model_id))) %>% 
   arrange(crps)
 #leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
@@ -49,10 +49,10 @@ leaderboard <-  filled_scores %>%
 
 ```{r}
 board1 <- 
-leaderboard %>% filter(target == "richness") %>%
+leaderboard %>% filter(variable == "richness") %>%
   pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
-  ggplot(aes(team, score, fill=team, col=team)) + 
-  geom_col_interactive(aes(tooltip = team, data_id = team), show.legend = FALSE) + 
+  ggplot(aes(model_id, score, fill=model_id, col=model_id)) + 
+  geom_col_interactive(aes(tooltip = model_id, data_id = model_id), show.legend = FALSE) + 
   facet_wrap(~metric, scales = "free_y") + 
   theme(axis.ticks.x = element_blank(),
         axis.text.x = element_blank()) + 
@@ -64,18 +64,18 @@ leaderboard %>% filter(target == "richness") %>%
 ```{r}
 
 by_start <-  filled_scores %>% 
-  filter(target == "richness")  %>% 
-  group_by(target, team, forecast_start_time) %>%
+  filter(variable == "richness")  %>% 
+  group_by(variable, model_id, start_time) %>%
   summarise(crps = mean(crps),
             logs = mean(logs),
-            percent_na = mean(is.na(crps_team))) %>% 
+            percent_na = mean(is.na(crps_model))) %>% 
   arrange(crps)
 
 board2 <- 
   by_start %>% 
-  ggplot(aes(forecast_start_time, crps, col=team)) + 
-    geom_point_interactive(aes(tooltip = team, data_id = team), size=2, show.legend = FALSE) +
-    geom_line_interactive(aes(tooltip = team, data_id = team), size=1, show.legend = FALSE)
+  ggplot(aes(start_time, crps, col=model_id)) + 
+    geom_point_interactive(aes(tooltip = model_id, data_id = model_id), size=2, show.legend = FALSE) +
+    geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)
 ```
 
 
@@ -98,7 +98,7 @@ girafe(ggobj = ggob,
 ***
 
 
-Overall team rankings by forecast skill, as well as skill by date of initial forecast.
+Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
 
 
 **Top plots**: Forecast skill measured by CRPS and log skill. 
