@@ -31,7 +31,7 @@ jobs:
       - name: Render
         shell: Rscript {0}
         run: |
-          rmarkdown::render("phenology.Rmd")
+          suppressWarnings(rmarkdown::render("phenology.Rmd"))
       - name: Render
         shell: Rscript {0}
         run: |
