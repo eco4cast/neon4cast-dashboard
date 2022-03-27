@@ -15,7 +15,7 @@ output:
     - { title: "Beetles", icon: "fas fa-bug", href: "beetles", target: "_blank"}    
 ---
 
-```{r setup, include=FALSE}
+```{r setup}
 knitr::opts_chunk$set(cache=FALSE)
 library(flexdashboard)
 library(thematic)
@@ -26,7 +26,7 @@ library(DT)
 thematic::thematic_rmd()
 ```
 
-```{r include=FALSE, cache=TRUE}
+```{r}
 source("R/combined_scores.R")
 combined <- combined_scores("phenology")
 filled_scores <- fill_scores(combined)
