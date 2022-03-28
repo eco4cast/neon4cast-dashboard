@@ -29,7 +29,7 @@ thematic::thematic_rmd()
 ```{r include=FALSE, cache=TRUE}
 source("R/combined_scores.R")
 combined <- combined_scores("beetles")
-filled_scores <- fill_scores(combined)
+filled_scores <- fill_scores(combined, "EFI_avg_null")
 ```
 
 
@@ -41,7 +41,7 @@ leaderboard <-  filled_scores %>%
   group_by(variable, model_id) %>%
   summarise(crps = mean(crps, na.rm=TRUE),
             logs = mean(logs, na.rm=TRUE),
-            percent_na = mean(is.na(crps_model_id))) %>% 
+            percent_na = mean(is.na(crps_model))) %>% 
   arrange(crps)
 #leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
