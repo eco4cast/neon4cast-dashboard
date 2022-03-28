@@ -28,22 +28,25 @@ jobs:
 #        run: |
 #          install.packages("remotes")
 #          remotes::install_deps()
-      - name: Render
-        shell: Rscript {0}
+      - name: phenology
         run: |
-          suppressWarnings(rmarkdown::render("phenology.Rmd"))
-      - name: Render
+          Rscript -e 'rmarkdown::render("phenology.Rmd")' || true
+      - name: aquatics
         shell: Rscript {0}
         run: |
           rmarkdown::render("aquatics.Rmd")
-      - name: Render
+      - name: terrestrial
         shell: Rscript {0}
         run: |
           rmarkdown::render("terrestrial.Rmd")
-      - name: Render
+      - name: ticks
         shell: Rscript {0}
         run: |
           rmarkdown::render("ticks.Rmd")
+      - name: beetles
+        shell: Rscript {0}
+        run: |
+          rmarkdown::render("beetles.Rmd")
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"
