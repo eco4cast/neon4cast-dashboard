@@ -1,0 +1,48 @@
+---
+title: "<icon class='fa fa-search'></icon>Ticks"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+
+library(ggiraph)
+library(patchwork)
+library(tidyverse)
+library(neon4cast)
+library(score4cast)
+```
+
+```{r include=FALSE, cache=TRUE}
+combined <- combined_scores("ticks")
+filled_scores <- fill_scores(combined)
+```
+
+## Leaderboard
+
+```{r}
+
+leaderboard <-  combined %>% 
+  group_by(variable, model_id) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs)) %>% 
+  arrange(crps)
+leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+```
+
+<!-- Heading 1: navbar -->
+
+```{r }
+board1 <- 
+leaderboard %>% filter(variable == "amblyomma_americanum") %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(model_id, score, fill=model_id, col=model_id)) + 
+  geom_col_interactive(aes(tooltip = model_id, data_id = model_id), show.legend = FALSE) + 
+  facet_wrap(~metric, scales = "free_y") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) + 
+  ggtitle("amblyomma_americanum forecasts")
+```
+
+------------------------------------------------------------------------
+
+No observed data seems to be available right now...

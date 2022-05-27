@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "aquatics.html",
+    "href": "aquatics.html",
+    "title": "Aquatics",
+    "section": "",
+    "text": "`summarise()` has grouped output by 'variable'. You can override using the\n`.groups` argument."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges ."
+  },
+  {
+    "objectID": "aquatics.html#aquatic-challenge",
+    "href": "aquatics.html#aquatic-challenge",
+    "title": "Aquatics",
+    "section": "Aquatic Challenge",
+    "text": "Aquatic Challenge\n\nOxygen\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "aquatics.html#oxygen",
+    "href": "aquatics.html#oxygen",
+    "title": "Aquatics",
+    "section": "Oxygen",
+    "text": "Oxygen\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "phenology.html",
+    "href": "phenology.html",
+    "title": "Phenology",
+    "section": "",
+    "text": "knitr::opts_chunk$set(eval=FALSE, echo=FALSE)"
+  },
+  {
+    "objectID": "phenology.html#section",
+    "href": "phenology.html#section",
+    "title": "Phenology",
+    "section": "",
+    "text": "Greenness\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "terrestrial.html",
+    "href": "terrestrial.html",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Net ecosystem exchange of carbon dioxide (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCO2 fluxLatent evaporation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "terrestrial.html#section",
+    "href": "terrestrial.html#section",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "nee daily\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team\n\n\nle Daily\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "ticks.html",
+    "href": "ticks.html",
+    "title": "Ticks",
+    "section": "",
+    "text": "No observed data seems to be available right now…"
+  },
+  {
+    "objectID": "beetles.html",
+    "href": "beetles.html",
+    "title": "Beetles",
+    "section": "",
+    "text": "## problems with matching ISOweek dates mean no scores...\n\nleaderboard <-  filled_scores %>% \n  group_by(variable, model_id) %>%\n  summarise(crps = mean(crps, na.rm=TRUE),\n            logs = mean(logs, na.rm=TRUE),\n            percent_na = mean(is.na(crps_model))) %>% \n  arrange(crps)\n\n`summarise()` has grouped output by 'variable'. You can override using the\n`.groups` argument.\n\n#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)"
+  },
+  {
+    "objectID": "beetles.html#row",
+    "href": "beetles.html#row",
+    "title": "Beetles",
+    "section": "Row",
+    "text": "Row\n\nSpecies Richness: forecast skill\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "terrestrial.html#co2-flux",
+    "href": "terrestrial.html#co2-flux",
+    "title": "Terrestrial",
+    "section": "CO2 flux",
+    "text": "CO2 flux\nNet ecosystem exchange of carbon dioxide (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team\n::: {.panel-tabset}"
+  },
+  {
+    "objectID": "terrestrial.html#daily-latent-evaporation",
+    "href": "terrestrial.html#daily-latent-evaporation",
+    "title": "Terrestrial",
+    "section": "Daily Latent Evaporation",
+    "text": "Daily Latent Evaporation\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  }
+]

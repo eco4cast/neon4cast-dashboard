@@ -1,0 +1,10 @@
+---
+title: "home"
+icon: "home"
+---
+
+Welcome the EFI NEON Forecast Challenge Dashboard.
+
+This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using [quarto](https://quarto.org) and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.
+
+EFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the [current challenges](https://projects.ecoforecast.org/neon4cast-docs).

@@ -1,0 +1,121 @@
+---
+title: Phenology 
+---
+
+
+
+```{r setup}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+
+library(ggiraph)
+library(patchwork)
+library(tidyverse)
+library(neon4cast)
+library(score4cast)
+
+
+```
+
+```{r}
+dashboard <- yaml::read_yaml("dashboard.yml")
+
+#combined <- combined_scores("phenology")
+combined <- arrow::open_dataset("cache", partition=c("theme", "year")) |>
+  filter(theme == "phenology", time >= dashboard$start_time)
+  collect()
+filled_scores <- fill_scores(combined, null="persistence")
+```
+
+```{r}
+
+leaderboard <-  filled_scores %>% 
+  group_by(variable, model_id) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_model))) %>% 
+  arrange(crps)
+#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+```
+
+<!-- Heading 1: navbar -->
+
+```{r fig.height=12}
+board1 <- 
+leaderboard %>%
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
+  ggplot(aes(model_id, score, fill=model_id, col=model_id)) + 
+  geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
+                       show.legend = FALSE) + 
+  coord_flip() +
+  facet_wrap(~metric) + 
+  theme(axis.text.x = element_blank())
+```
+
+```{r}
+
+by_start <-  filled_scores %>% 
+  group_by(variable, model_id, start_time) %>%
+  summarise(crps = mean(crps),
+            logs = mean(logs),
+            percent_na = mean(is.na(crps_model))) %>% 
+  arrange(crps)
+
+board2 <- 
+  by_start %>% 
+  filter(percent_na < .1) %>%
+  ggplot(aes(start_time, crps, col=model_id)) + 
+  geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
+  labs(title = "Forecast skill")
+
+## caption doesn't display all that nicely, better to use storyboard
+      #caption = 
+      #   "Top: Forecast skill measured by CRPS and log skill.\\n
+      #   Lower values indicate better predictions. Both score\\n
+      #   probablistic forecasts, but log skill penalizes     \\n
+      #   observations outside expected range much more heavily.")
+```
+
+##  {data-height="650" data-width="350"}
+
+### Greenness
+
+```{r girafe, fig.width=8, fig.height=4}
+ggob <- board1 / board2 # patchwork stack
+girafe(ggobj = ggob,
+       width_svg = 8, height_svg = 4,
+  options = list(
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
+    opts_zoom(max = 4)
+  ))
+```
+
+------------------------------------------------------------------------
+
+Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
+
+**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!
+
+**Tip**: *Mouse over a color to highlight the scores of one a team*
+
+```{r}
+## more possible stuff, not plotted
+some_sites <- c("BART", "HARV", "WOOD", "DELA")
+greenness_forecasts <-
+  combined %>%
+  filter(pub_time==max(pub_time, na.rm=TRUE), site_id %in% some_sites) %>%
+  filter(theme == "phenology", variable == "gcc_90") %>% 
+  ggplot() +
+  geom_point(aes(time, observed), size = .05) + 
+  geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
+                              fill = model_id, data_id = model_id, tooltip = model_id),
+                          alpha = 0.2, show.legend=FALSE) +
+  geom_line_interactive(aes(time, mean, col = model_id, 
+                            tooltip = model_id, data_id = model_id), show.legend=FALSE) +
+  labs(y = "greenness index (gcc 90)") +
+  facet_wrap(~site_id, ncol=2) + 
+  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
+  ggtitle("30th day ahead or longer prediction") 
+```

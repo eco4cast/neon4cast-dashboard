@@ -1,0 +1,16 @@
+{
+  "hash": "892e44d2ab329f7c1fef0ef64c3cf570",
+  "result": {
+    "markdown": "---\ntitle: Phenology \n---\n\n::: {.cell}\n\n:::\n\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n<!-- Heading 1: navbar -->\n\n::: {.cell}\n\n:::\n\n::: {.cell}\n\n:::\n\n##  {data-height=\"650\" data-width=\"350\"}\n\n### Greenness\n\n::: {.cell}\n\n:::\n\n------------------------------------------------------------------------\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\n\n**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\n\n**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!\n\n**Tip**: *Mouse over a color to highlight the scores of one a team*\n\n::: {.cell}\n\n:::",
+    "supporting": [
+      "phenology_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": null
+  }
+}
