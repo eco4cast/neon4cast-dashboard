@@ -20,8 +20,9 @@ library(score4cast)
 dashboard <- yaml::read_yaml("dashboard.yml")
 
 #combined <- combined_scores("phenology")
-combined <- arrow::open_dataset("cache", partition=c("theme", "year")) |>
-  filter(theme == "phenology", time >= dashboard$start_time)
+combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
+  filter(target_id == "phenology",
+         time >= lubridate::as_datetime(dashboard$start_time)) |>
   collect()
 filled_scores <- fill_scores(combined, null="persistence")
 ```
@@ -106,7 +107,7 @@ some_sites <- c("BART", "HARV", "WOOD", "DELA")
 greenness_forecasts <-
   combined %>%
   filter(pub_time==max(pub_time, na.rm=TRUE), site_id %in% some_sites) %>%
-  filter(theme == "phenology", variable == "gcc_90") %>% 
+  filter(variable == "gcc_90") %>% 
   ggplot() +
   geom_point(aes(time, observed), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,

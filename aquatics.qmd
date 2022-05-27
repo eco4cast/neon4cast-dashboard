@@ -10,12 +10,11 @@ library(tidyverse)
 library(neon4cast)
 library(score4cast)
 library(thematic)
-thematic::thematic_rmd()
 ```
 
-```{r include=FALSE, cache=TRUE}
+```{r include=FALSE}
 combined <- neon4cast::combined_scores("aquatics")
-filled_scores <- score4cast::fill_scores(combined, "persistence")
+filled_scores <- score4cast::fill_scores(combined, "EFInull")
 ```
 
 ```{r}
