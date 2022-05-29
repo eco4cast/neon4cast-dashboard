@@ -1,8 +1,14 @@
 Package: compendium
 Version: 0.1.0
-Depends: tidyverse, plotly, flexdashboard, fs, bslib, thematic, DT,
-         ggiraph, arrow, patchwork, glue, rmarkdown
+Depends: tidyverse, 
+         ggiraph, 
+         arrow, 
+         patchwork, 
+         glue, 
+         quarto
 Imports: 
-    score4cast (>= 0.0.0.9000)
+    score4cast, 
+    neon4cast,
+    thematic
 Remotes:  
-    github::eco4cast/score4cast
+    github::eco4cast/score4cast, github::eco4cast/neon4cast
