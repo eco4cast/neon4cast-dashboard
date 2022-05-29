@@ -1,5 +1,33 @@
 [
   {
+    "objectID": "beetles.html#row",
+    "href": "beetles.html#row",
+    "title": "Beetles",
+    "section": "Row",
+    "text": "Row\n\nSpecies Richness: forecast skill\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "ticks.html",
+    "href": "ticks.html",
+    "title": "Ticks",
+    "section": "",
+    "text": "No observed data seems to be available right now…"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "aquatics.html#oxygen",
+    "href": "aquatics.html#oxygen",
+    "title": "Aquatics",
+    "section": "Oxygen",
+    "text": "Oxygen\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "home",
@@ -26,33 +54,5 @@
     "title": "Terrestrial",
     "section": "",
     "text": "Net ecosystem exchange of carbon dioxide (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCO2 fluxLatent evaporation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
-  },
-  {
-    "objectID": "ticks.html",
-    "href": "ticks.html",
-    "title": "Ticks",
-    "section": "",
-    "text": "No observed data seems to be available right now…"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "aquatics.html#oxygen",
-    "href": "aquatics.html#oxygen",
-    "title": "Aquatics",
-    "section": "Oxygen",
-    "text": "Oxygen\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
-  },
-  {
-    "objectID": "beetles.html#row",
-    "href": "beetles.html#row",
-    "title": "Beetles",
-    "section": "Row",
-    "text": "Row\n\nSpecies Richness: forecast skill\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
   }
 ]
