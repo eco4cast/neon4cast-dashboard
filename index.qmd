@@ -1,9 +1,8 @@
 ---
 title: "home"
-icon: "home"
 ---
 
-Welcome the EFI NEON Forecast Challenge Dashboard.
+Welcome the [EFI](https://ecoforecast.org) NEON Forecast Challenge Dashboard.
 
 This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using [quarto](https://quarto.org) and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.
 
