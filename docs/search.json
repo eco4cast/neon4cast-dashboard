@@ -1,17 +1,10 @@
 [
   {
-    "objectID": "phenology.html#section",
-    "href": "phenology.html#section",
-    "title": "Phenology",
-    "section": "",
-    "text": "Greenness\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!\nTip: Mouse over a color to highlight the scores of one a team"
-  },
-  {
-    "objectID": "terrestrial.html",
-    "href": "terrestrial.html",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "Net ecosystem exchange of carbon dioxide (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCO2 fluxLatent evaporation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+    "objectID": "beetles.html#row",
+    "href": "beetles.html#row",
+    "title": "Beetles",
+    "section": "Row",
+    "text": "Row\n\nSpecies Richness: forecast skill\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
   },
   {
     "objectID": "ticks.html",
@@ -35,17 +28,24 @@
     "text": "Oxygen\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
   },
   {
-    "objectID": "beetles.html#row",
-    "href": "beetles.html#row",
-    "title": "Beetles",
-    "section": "Row",
-    "text": "Row\n\nSpecies Richness: forecast skill\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "home",
     "section": "",
     "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges."
+  },
+  {
+    "objectID": "phenology.html#section",
+    "href": "phenology.html#section",
+    "title": "Phenology",
+    "section": "",
+    "text": "Greenness\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!\nTip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "terrestrial.html",
+    "href": "terrestrial.html",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Net ecosystem exchange of carbon dioxide (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCO2 fluxLatent evaporation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
   }
 ]
