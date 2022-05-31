@@ -25,10 +25,10 @@ filled_scores <- fill_scores(combined, "tickGlobalNull_RandomWalk")
 
 ```{r}
 
-leaderboard <-  combined %>% 
+leaderboard <-  filled_scores %>% 
   group_by(variable, model_id) %>%
   summarise(crps = mean(crps),
-            logs = mean(logs)) %>% 
+            logs = mean(logs, na.rm=TRUE)) %>% 
   arrange(crps)
 leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
