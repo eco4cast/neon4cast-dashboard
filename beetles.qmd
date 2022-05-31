@@ -4,12 +4,17 @@ title: "Beetles"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+```
 
+```{r}
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
+library(thematic)
+thematic_rmd(bg="white", fg="black", accent="blue")
+
 ```
 
 ```{r include=FALSE, cache=TRUE}
