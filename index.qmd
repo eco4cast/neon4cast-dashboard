@@ -65,9 +65,11 @@ if (!file.exists("neon.json")) {
 }
 ```
 
-```{r fig.height=5, fig.width=5}
+```{r fig.height=5, fig.width=5, echo=FALSE, include=TRUE}
 tmap::tmap_mode("view")
 neon  |> filter(theme != "terrestrial_30min") |>
   tm_shape(bbox=c(-115,32,-74,48)) + 
   tm_bubbles(col="theme", size = "n", popup.vars = c("site_id", "n"), jitter =TRUE) 
 ```
+
+Sites scaled by number of forecasts submitted.

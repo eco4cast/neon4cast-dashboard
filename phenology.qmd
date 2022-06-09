@@ -31,12 +31,11 @@ combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
 
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 15 observations
+Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
 
 ```{r}
 green <- combined |>
   filter(target_id == "phenology", variable == "gcc_90") 
-
 sites <- green |> select(site_id) |> distinct() |> pull(site_id)
 day <- green |>
   filter(!is.na(observed), site_id == sites[[1]]) |>
@@ -44,23 +43,61 @@ day <- green |>
   filter(n > 15) |> # at least 10 data points
   filter(pub_time == max(pub_time)) |> # must happen second
   select(pub_time) |> distinct(pub_time) |> first()
-
-green1 <- green |> filter(pub_time == day)
-
-green1 |>
-  filter(site_id %in% sites[1:6]) |>
-  ggplot() +
-  geom_point(aes(time, observed)) + 
-  geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
-                              fill = model_id, data_id = model_id, tooltip = model_id),
-                          alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = model_id, 
-                            tooltip = model_id, data_id = model_id), show.legend=FALSE) +
-  facet_wrap(~site_id) +
-  labs(y = "greenness index (gcc 90)") +
-  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5))
 ```
 
+```{r}
+
+plotme <- function(df) {
+  ggobj <- 
+    ggplot(df) +
+    geom_point(aes(time, observed)) + 
+    geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
+                                fill = model_id, data_id = model_id, tooltip = model_id),
+                            alpha = 0.2, show.legend=FALSE) +
+    geom_line_interactive(aes(time, mean, col = model_id, 
+                              tooltip = model_id, data_id = model_id), show.legend=FALSE) +
+    facet_wrap(~site_id, scales = "free_y") +
+    labs(y = "greenness index (gcc 90)") +
+    theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) + 
+    theme_bw()
+    
+  
+  girafe(ggobj = ggobj,
+       width_svg = 8, height_svg = 4,
+  options = list(
+    opts_hover_inv(css = "opacity:0.20;"),
+    opts_hover(css = "stroke-width:2;"),
+    opts_zoom(max = 4)
+  ))
+
+}
+```
+
+
+::: {.panel-tabset}
+
+## Sites 1 - 6
+
+```{r}
+green |> filter(pub_time == day) |> filter(site_id %in% sites[1:6]) |> plotme()
+```
+
+## 7-12
+
+```{r}
+green |> filter(pub_time == day, site_id %in% sites[7:12]) |> plotme()
+```
+
+## 13 - 18
+
+```{r}
+green |>  filter(pub_time == day, site_id %in% sites[13:18]) |>  plotme()
+```
+
+:::
+
+
+## Leaderboard
 
 ```{r}
 filled_scores <- fill_scores(combined, null="persistence")
@@ -69,42 +106,52 @@ filled_scores <- fill_scores(combined, null="persistence")
 
 ```{r}
 ## summary statistics
-leaderboard <-  filled_scores %>% 
-  group_by(variable, model_id) %>%
+leaderboard <-  filled_scores |> 
+  group_by(variable, model_id) |>
   summarise(crps = mean(crps),
             logs = mean(logs),
-            percent_na = mean(is.na(crps_model))) %>% 
-  arrange(crps)
-#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+            percent_na = mean(is.na(crps_model)),
+            .groups = "drop") |> 
+  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
+#leaderboard |> DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
 
 <!-- Heading 1: navbar -->
 
 ```{r fig.height=10}
 board1 <- 
-leaderboard %>%
-  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
-  ggplot(aes(model_id, score, fill=model_id, col=model_id)) + 
+leaderboard |>
+  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
+  ggplot(aes(x = model_id, y= score, fill=model_id, col=model_id)) + 
   geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
                        show.legend = FALSE) + 
   coord_flip() +
   facet_wrap(~metric, scales='free') + 
-  theme(axis.text.x = element_blank())
+  theme(axis.text.x = element_blank()) +
+  theme_bw()
 ```
 
 ```{r}
 
-by_start <-  filled_scores %>% 
-  group_by(variable, model_id, start_time) %>%
+by_start <-  filled_scores |> 
+  group_by(variable, model_id, start_time) |>
   summarise(crps = mean(crps),
             logs = mean(logs),
-            percent_na = mean(is.na(crps_model))) %>% 
+            percent_na = mean(is.na(crps_model))) |> 
   arrange(crps)
 
 board2 <- 
-  by_start %>% 
-  filter(percent_na < .1) %>%
+  by_start |> 
+  filter(percent_na < .1) |>
   ggplot(aes(start_time, crps, col=model_id)) + 
+  geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
+  labs(title = "Forecast skill") +
+  theme_bw()
+
+board2_logs <- 
+  by_start |> 
+  filter(percent_na < .1) |>
+  ggplot(aes(start_time, logs, col=model_id)) + 
   geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
   labs(title = "Forecast skill")
 
@@ -116,9 +163,16 @@ board2 <-
       #   observations outside expected range much more heavily.")
 ```
 
-##  {data-height="650" data-width="350"}
 
-### Greenness
+Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
+
+**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
+
+**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. 
+
+**Tip**: *Mouse over a color to highlight the scores of one a team*
+
+
 
 ```{r girafe, fig.width=8, fig.height=4}
 ggob <- board1 / board2 # patchwork stack
@@ -131,23 +185,19 @@ girafe(ggobj = ggob,
   ))
 ```
 
+
+
+
+
 ------------------------------------------------------------------------
-
-Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
-
-**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
-
-**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. Note how the scores of most teams are worst in spring and fall as leaves come out and fall!
-
-**Tip**: *Mouse over a color to highlight the scores of one a team*
 
 ```{r}
 ## more possible stuff, not plotted
 some_sites <- c("BART", "HARV", "WOOD", "DELA")
 greenness_forecasts <-
-  combined %>%
-  filter(pub_time==max(pub_time, na.rm=TRUE), site_id %in% some_sites) %>%
-  filter(variable == "gcc_90") %>% 
+  combined |>
+  filter(pub_time==max(pub_time, na.rm=TRUE), site_id %in% some_sites) |>
+  filter(variable == "gcc_90") |> 
   ggplot() +
   geom_point(aes(time, observed), size = .05) + 
   geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
