@@ -23,6 +23,9 @@ jobs:
           # uncomment below and fill to pin a version
           # version: 0.9.105
 
+      - name: system dependencies
+        run: sudo apt-get update && apt-get -y install libudunits2-dev
+
       - uses: r-lib/actions/setup-renv@v1
 
       # Install any computing dependency you may need, usually either python and Jupyter or R
