@@ -112,8 +112,7 @@ leaderboard <-  filled_scores |>
             logs = mean(logs),
             percent_na = mean(is.na(crps_model)),
             .groups = "drop") |> 
-  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
-#leaderboard |> DT::datatable(fillContainer = FALSE, escape=FALSE)
+  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
 ```
 
 <!-- Heading 1: navbar -->
