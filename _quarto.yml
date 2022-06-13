@@ -12,8 +12,6 @@ website:
     background: primary
     search: true
     left:
-      - href: index.qmd
-        icon: home
       - href: phenology.qmd
         icon: tree-fill
       - href: aquatics.qmd
