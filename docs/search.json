@@ -4,21 +4,21 @@
     "href": "aquatics.html#most-recent-forecasts",
     "title": "Aquatics",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one a team"
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one team"
   },
   {
-    "objectID": "ticks.html",
-    "href": "ticks.html",
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
     "title": "Ticks",
-    "section": "",
-    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
   },
   {
     "objectID": "ticks.html#leaderboard",
     "href": "ticks.html#leaderboard",
     "title": "Ticks",
     "section": "Leaderboard",
-    "text": "Leaderboard\n\nAmblyomma americanum"
+    "text": "Leaderboard\n\n\n\n\n\n\n\n\nAmblyomma americanum"
   },
   {
     "objectID": "terrestrial.html#most-recent-forecasts",
@@ -39,7 +39,7 @@
     "href": "terrestrial.html#most-recent-forecasts-1",
     "title": "Terrestrial",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 20\n# … with 20 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, interval <dbl>,\n#   start_time <dttm>, horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n# A tibble: 2 × 2\n  model_id          n\n  <chr>         <int>\n1 climatology 2319780\n2 hist30min     56084\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one a team"
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 20\n# … with 20 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, interval <dbl>,\n#   start_time <dttm>, horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n# A tibble: 2 × 2\n  model_id          n\n  <chr>         <int>\n1 climatology 2319780\n2 hist30min     56084\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one team"
   },
   {
     "objectID": "beetles.html#most-recent-forecasts",
@@ -81,6 +81,6 @@
     "href": "phenology.html#leaderboard",
     "title": "Phenology",
     "section": "Leaderboard",
-    "text": "Leaderboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.\nTip: Mouse over a color to highlight the scores of one a team"
+    "text": "Leaderboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.\nTip: Mouse over a color to highlight the scores of one team"
   }
 ]
