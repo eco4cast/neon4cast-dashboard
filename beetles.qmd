@@ -20,7 +20,24 @@ source("R/plot-utils.R")
 
 ```
 
-```{r include=FALSE, cache=TRUE}
+```{r include=FALSE}
+# 
+# forecast_files <- fs::dir_ls(glob="beetles*.csv.gz")
+# targets <-
+#   "https://data.ecoforecast.org/targets/beetles/beetles-targets.csv.gz" %>%
+#   read_csv(col_types = "cDdd")
+# 
+# scores <- map_dfr(forecast_files, function(f) {
+# 
+#   forecast <- read4cast::read_forecast(f) |> mutate(filename = f)
+#   score4cast::score(forecast, targets, "beetles")
+# 
+# })
+# 
+# combined <- scores
+```
+
+```{r}
 combined <- combined_scores("beetles")
 ```
 
@@ -31,39 +48,120 @@ combined <- combined_scores("beetles")
 min_data <- 5
 day <- combined |>
   filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, start_time, site_id) |>
+  count(target_id, variable, model_id, pub_time, site_id) |>
 #  filter(n >= min_data) |> 
-  filter(start_time == max(start_time)) |> # must happen second
-  select(start_time) |> distinct(start_time) |> first()
+  filter(pub_time == max(pub_time)) |> # must happen second
+  select(pub_time) |> distinct(pub_time) |> first()
 
-combined |>
-  filter(!is.na(observed)) |> count(model_id)
+end <- Sys.Date() 
+
+sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
 ```
 
 
-Below is the latest forecasts for which we have at least `r min_data` observations. Mouse over to see the team id, scroll to zoom.  Note that due to latency of data collection for ticks, 'forecasts' lag considerably behind current dates.
 
+
+### richness
 
 
 ::: {.panel-tabset}
 
-
-## richness
-
 ```{r}
-combined |> 
-  filter(start_time == day, variable == "richness") |> 
-  forecast_plots()
+richness <- combined |> 
+  filter(pub_time == day, variable == "richness", time < end)
 ```
 
-## abundance
+## Sites 1 - 8
 
 ```{r}
-combined |> 
-  filter(start_time == day, variable == "abundance") |> 
-  forecast_plots() 
+richness |>  filter(site_id %in% sites[1:8]) |> forecast_plots(ncol=4)
 ```
 
+## Sites 9 - 16
+
+```{r}
+richness |> filter(site_id %in% sites[9:16]) |> forecast_plots(ncol=4)
+```
+
+## Sites 17 - 24
+
+```{r}
+richness |>  filter(site_id %in% sites[17:24]) |> forecast_plots(ncol=4)
+```
+
+## Sites 25 - 32
+
+```{r}
+richness |> filter(site_id %in% sites[25:32]) |> forecast_plots(ncol=4)
+```
+
+
+
+## Sites 33 - 40
+
+```{r}
+richness |>  filter(site_id %in% sites[33:40]) |> forecast_plots(ncol=4)
+```
+
+## Sites 41 - 47
+
+```{r}
+richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
+```
+
+:::
+
+
+
+
+
+
+### abundance
+
+::: {.panel-tabset}
+
+```{r}
+abundance <- combined |> 
+  filter(pub_time == day, variable == "abundance", time < end)
+```
+
+## Sites 1 - 8
+
+```{r}
+abundance |>  filter(site_id %in% sites[1:8]) |> forecast_plots(ncol=4)
+```
+
+## Sites 9 - 16
+
+```{r}
+abundance |> filter(site_id %in% sites[9:16]) |> forecast_plots(ncol=4)
+```
+
+## Sites 17 - 24
+
+```{r}
+abundance |>  filter(site_id %in% sites[17:24]) |> forecast_plots(ncol=4)
+```
+
+## Sites 25 - 32
+
+```{r}
+abundance |> filter(site_id %in% sites[25:32]) |> forecast_plots(ncol=4)
+```
+
+
+
+## Sites 33 - 40
+
+```{r}
+abundance |>  filter(site_id %in% sites[33:40]) |> forecast_plots(ncol=4)
+```
+
+## Sites 41 - 47
+
+```{r}
+abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
+```
 
 :::
 
@@ -73,7 +171,7 @@ combined |>
 
 
 ```{r}
-filled_scores <- fill_scores(combined, "EFI_avg_null")
+filled_scores <- fill_scores(combined, "cb_f1")
 ```
 
 ## Leaderboard
@@ -83,9 +181,7 @@ filled_scores <- fill_scores(combined, "EFI_avg_null")
 leaderboard <-  filled_scores %>% 
   group_by(variable, model_id) %>%
   summarise(crps = mean(crps),
-            logs = mean(logs, na.rm=TRUE)) %>% 
-  arrange(crps)
-leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
+            logs = mean(logs, na.rm=TRUE)) 
 ```
 
 
@@ -97,14 +193,14 @@ leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ## richness
 
 ```{r}
-#leaderboard_plots(leaderboard, NULL, "richness")
+leaderboard_plots(leaderboard, NULL, "richness")
 
 ```
 
 ## abundance
 
 ```{r}
-#leaderboard_plots(leaderboard, NULL, "abundance")
+leaderboard_plots(leaderboard, NULL, "abundance")
 ```
 
 
