@@ -182,8 +182,6 @@ combined |> filter(variable == "vswc", !is.na(observed))
 
 
 ```{r}
-combined |> count(model_id)
-
 filled_scores <- fill_scores(combined, null_model = "climatology")
 ```
 
