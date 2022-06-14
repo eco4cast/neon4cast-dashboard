@@ -3,7 +3,7 @@ title: "Ticks"
 ---
 
 ```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, include=FALSE)
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 ```
 
 ```{r, setup}
@@ -34,8 +34,6 @@ day <- combined |>
   filter(start_time == max(start_time)) |> # must happen second
   select(start_time) |> distinct(start_time) |> first()
 
-combined |>
-  filter(!is.na(observed)) |> filter(time == max(time))
 ```
 
 
