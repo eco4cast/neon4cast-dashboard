@@ -169,7 +169,7 @@ Overall model_id rankings by forecast skill, as well as skill by date of initial
 
 **Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. 
 
-**Tip**: *Mouse over a color to highlight the scores of one a team*
+**Tip**: *Mouse over a color to highlight the scores of one team*
 
 
 

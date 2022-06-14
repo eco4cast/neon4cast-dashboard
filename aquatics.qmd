@@ -115,4 +115,4 @@ Overall team rankings by forecast skill, as well as skill by date of initial for
 
 **Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
 
-**Tip**: *Mouse over a color to highlight the scores of one a team*
+**Tip**: *Mouse over a color to highlight the scores of one team*

@@ -227,7 +227,7 @@ leaderboard_plots(leaderboard, NULL, "nee")
 
 :::
 
-Overall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. **Tip**: *Mouse over a color to highlight the scores of one a team*
+Overall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. **Tip**: *Mouse over a color to highlight the scores of one team*
 
 
 
