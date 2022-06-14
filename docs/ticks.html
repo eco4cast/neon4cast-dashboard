@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.577">
+<meta name="generator" content="quarto-0.9.315">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,20 +17,19 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -54,13 +53,18 @@ ul.task-list{list-style: none;}
   }
 }</script>
 <style>
-    .quarto-title-block .quarto-title-banner {
+    .quarto-title-banner {
       background-image: url(img/2016-09_NIWO_Tower_1620x600.jpg);
 background-size: cover;
     }
     </style>
-
 <script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="site_libs/d3-bundle-5.16.0/d3-bundle.min.js"></script>
+<script src="site_libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
+<script src="site_libs/save-svg-as-png-1.4.17/save-svg-as-png.min.js"></script>
+<link href="site_libs/ggiraphjs-0.4.2/ggiraphjs.min.css" rel="stylesheet">
+<script src="site_libs/ggiraphjs-0.4.2/ggiraphjs.min.js"></script>
+<script src="site_libs/girafe-binding-0.8.2/girafe.js"></script>
 <link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
 <script src="site_libs/datatables-binding-0.23/datatables.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -89,9 +93,6 @@ background-size: cover;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">home</a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./phenology.html">Phenology</a>
   </li>  
   <li class="nav-item">
@@ -115,12 +116,15 @@ background-size: cover;
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
+    <div class="quarto-title column-body">
       <h1 class="title">Ticks</h1>
-                      </div>
+                </div>
   </div>
     
   
+
+
+
   <div class="quarto-title-meta">
 
       
@@ -136,7 +140,11 @@ background-size: cover;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#leaderboard" id="toc-leaderboard" class="nav-link active" data-scroll-target="#leaderboard">Leaderboard</a></li>
+  <li><a href="#most-recent-forecasts" id="toc-most-recent-forecasts" class="nav-link active" data-scroll-target="#most-recent-forecasts">Most recent forecasts</a></li>
+  <li><a href="#leaderboard" id="toc-leaderboard" class="nav-link" data-scroll-target="#leaderboard">Leaderboard</a>
+  <ul class="collapse">
+  <li><a href="#amblyomma-americanum-1" id="toc-amblyomma-americanum-1" class="nav-link" data-scroll-target="#amblyomma-americanum-1"><em>Amblyomma americanum</em></a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/eco4cast/neon4cast-dashboard/edit/main/ticks.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/eco4cast/neon4cast-dashboard/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -146,17 +154,33 @@ background-size: cover;
 
 
 
+<section id="most-recent-forecasts" class="level2">
+<h2 class="anchored" data-anchor-id="most-recent-forecasts">Most recent forecasts</h2>
+<p>Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true"><em>Amblyomma americanum</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><em>Ixodes scapularis</em></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+
+</div>
+</div>
+</div>
+</section>
 <section id="leaderboard" class="level2">
 <h2 class="anchored" data-anchor-id="leaderboard">Leaderboard</h2>
-<!-- Heading 1: navbar -->
-<hr>
-<p>No observed data seems to be available right now…</p>
+<section id="amblyomma-americanum-1" class="level3">
+<h3 class="anchored" data-anchor-id="amblyomma-americanum-1"><em>Amblyomma americanum</em></h3>
+<!-- Consider adding site-by-site breakout on scores -->
 
 
 </section>
+</section>
 
 </main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+<script type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const icon = "";
   const anchorJS = new window.AnchorJS();

@@ -15,78 +15,101 @@ library(score4cast)
 library(thematic)
 thematic_rmd(bg="white", fg="black", accent="blue")
 
+source("R/plot-utils.R")
+
+
 ```
 
 ```{r include=FALSE, cache=TRUE}
 combined <- combined_scores("beetles")
+```
+
+
+## Most recent forecasts
+
+```{r}
+min_data <- 5
+day <- combined |>
+  filter(!is.na(observed)) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
+#  filter(n >= min_data) |> 
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
+
+combined |>
+  filter(!is.na(observed)) |> count(model_id)
+```
+
+
+Below is the latest forecasts for which we have at least `r min_data` observations. Mouse over to see the team id, scroll to zoom.  Note that due to latency of data collection for ticks, 'forecasts' lag considerably behind current dates.
+
+
+
+::: {.panel-tabset}
+
+
+## richness
+
+```{r}
+combined |> 
+  filter(start_time == day, variable == "richness") |> 
+  forecast_plots()
+```
+
+## abundance
+
+```{r}
+combined |> 
+  filter(start_time == day, variable == "abundance") |> 
+  forecast_plots() 
+```
+
+
+:::
+
+
+
+
+
+
+```{r}
 filled_scores <- fill_scores(combined, "EFI_avg_null")
 ```
 
-```{r}
+## Leaderboard
 
-## problems with matching ISOweek dates mean no scores...
+```{r}
 
 leaderboard <-  filled_scores %>% 
   group_by(variable, model_id) %>%
-  summarise(crps = mean(crps, na.rm=TRUE),
-            logs = mean(logs, na.rm=TRUE),
-            percent_na = mean(is.na(crps_model))) %>% 
-  arrange(crps)
-#leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
-```
-
-<!-- Heading 1: navbar -->
-
-```{r}
-board1 <- 
-leaderboard %>% filter(variable == "richness") %>%
-  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") %>%
-  ggplot(aes(model_id, score, fill=model_id, col=model_id)) + 
-  geom_col_interactive(aes(tooltip = model_id, data_id = model_id), show.legend = FALSE) + 
-  facet_wrap(~metric, scales = "free_y") + 
-  theme(axis.ticks.x = element_blank(),
-        axis.text.x = element_blank()) + 
-  ggtitle("richness forecasts")
-```
-
-```{r}
-
-by_start <-  filled_scores %>% 
-  filter(variable == "richness")  %>% 
-  group_by(variable, model_id, start_time) %>%
   summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model))) %>% 
+            logs = mean(logs, na.rm=TRUE)) %>% 
   arrange(crps)
-
-board2 <- 
-  by_start %>% 
-  ggplot(aes(start_time, crps, col=model_id)) + 
-    geom_point_interactive(aes(tooltip = model_id, data_id = model_id), size=2, show.legend = FALSE) +
-    geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)
+leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
 
-## Row {data-height="650"}
 
-### Species Richness: forecast skill
 
-```{r girafe, fig.width=8, fig.height=4}
-ggob <- board1 / board2 # patchwork stack
-girafe(ggobj = ggob,
-       width_svg = 8, height_svg = 4,
-  options = list(
-    opts_hover_inv(css = "opacity:0.20;"),
-    opts_hover(css = "stroke-width:2;"),
-    opts_zoom(max = 4)
-  ))
+
+::: {.panel-tabset}
+
+
+## richness
+
+```{r}
+#leaderboard_plots(leaderboard, NULL, "richness")
+
 ```
 
-------------------------------------------------------------------------
+## abundance
 
-Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
+```{r}
+#leaderboard_plots(leaderboard, NULL, "abundance")
+```
 
-**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
 
-**Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
+:::
+<!-- Consider adding site-by-site breakout on scores -->
 
-**Tip**: *Mouse over a color to highlight the scores of one a team*
+
+
