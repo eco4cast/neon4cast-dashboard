@@ -46,7 +46,7 @@
     "href": "index.html",
     "title": "home",
     "section": "",
-    "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted."
+    "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
   },
   {
     "objectID": "ticks.html#most-recent-forecasts",
