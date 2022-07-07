@@ -182,6 +182,9 @@ combined |> filter(variable == "vswc", !is.na(observed))
 
 
 ```{r}
+## Fill scores relative to the "climatology" null
+
+
 filled_scores <- fill_scores(combined, null_model = "climatology")
 ```
 

@@ -35,6 +35,20 @@ combined <- neon4cast::combined_scores("aquatics") |>
 Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
 
 ```{r}
+## date of each team's most recent forecast
+days <- combined |> group_by(model_id) |> summarise(date = max(pub_time))
+
+## date of each team's most recent forecast for which data is available
+combined |> filter(!is.na(observed)) |>
+  count(target_id, variable, model_id, pub_time, site_id) |>
+  filter(n > 15) |> ungroup() |>
+  group_by(model_id) |> summarise(date = max(pub_time))
+
+
+## last date for which data is available (end of the previous month)
+combined |>  filter(!is.na(observed)) |>  filter(time == max(time)) |>  summarise(date = max(time))
+
+
 day <- combined |>
   filter(!is.na(observed)) |>
   count(target_id, variable, model_id, pub_time, site_id) |>
