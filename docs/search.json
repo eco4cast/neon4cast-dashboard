@@ -1,47 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "terrestrial.html#most-recent-forecasts",
-    "href": "terrestrial.html#most-recent-forecasts",
-    "title": "Terrestrial",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom."
-  },
-  {
-    "objectID": "terrestrial.html#leaderboard-daily-averages",
-    "href": "terrestrial.html#leaderboard-daily-averages",
-    "title": "Terrestrial",
-    "section": "Leaderboard (daily averages)",
-    "text": "Leaderboard (daily averages)\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 19\n# … with 19 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, start_time <dttm>,\n#   horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one a team"
-  },
-  {
-    "objectID": "terrestrial.html#most-recent-forecasts-1",
-    "href": "terrestrial.html#most-recent-forecasts-1",
-    "title": "Terrestrial",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 19\n# … with 19 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, start_time <dttm>,\n#   horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one team"
-  },
-  {
-    "objectID": "ticks.html#most-recent-forecasts",
-    "href": "ticks.html#most-recent-forecasts",
-    "title": "Ticks",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
-  },
-  {
-    "objectID": "ticks.html#leaderboard",
-    "href": "ticks.html#leaderboard",
-    "title": "Ticks",
-    "section": "Leaderboard",
-    "text": "Leaderboard\n\n\n\n\n\n\n\n\nAmblyomma americanum"
-  },
-  {
     "objectID": "beetles.html#most-recent-forecasts",
     "href": "beetles.html#most-recent-forecasts",
     "title": "Beetles",
@@ -54,20 +12,6 @@
     "title": "Beetles",
     "section": "Leaderboard",
     "text": "Leaderboard\n\n\n\n\nrichnessabundance"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "home",
-    "section": "",
-    "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
-  },
-  {
-    "objectID": "aquatics.html#most-recent-forecasts",
-    "href": "aquatics.html#most-recent-forecasts",
-    "title": "Aquatics",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n# A tibble: 3 × 2\n  model_id     date      \n  <chr>        <chr>     \n1 air2waterSat 2022-06-23\n2 cb_prophet   2022-07-12\n3 climatology  2022-06-23\n\n\n# A tibble: 1 × 1\n  date               \n  <dttm>             \n1 2022-06-30 00:00:00\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one team"
   },
   {
     "objectID": "noaa.html",
@@ -105,6 +49,41 @@
     "text": "Average skill by start date"
   },
   {
+    "objectID": "terrestrial.html#most-recent-forecasts",
+    "href": "terrestrial.html#most-recent-forecasts",
+    "title": "Terrestrial",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom."
+  },
+  {
+    "objectID": "terrestrial.html#leaderboard-daily-averages",
+    "href": "terrestrial.html#leaderboard-daily-averages",
+    "title": "Terrestrial",
+    "section": "Leaderboard (daily averages)",
+    "text": "Leaderboard (daily averages)\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 19\n# … with 19 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, start_time <dttm>,\n#   horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one a team"
+  },
+  {
+    "objectID": "terrestrial.html#most-recent-forecasts-1",
+    "href": "terrestrial.html#most-recent-forecasts-1",
+    "title": "Terrestrial",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\nNo data\n\n\n# A tibble: 0 × 19\n# … with 19 variables: target_id <chr>, model_id <chr>, pub_time <chr>,\n#   site_id <chr>, time <dttm>, variable <chr>, mean <dbl>, sd <dbl>,\n#   observed <dbl>, crps <dbl>, logs <dbl>, quantile02.5 <dbl>,\n#   quantile10 <dbl>, quantile90 <dbl>, quantile97.5 <dbl>, start_time <dttm>,\n#   horizon <dbl>, theme <chr>, year <int>\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one team"
+  },
+  {
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
+    "title": "Ticks",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\n\n\n\n\n\n\n\n\nAmblyomma americanum"
+  },
+  {
     "objectID": "phenology.html#most-recent-forecasts",
     "href": "phenology.html#most-recent-forecasts",
     "title": "Phenology",
@@ -117,5 +96,26 @@
     "title": "Phenology",
     "section": "Leaderboard",
     "text": "Leaderboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.\nTip: Mouse over a color to highlight the scores of one team"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "aquatics.html#most-recent-forecasts",
+    "href": "aquatics.html#most-recent-forecasts",
+    "title": "Aquatics",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n# A tibble: 3 × 2\n  model_id     date      \n  <chr>        <chr>     \n1 air2waterSat 2022-06-23\n2 cb_prophet   2022-07-12\n3 climatology  2022-06-23\n\n\n# A tibble: 1 × 1\n  date               \n  <dttm>             \n1 2022-06-30 00:00:00\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one team"
   }
 ]
