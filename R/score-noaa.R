@@ -13,10 +13,10 @@ Sys.unsetenv("AWS_DEFAULT_REGION")
 Sys.unsetenv("AWS_S3_ENDPOINT")
 Sys.setenv(AWS_EC2_METADATA_DISABLED="TRUE")
 
-s3 <- arrow::s3_bucket("drivers/noaa/neon/gefs",
+s3 <- arrow::s3_bucket("drivers/noaa/gefs-v12/stage1",
                        endpoint_override =  "data.ecoforecast.org",
                        anonymous=TRUE)
-df <- arrow::open_dataset(s3)
+df <- arrow::open_dataset(s3, partitioning = c("start_date", "cycle"))
 
 ## this is super-huge, ~ 9 GB.  consider lazy / local disk serialization first?
 fc <- df |>
