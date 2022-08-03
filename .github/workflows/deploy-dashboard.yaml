@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install Quarto
-        uses: quarto-dev/quarto-actions/install-quarto@v2
+        uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Linux-specific system dependencies
         run: sudo apt-get update && sudo apt-get -y install libudunits2-dev libproj-dev libgeos-dev libgdal-dev
