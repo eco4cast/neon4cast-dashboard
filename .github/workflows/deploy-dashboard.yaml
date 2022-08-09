@@ -24,6 +24,7 @@ jobs:
           cd quarto-cli
           ./configure-linux.sh
           python3 -m pip install jupyter
+          quarto install tool tinytex
 
       - name: Linux-specific system dependencies
         run: sudo apt-get update && sudo apt-get -y install libudunits2-dev libproj-dev libgeos-dev libgdal-dev
