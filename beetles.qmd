@@ -4,6 +4,9 @@ title: "Beetles"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
+
+## where has all the data gone....
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 ```{r}
@@ -38,21 +41,14 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("beetles") 
+combined <- combined_scores("beetles") |> filter(!is.na(observed))
 
 ```
 
 ## Most recent forecasts
 
 ```{r}
-min_data <- 5
-day <- combined |>
-  filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, start_time, site_id) |>
-#  filter(n >= min_data) |> 
-  filter(start_time == max(start_time)) |> # must happen second
-  select(start_time) |> distinct(start_time) |> first()
-
+day <- as.Date("2022-01-01")
 end <- Sys.Date() 
 
 sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
