@@ -28,10 +28,14 @@ dashboard <- yaml::read_yaml("dashboard.yml")
 # Daily averages
 
 ```{r }
-combined <- combined_scores("terrestrial_daily") |> 
-  filter(time > dashboard$start_time) |>
-  mutate(pub_time = as.Date(pub_time))
+#combined <- combined_scores("terrestrial_daily") |> filter(time > dashboard$start_time)
 
+theme <- "terrestrial_daily"
+combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
+  filter(target_id == theme,
+         time >= lubridate::as_datetime(dashboard$start_time))  |>
+  mutate(pub_time = as.Date(pub_time)) |>
+  collect()
 ```
 
 ## Most recent forecasts
@@ -132,8 +136,14 @@ Overall team rankings by forecast skill. Lower values indicate better prediction
 # 30 Minute averages
 
 ```{r }
-combined <- combined_scores("terrestrial_30min") |> 
-  filter(time > dashboard$start_time) |>
+
+#combined <- combined_scores("terrestrial_30min") |>  filter(time > dashboard$start_time)
+
+theme <- "terrestrial_30min"
+combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
+  filter(target_id == theme,
+         time >= lubridate::as_datetime(dashboard$start_time)) |>
+  collect()|>
   mutate(pub_time = as.Date(pub_time))
 
 ```
