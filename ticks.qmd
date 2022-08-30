@@ -20,8 +20,7 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("ticks")|>
-  mutate(pub_time = as.Date(pub_time))
+combined <- combined_scores("ticks")
 
 ```
 

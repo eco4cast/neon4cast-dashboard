@@ -38,8 +38,7 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("beetles") |>
-  mutate(pub_time = as.Date(pub_time))
+combined <- combined_scores("beetles") 
 
 ```
 
@@ -49,10 +48,10 @@ combined <- combined_scores("beetles") |>
 min_data <- 5
 day <- combined |>
   filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
 #  filter(n >= min_data) |> 
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 
 end <- Sys.Date() 
 
@@ -64,7 +63,7 @@ sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
 ::: panel-tabset
 ```{r}
 richness <- combined |> 
-  filter(pub_time == day, variable == "richness", time < end)
+  filter(start_time == day, variable == "richness", time < end)
 ```
 
 ## Sites 1 - 8
@@ -109,7 +108,7 @@ richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ::: panel-tabset
 ```{r}
 abundance <- combined |> 
-  filter(pub_time == day, variable == "abundance", time < end)
+  filter(start_time == day, variable == "abundance", time < end)
 ```
 
 ## Sites 1 - 8

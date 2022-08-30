@@ -30,7 +30,7 @@ dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 s3 <- arrow::s3_bucket("scores/noaa", endpoint_override="data.ecoforecast.org")
 combined <- arrow::open_dataset(s3$path("RH")) |> 
   mutate(model_id = "noaa_gefs") |> 
-  mutate(pub_time = start_time, target_id = "weather") |>
+  mutate(start_time = start_time, target_id = "weather") |>
   collect()
 ```
 
@@ -44,11 +44,11 @@ Below is the latest forecasts for which we have at least 15 observations. Mouse 
 ```{r}
 day <- combined |>
   filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
   filter(n > 50) |> 
   # at least 15 data points
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 ```
 
 
@@ -59,7 +59,7 @@ day <- combined |>
 ```{r}
 sites <- combined |> distinct(site_id) |> pull(site_id)
 
-richness <- combined |> filter(pub_time == day, variable == "RH")
+richness <- combined |> filter(start_time == day, variable == "RH")
 ```
 ## Sites 1 - 8
 

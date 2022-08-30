@@ -34,7 +34,6 @@ theme <- "terrestrial_daily"
 combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
   filter(target_id == theme,
          time >= lubridate::as_datetime(dashboard$start_time))  |>
-  mutate(pub_time = as.Date(pub_time)) |>
   collect()
 ```
 
@@ -45,11 +44,11 @@ Below is the latest forecasts for which we have at least 15 observations. Mouse 
 ```{r}
 day <- combined |>
   filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
   filter(n > 15) |> 
   # at least 15 data points
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 ```
 
 
@@ -60,7 +59,7 @@ day <- combined |>
 ## Latent evaporation
 
 ```{r}
-combined |> filter(pub_time == day, variable == "le") |> forecast_plots()
+combined |> filter(start_time == day, variable == "le") |> forecast_plots()
 ```
 
 ## CO2 Flux
@@ -69,7 +68,7 @@ Net ecosystem exchange of CO2 (NEE)
 
 
 ```{r}
-combined |> filter(pub_time == day, variable == "nee") |> forecast_plots()
+combined |> filter(start_time == day, variable == "nee") |> forecast_plots()
 ```
 
 ## vswc 
@@ -144,7 +143,7 @@ combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
   filter(target_id == theme,
          time >= lubridate::as_datetime(dashboard$start_time)) |>
   collect()|>
-  mutate(pub_time = as.Date(pub_time))
+  mutate(start_time = as.Date(start_time))
 
 ```
 
@@ -156,11 +155,11 @@ Below is the latest forecasts for which we have at least 15 observations. Mouse 
 ```{r}
 day <- combined |>
   filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
   filter(n > 100) |> 
   # at least 15 data points
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 
 end <- as.Date(day) + 4
 ```
@@ -172,7 +171,7 @@ end <- as.Date(day) + 4
 ## Latent evaporation
 
 ```{r}
-combined |> filter(pub_time == day, variable == "le", time < end) |> forecast_plots(ncol=3)
+combined |> filter(start_time == day, variable == "le", time < end) |> forecast_plots(ncol=3)
 ```
 
 ## CO2 Flux
@@ -181,7 +180,7 @@ Net ecosystem exchange of CO2 (NEE)
 
 
 ```{r}
-combined |> filter(pub_time == day, variable == "nee", time < end) |> forecast_plots()
+combined |> filter(start_time == day, variable == "nee", time < end) |> forecast_plots()
 ```
 
 ## vswc 

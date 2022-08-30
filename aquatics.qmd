@@ -27,6 +27,7 @@ dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 
 combined <- neon4cast::combined_scores("aquatics") |>
   filter(time >= lubridate::as_datetime(dashboard$start_time))
+
 ```
 
 ## Most recent forecasts
@@ -35,13 +36,13 @@ Below is the latest forecasts for which we have at least 15 observations. Mouse 
 
 ```{r}
 ## date of each team's most recent forecast
-days <- combined |> group_by(model_id) |> summarise(date = max(pub_time))
+days <- combined |> group_by(model_id) |> summarise(date = max(start_time))
 
 ## date of each team's most recent forecast for which data is available
 combined |> filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
   filter(n > 15) |> ungroup() |>
-  group_by(model_id) |> summarise(date = max(pub_time))
+  group_by(model_id) |> summarise(date = max(start_time))
 
 
 ## last date for which data is available (end of the previous month)
@@ -50,31 +51,30 @@ combined |>  filter(!is.na(observed)) |>  filter(time == max(time)) |>  summaris
 
 day <- combined |>
   filter(!is.na(observed)) |>
-  mutate(pub_time = as.Date(pub_time)) |>
-  count(target_id, variable, model_id, pub_time, site_id) |>
+  count(target_id, variable, model_id, start_time, site_id) |>
   filter(n > 15) |> 
   # at least 15 data points
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time, na.rm = TRUE)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 ```
 
 ::: panel-tabset
 ## Oxygen
 
 ```{r}
-combined |> filter(pub_time == day, variable == "oxygen") |> forecast_plots()
+combined |> filter(start_time == day, variable == "oxygen") |> forecast_plots()
 ```
 
 ## Temperature
 
 ```{r}
-combined |> filter(pub_time == day, variable == "temperature") |> forecast_plots()
+combined |> filter(start_time == day, variable == "temperature") |> forecast_plots()
 ```
 
 ## Chlorophyll-A
 
 ```{r}
-combined |> filter(pub_time == day, variable == "chla") |> forecast_plots()
+combined |> filter(start_time == day, variable == "chla") |> forecast_plots()
 ```
 :::
 

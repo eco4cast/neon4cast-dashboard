@@ -26,7 +26,6 @@ dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
   filter(target_id == "phenology",
          time >= lubridate::as_datetime(dashboard$start_time)) |>
-  mutate(pub_time = as.Date(pub_time)) |>
   collect()
 ```
 
@@ -40,10 +39,10 @@ green <- combined |>
 sites <- green |> select(site_id) |> distinct() |> pull(site_id)
 day <- green |>
   filter(!is.na(observed), site_id == sites[[1]]) |>
-  count(target_id, variable, model_id, pub_time) |>
+  count(target_id, variable, model_id, start_time) |>
   filter(n > 15) |> # at least 10 data points
-  filter(pub_time == max(pub_time)) |> # must happen second
-  select(pub_time) |> distinct(pub_time) |> first()
+  filter(start_time == max(start_time)) |> # must happen second
+  select(start_time) |> distinct(start_time) |> first()
 ```
 
 ```{r}
@@ -78,19 +77,19 @@ plotme <- function(df) {
 ## Sites 1 - 6
 
 ```{r}
-green |> filter(pub_time == day) |> filter(site_id %in% sites[1:6]) |> plotme()
+green |> filter(start_time == day) |> filter(site_id %in% sites[1:6]) |> plotme()
 ```
 
 ## 7-12
 
 ```{r}
-green |> filter(pub_time == day, site_id %in% sites[7:12]) |> plotme()
+green |> filter(start_time == day, site_id %in% sites[7:12]) |> plotme()
 ```
 
 ## 13 - 18
 
 ```{r}
-green |>  filter(pub_time == day, site_id %in% sites[13:18]) |>  plotme()
+green |>  filter(start_time == day, site_id %in% sites[13:18]) |>  plotme()
 ```
 :::
 
@@ -184,7 +183,7 @@ girafe(ggobj = ggob,
 some_sites <- c("BART", "HARV", "WOOD", "DELA")
 greenness_forecasts <-
   combined |>
-  filter(pub_time==max(pub_time, na.rm=TRUE), site_id %in% some_sites) |>
+  filter(start_time==max(start_time, na.rm=TRUE), site_id %in% some_sites) |>
   filter(variable == "gcc_90") |> 
   ggplot() +
   geom_point(aes(time, observed), size = .05) + 
