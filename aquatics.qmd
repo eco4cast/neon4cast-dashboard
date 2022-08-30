@@ -26,7 +26,7 @@ source("R/plot-utils.R")
 dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 
 combined <- neon4cast::combined_scores("aquatics") |>
-  filter(time >= lubridate::as_datetime(dashboard$start_time))
+  filter(time >= lubridate::as_datetime(dashboard$start_time)) 
 
 ```
 
@@ -74,7 +74,7 @@ combined |> filter(start_time == day, variable == "temperature") |> forecast_plo
 ## Chlorophyll-A
 
 ```{r}
-combined |> filter(start_time == day, variable == "chla") |> forecast_plots()
+# combined |> filter(start_time == day, variable == "chla") |> forecast_plots()
 ```
 :::
 
