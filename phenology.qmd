@@ -26,6 +26,7 @@ dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 combined <- arrow::open_dataset("cache", partition=c("target_id", "year")) |>
   filter(target_id == "phenology",
          time >= lubridate::as_datetime(dashboard$start_time)) |>
+  mutate(pub_time = as.Date(pub_time)) |>
   collect()
 ```
 
@@ -73,9 +74,7 @@ plotme <- function(df) {
 }
 ```
 
-
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Sites 1 - 6
 
 ```{r}
@@ -93,16 +92,13 @@ green |> filter(pub_time == day, site_id %in% sites[7:12]) |> plotme()
 ```{r}
 green |>  filter(pub_time == day, site_id %in% sites[13:18]) |>  plotme()
 ```
-
 :::
-
 
 ## Leaderboard
 
 ```{r}
 filled_scores <- fill_scores(combined, null="persistence")
 ```
-
 
 ```{r}
 ## summary statistics
@@ -162,16 +158,13 @@ board2_logs <-
       #   observations outside expected range much more heavily.")
 ```
 
-
 Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
 
 **Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
 
-**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses. 
+**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.
 
 **Tip**: *Mouse over a color to highlight the scores of one team*
-
-
 
 ```{r girafe, fig.width=8, fig.height=4}
 ggob <- board1 / board2 # patchwork stack
@@ -183,10 +176,6 @@ girafe(ggobj = ggob,
     opts_zoom(max = 4)
   ))
 ```
-
-
-
-
 
 ------------------------------------------------------------------------
 

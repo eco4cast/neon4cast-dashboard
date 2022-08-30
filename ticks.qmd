@@ -20,7 +20,9 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("ticks")
+combined <- combined_scores("ticks")|>
+  mutate(pub_time = as.Date(pub_time))
+
 ```
 
 ## Most recent forecasts

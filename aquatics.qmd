@@ -29,7 +29,6 @@ combined <- neon4cast::combined_scores("aquatics") |>
   filter(time >= lubridate::as_datetime(dashboard$start_time))
 ```
 
-
 ## Most recent forecasts
 
 Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
@@ -51,6 +50,7 @@ combined |>  filter(!is.na(observed)) |>  filter(time == max(time)) |>  summaris
 
 day <- combined |>
   filter(!is.na(observed)) |>
+  mutate(pub_time = as.Date(pub_time)) |>
   count(target_id, variable, model_id, pub_time, site_id) |>
   filter(n > 15) |> 
   # at least 15 data points
@@ -58,9 +58,7 @@ day <- combined |>
   select(pub_time) |> distinct(pub_time) |> first()
 ```
 
-
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Oxygen
 
 ```{r}
@@ -73,15 +71,12 @@ combined |> filter(pub_time == day, variable == "oxygen") |> forecast_plots()
 combined |> filter(pub_time == day, variable == "temperature") |> forecast_plots()
 ```
 
-## Chlorophyll-A 
+## Chlorophyll-A
 
 ```{r}
 combined |> filter(pub_time == day, variable == "chla") |> forecast_plots()
 ```
-
 :::
-
-
 
 ```{r}
 # no persistence submissions...
@@ -99,8 +94,7 @@ leaderboard <-  filled_scores |>
 
 <!-- Heading 1: navbar -->
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Oxygen
 
 ```{r}
@@ -113,12 +107,11 @@ leaderboard_plots(leaderboard, NULL, "oxygen")
 leaderboard_plots(leaderboard, NULL, "temperature")
 ```
 
-## Chlorophyll-A 
+## Chlorophyll-A
 
 ```{r}
 leaderboard_plots(leaderboard, NULL, "chla")
 ```
-
 :::
 
 ------------------------------------------------------------------------

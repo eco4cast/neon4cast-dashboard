@@ -29,7 +29,9 @@ dashboard <- yaml::read_yaml("dashboard.yml")
 
 ```{r }
 combined <- combined_scores("terrestrial_daily") |> 
-  filter(time > dashboard$start_time)
+  filter(time > dashboard$start_time) |>
+  mutate(pub_time = as.Date(pub_time))
+
 ```
 
 ## Most recent forecasts
@@ -131,7 +133,9 @@ Overall team rankings by forecast skill. Lower values indicate better prediction
 
 ```{r }
 combined <- combined_scores("terrestrial_30min") |> 
-  filter(time > dashboard$start_time)
+  filter(time > dashboard$start_time) |>
+  mutate(pub_time = as.Date(pub_time))
+
 ```
 
 
