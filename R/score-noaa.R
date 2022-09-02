@@ -22,6 +22,7 @@ df <- arrow::open_dataset(s3, partitioning = c("start_date", "cycle"))
 fc <- df |>
   filter(start_time >= as.Date("2022-05-20"),
          variable == "RH") |>
+  mutate(model_id = "noaa_gefs") |>
   collect()
 
 
@@ -33,11 +34,12 @@ neon <- arrow::s3_bucket("neon4cast-targets/neon",
                           endpoint_override = "data.ecoforecast.org",
                           anonymous=TRUE)
 db <- neon_remote_db(neon)
-rh <- neonstore::neon_remote(table = "RH_30min", db = db)
+rh <- arrow::open_dataset(neon$path("RH_30min-basic-DP1.00098.001"))
 
 # Reformat the NEON data to EFI standard
 target <- rh |>
-  filter(startDateTime >= as.Date("2022-05-20")) |>
+  mutate(startDateTime = lubridate::as_datetime(startDateTime)) |>
+  filter(startDateTime >= lubridate::as_datetime("2022-05-20")) |>
   select(startDateTime, siteID, RHMean, horizontalPosition, verticalPosition) |>
   group_by(siteID, startDateTime) |>
   summarise(observed = mean(RHMean)) |>
@@ -51,6 +53,6 @@ target <- rh |>
 
 scores <- score4cast::crps_logs_score(fc, target)
 
-s3 <- arrow::s3_bucket("scores/noaa", endpoint_override="data.ecoforecast.org")
+s3 <- arrow::s3_bucket("neon4cast-scores/noaa", endpoint_override="data.ecoforecast.org")
 arrow::write_parquet(scores, s3$path("RH"))
 
