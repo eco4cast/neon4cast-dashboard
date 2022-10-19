@@ -14,24 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
 
       - name: Install Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-#      - name: Quarto-dev
-#        run: |
-#          git clone https://github.com/quarto-dev/quarto-cli ../quarto-cli
-#          cd ../quarto-cli
-#          ./configure-linux.sh
-#          python3 -m pip install jupyter
-#          quarto install tool tinytex
-#          cd -
-
-      - name: Linux-specific system dependencies
-        run: sudo apt-get update && sudo apt-get -y install libudunits2-dev libproj-dev libgeos-dev libgdal-dev
-
-      - name: install dependencies
-        run: R -e 'remotes::install_deps()'
   #    - uses: r-lib/actions/setup-renv@v2
       - name: preload
         run: |

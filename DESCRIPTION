@@ -5,7 +5,7 @@ Depends: tidyverse,
          arrow, 
          patchwork, 
          glue, 
-         quarto
+         quarto,
          score4cast, 
          neon4cast,
          thematic
