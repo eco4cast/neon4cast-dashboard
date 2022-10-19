@@ -1,14 +1,13 @@
-Package: compendium
-Version: 0.1.0
+Package: dashboard
+Version: 0.2.0
 Depends: tidyverse, 
          ggiraph, 
          arrow, 
          patchwork, 
          glue, 
          quarto
-Imports: 
-    score4cast, 
-    neon4cast,
-    thematic
+         score4cast, 
+         neon4cast,
+         thematic
 Remotes:  
     github::eco4cast/score4cast, github::eco4cast/neon4cast

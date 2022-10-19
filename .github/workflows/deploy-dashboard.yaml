@@ -30,12 +30,13 @@ jobs:
       - name: Linux-specific system dependencies
         run: sudo apt-get update && sudo apt-get -y install libudunits2-dev libproj-dev libgeos-dev libgdal-dev
 
-
-      - uses: r-lib/actions/setup-renv@v2
+      - name: install dependencies
+        run: R -e 'remotes::install_deps()'
+  #    - uses: r-lib/actions/setup-renv@v2
       - name: preload
         run: |
           R -e 'source("cache.R")' || true
-      - name: Render book to all format
+      - name: Generate dashboard
         # Add any command line argument needed
         run: |
           quarto render
