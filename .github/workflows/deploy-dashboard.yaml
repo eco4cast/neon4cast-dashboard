@@ -14,12 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r-dependencies
 
       - name: Install Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
+        uses: quarto-dev/quarto-actions/setup
 
-  #    - uses: r-lib/actions/setup-renv@v2
+  #    - uses: r-lib/actions/setup-renv
       - name: preload
         run: |
           R -e 'source("cache.R")' || true
