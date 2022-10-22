@@ -5,9 +5,18 @@ Sys.unsetenv("AWS_DEFAULT_REGION")
 Sys.unsetenv("AWS_S3_ENDPOINT")
 
 library(arrow)
-s3 <- s3_bucket("scores/parquet", endpoint_override="data.ecoforecast.org")
-all_scores <- open_dataset(s3, partitioning = c("target_id", "year"))
-write_dataset(all_scores,
-              "cache",
-              partitioning = c("target_id", "year"),
-              hive_style = FALSE)
+library(glue)
+themes <- c("aquatics", "ticks",
+            "beetles", "terrestrial_daily",
+            "phenology", "terrestrial_30min")
+
+for(theme in themes) {
+  glue("neon4cast-scores/parquet/{theme}") |>
+  s3_bucket(endpoint_override="data.ecoforecast.org") |>
+  open_dataset() |>
+  write_dataset(glue("cache/{theme}"),
+                partitioning = c("model_id"))
+}
+
+#minio::
+#minio::mc("mirror efi/neon4cast-scores cache/")

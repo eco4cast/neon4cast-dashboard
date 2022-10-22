@@ -20,7 +20,7 @@ df <- arrow::open_dataset(s3, partitioning = c("start_date", "cycle"))
 
 ## this is super-huge, ~ 9 GB.  consider lazy / local disk serialization first?
 fc <- df |>
-  filter(start_time >= as.Date("2022-05-20"),
+  filter(reference_datetime >= as.Date("2022-05-20"),
          variable == "RH") |>
   mutate(model_id = "noaa_gefs") |>
   collect()
@@ -42,7 +42,7 @@ target <- rh |>
   filter(startDateTime >= lubridate::as_datetime("2022-05-20")) |>
   select(startDateTime, siteID, RHMean, horizontalPosition, verticalPosition) |>
   group_by(siteID, startDateTime) |>
-  summarise(observed = mean(RHMean)) |>
+  summarise(observation = mean(RHMean)) |>
   mutate(variable = "RH") |>
   rename(site_id = siteID, time = startDateTime) |>
   arrange(site_id,time) |>

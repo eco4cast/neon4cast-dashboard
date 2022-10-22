@@ -35,9 +35,9 @@ if (!file.exists("neon.json")) {
   # scale by number of teams submitting forecast at a given site
   challenges <- 
     neon4cast::combined_scores(collect=FALSE) |>
-    select(target_id, site_id, model_id) |>
+    select(site_id, model_id) |>
     distinct() |>
-    count(target_id, site_id) |> 
+    count(site_id) |> 
     collect()
 
   geo <- read_json("https://github.com/eco4cast/neon4cast/raw/main/inst/extdata/neon_geo.json", TRUE)
@@ -74,8 +74,6 @@ neon  |> filter(theme != "terrestrial_30min") |>
 
 Sites scaled by number of forecasts submitted.
 
-
-
----
+------------------------------------------------------------------------
 
 This material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.

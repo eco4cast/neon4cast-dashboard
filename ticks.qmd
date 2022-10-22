@@ -20,7 +20,8 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("ticks")
+combined <- combined_scores("ticks") |>
+  score4cast::include_horizon()
 
 ```
 
@@ -29,43 +30,31 @@ combined <- combined_scores("ticks")
 ```{r}
 min_data <- 10
 day <- combined |>
-  filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, start_time, site_id) |>
+  filter(!is.na(observation)) |>
+  count(variable, model_id, reference_datetime, site_id) |>
   filter(n >= min_data) |> 
-  filter(start_time == max(start_time)) |> # must happen second
-  select(start_time) |> distinct(start_time) |> first()
+  filter(reference_datetime == max(reference_datetime)) |> # must happen second
+  select(reference_datetime) |> distinct(reference_datetime) |> first()
 
 ```
 
+Below is the latest forecasts for which we have at least `r min_data` observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, 'forecasts' lag considerably behind current dates.
 
-Below is the latest forecasts for which we have at least `r min_data` observations. Mouse over to see the team id, scroll to zoom.  Note that due to latency of data collection for ticks, 'forecasts' lag considerably behind current dates.
-
-
-
-::: {.panel-tabset}
-
-
-## _Amblyomma americanum_
+::: panel-tabset
+## *Amblyomma americanum*
 
 ```{r}
 combined |> 
-  filter(start_time == day, variable == "amblyomma_americanum") |> 
+  filter(reference_datetime == day, variable == "amblyomma_americanum") |> 
   forecast_plots()
 ```
 
-## _Ixodes scapularis_
+## *Ixodes scapularis*
 
 ```{r}
-combined |> filter(start_time == day, variable == "ixodes_scapularis") |> forecast_plots()
+combined |> filter(reference_datetime == day, variable == "ixodes_scapularis") |> forecast_plots()
 ```
-
-
 :::
-
-
-
-
-
 
 ```{r}
 filled_scores <- fill_scores(combined, "tickGlobalNull_RandomWalk")
@@ -83,13 +72,10 @@ leaderboard <-  filled_scores %>%
 leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
 ```
 
-
-
-### _Amblyomma americanum_
+### *Amblyomma americanum*
 
 ```{r}
 leaderboard_plots(leaderboard, NULL, "amblyomma_americanum")
 ```
+
 <!-- Consider adding site-by-site breakout on scores -->
-
-

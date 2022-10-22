@@ -30,7 +30,7 @@ dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 s3 <- arrow::s3_bucket("neon4cast-scores/noaa", endpoint_override="data.ecoforecast.org")
 combined <- arrow::open_dataset(s3$path("RH")) |> 
   mutate(model_id = "noaa_gefs") |> 
-  mutate(start_time = start_time, target_id = "weather") |>
+  mutate(reference_datetime = reference_datetime, target_id = "weather") |>
   collect()
 ```
 
@@ -40,12 +40,12 @@ Below is the latest forecasts for which we have at least 15 observations. Mouse 
 
 ```{r}
 day <- combined |>
-  filter(!is.na(observed)) |>
-  count(target_id, variable, model_id, start_time, site_id) |>
+  filter(!is.na(observation)) |>
+  count(variable, model_id, reference_datetime, site_id) |>
   filter(n > 50) |> 
   # at least 15 data points
-  filter(start_time == max(start_time)) |> # must happen second
-  select(start_time) |> distinct(start_time) |> first()
+  filter(reference_datetime == max(reference_datetime)) |> # must happen second
+  select(reference_datetime) |> distinct(reference_datetime) |> first()
 ```
 
 ## Relative Humidity
@@ -54,7 +54,7 @@ day <- combined |>
 ```{r}
 sites <- combined |> distinct(site_id) |> pull(site_id)
 
-richness <- combined |> filter(start_time == day, variable == "RH")
+richness <- combined |> filter(reference_datetime == day, variable == "RH")
 ```
 
 ## Sites 1 - 8
@@ -104,7 +104,7 @@ richness |> filter(site_id %in% sites[48:56]) |> forecast_plots(ncol=4)
 
 ```{r}
 horizon <-  combined |> filter(!is.na(crps)) |> 
-  mutate(horizon = as.numeric(time - start_time, units="hours")) |>
+  mutate(horizon = as.numeric(time - reference_datetime, units="hours")) |>
   group_by(variable, model_id, horizon) |>
   summarise(crps = mean(crps),
             logs = mean(logs),
@@ -124,7 +124,7 @@ horizon |>
 
 ```{r}
 by_start <-  combined |> filter(!is.na(crps)) |>
-  group_by(variable, model_id, start_time) |>
+  group_by(variable, model_id, reference_datetime) |>
   summarise(crps = mean(crps),
             logs = mean(logs),
             percent_na = mean(is.na(crps))) |> 
@@ -132,7 +132,7 @@ by_start <-  combined |> filter(!is.na(crps)) |>
 
  
 by_start |> 
-  ggplot(aes(start_time, crps, col=model_id)) + 
+  ggplot(aes(reference_datetime, crps, col=model_id)) + 
   geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
   labs(title = "Average forecast skill by start date") +
   theme_bw()

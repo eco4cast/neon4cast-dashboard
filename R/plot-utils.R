@@ -4,11 +4,11 @@
 forecast_plots <- function(df, ncol = NULL) {
   ggobj <-
     ggplot(df) +
-    geom_point(aes(time, observed)) +
-    geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
+    geom_point(aes(datetime, observation)) +
+    geom_ribbon_interactive(aes(x = datetime, ymin = quantile02.5, ymax = quantile97.5,
                                 fill = model_id, data_id = model_id, tooltip = model_id),
                             alpha = 0.2, show.legend=FALSE) +
-    geom_line_interactive(aes(time, mean, col = model_id,
+    geom_line_interactive(aes(datetime, mean, col = model_id,
                               tooltip = model_id, data_id = model_id), show.legend=FALSE) +
     facet_wrap(~site_id, scales = "free", ncol=ncol) +
     theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
@@ -50,7 +50,7 @@ leaderboard_plots <- function(leaderboard, by_start, var) {
   board2 <-
     by_start |>
     filter(percent_na < .01) |>
-    ggplot(aes(start_time, crps, col = model_id)) +
+    ggplot(aes(reference_datetime, crps, col = model_id)) +
     geom_point_interactive(
       aes(tooltip = model_id, data_id = model_id),
       size = 2,

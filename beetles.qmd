@@ -41,7 +41,7 @@ source("R/plot-utils.R")
 ```
 
 ```{r}
-combined <- combined_scores("beetles") |> filter(!is.na(observed))
+combined <- combined_scores("beetles") |> filter(!is.na(observation))
 
 ```
 
@@ -59,7 +59,7 @@ sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
 ::: panel-tabset
 ```{r}
 richness <- combined |> 
-  filter(start_time == day, variable == "richness", time < end)
+  filter(reference_datetime == day, variable == "richness", time < end)
 ```
 
 ## Sites 1 - 8
@@ -104,7 +104,7 @@ richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ::: panel-tabset
 ```{r}
 abundance <- combined |> 
-  filter(start_time == day, variable == "abundance", time < end)
+  filter(reference_datetime == day, variable == "abundance", time < end)
 ```
 
 ## Sites 1 - 8

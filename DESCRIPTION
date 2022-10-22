@@ -8,6 +8,7 @@ Depends: tidyverse,
          quarto,
          score4cast, 
          neon4cast,
-         thematic
+         thematic,
+         DT
 Remotes:  
     github::eco4cast/score4cast, github::eco4cast/neon4cast
