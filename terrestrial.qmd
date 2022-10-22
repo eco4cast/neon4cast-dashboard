@@ -34,7 +34,7 @@ dashboard <- yaml::read_yaml("dashboard.yml")
 theme <- "terrestrial_daily"
 combined <- arrow::open_dataset("cache/terrestrial_daily") |>
   filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime))  |>
-  collect()
+  collect() |> score4cast::include_horizon()
 ```
 
 ## Most recent forecasts
@@ -131,7 +131,8 @@ Overall team rankings by forecast skill. Lower values indicate better prediction
 theme <- "terrestrial_30min"
 combined <- arrow::open_dataset(glue("cache/{theme}")) |>
   filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime)) |>
-  collect()|>
+  collect()|> 
+  score4cast::include_horizon() |>
   mutate(reference_datetime = as.Date(reference_datetime))
 
 ```
@@ -156,7 +157,11 @@ end <- as.Date(day) + 4
 ## Latent evaporation
 
 ```{r}
-combined |> filter(reference_datetime == day, variable == "le", time < end) |> forecast_plots(ncol=3)
+combined |> 
+  filter(reference_datetime == day, 
+         variable == "le",
+         datetime < end) |>
+  forecast_plots(ncol=3)
 ```
 
 ## CO2 Flux
@@ -164,7 +169,11 @@ combined |> filter(reference_datetime == day, variable == "le", time < end) |> f
 Net ecosystem exchange of CO2 (NEE)
 
 ```{r}
-combined |> filter(reference_datetime == day, variable == "nee", time < end) |> forecast_plots()
+combined |> 
+  filter(reference_datetime == day, 
+         variable == "nee",
+         datetime < end) |> 
+  forecast_plots()
 ```
 
 ## vswc
