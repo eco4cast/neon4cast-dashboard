@@ -9,6 +9,9 @@ Depends: tidyverse,
          score4cast, 
          neon4cast,
          thematic,
-         DT
+         DT,
+         sf,
+         tmap,
+         bslib
 Remotes:  
     github::eco4cast/score4cast, github::eco4cast/neon4cast
