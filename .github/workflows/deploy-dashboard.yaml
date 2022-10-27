@@ -35,3 +35,10 @@ jobs:
           git add docs/*
           git commit docs/* -m 'Re-build site' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
+      - name: Cache scores
+        id: cache-scores
+        uses: actions/cache@v3
+        with:
+          path: cache
+          key: ${{ runner.os }}-primes
+
