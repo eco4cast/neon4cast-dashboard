@@ -17,5 +17,10 @@
 #   write_dataset(glue("cache/{theme}"),
 #                 partitioning = c("model_id"))
 # }
-minio::mc_alias_set("efi",  endpoint="data.ecoforecast.org", access_key = "", secret_key = "")
-minio::mc("mirror efi/neon4cast-scores cache/")
+
+# faster to mirror, exploits cache & avoids re-downloading
+library(minio)
+install_mc()
+mc_alias_set("efi",  endpoint="data.ecoforecast.org",
+             access_key = "", secret_key = "")
+mc("mirror efi/neon4cast-scores cache/")
