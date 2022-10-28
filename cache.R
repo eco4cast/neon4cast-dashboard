@@ -1,3 +1,14 @@
+
+library(minio)
+install_mc()
+mc_alias_set("efi",  endpoint="data.ecoforecast.org",
+             access_key = "", secret_key = "")
+mc("mirror efi/neon4cast-scores cache/")
+
+
+
+
+
 # Sys.setenv("AWS_EC2_METADATA_DISABLED"="TRUE")
 # Sys.unsetenv("AWS_ACCESS_KEY_ID")
 # Sys.unsetenv("AWS_SECRET_ACCESS_KEY")
@@ -19,8 +30,3 @@
 # }
 
 # faster to mirror, exploits cache & avoids re-downloading
-library(minio)
-install_mc()
-mc_alias_set("efi",  endpoint="data.ecoforecast.org",
-             access_key = "", secret_key = "")
-mc("mirror efi/neon4cast-scores cache/")

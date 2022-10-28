@@ -23,7 +23,7 @@ thematic_rmd(bg="white", fg="black", accent="blue")
 dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 
 #combined <- combined_scores("phenology")
-combined <- arrow::open_dataset("cache/phenology") |>
+combined <- arrow::open_dataset("cache/parquet/phenology") |>
   filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime)) |>
   collect() |> score4cast::include_horizon()
 ```

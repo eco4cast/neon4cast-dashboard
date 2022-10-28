@@ -32,7 +32,7 @@ dashboard <- yaml::read_yaml("dashboard.yml")
 #combined <- combined_scores("terrestrial_daily") |> filter(time > dashboard$reference_datetime)
 
 theme <- "terrestrial_daily"
-combined <- arrow::open_dataset("cache/terrestrial_daily") |>
+combined <- arrow::open_dataset("cache/parquet/terrestrial_daily") |>
   filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime))  |>
   collect() |> score4cast::include_horizon()
 ```
@@ -129,7 +129,7 @@ Overall team rankings by forecast skill. Lower values indicate better prediction
 #combined <- combined_scores("terrestrial_30min") |>  filter(time > dashboard$reference_datetime)
 
 theme <- "terrestrial_30min"
-combined <- arrow::open_dataset(glue("cache/{theme}")) |>
+combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
   filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime)) |>
   collect()|> 
   score4cast::include_horizon() |>

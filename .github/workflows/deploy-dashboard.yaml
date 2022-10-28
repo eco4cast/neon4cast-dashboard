@@ -23,7 +23,7 @@ jobs:
   #    - uses: r-lib/actions/setup-renv@v2
       - name: preload
         run: |
-          R -e 'source("cache.R")' || true
+          R -e 'source("cache.R")'
       - name: Generate dashboard
         # Add any command line argument needed
         run: |
@@ -32,13 +32,5 @@ jobs:
         run: |
           git config --local user.name "$GITHUB_ACTOR"
           git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git add docs/*
           git commit docs/* -m 'Re-build site' || echo "No changes to commit"
           git push origin || echo "No changes to commit"
-      - name: Cache scores
-        id: cache-scores
-        uses: actions/cache@v3
-        with:
-          path: cache
-          key: ${{ runner.os }}-primes
-
