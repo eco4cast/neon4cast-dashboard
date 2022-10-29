@@ -29,7 +29,7 @@ jobs:
       - name: Generate dashboard
         # Add any command line argument needed
         run: |
-          R -e "quarto::quarto_render()"
+          quarto render
       - name: Commit results
         run: |
           git config --local user.name "$GITHUB_ACTOR"

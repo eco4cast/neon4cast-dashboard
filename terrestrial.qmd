@@ -126,7 +126,7 @@ Overall team rankings by forecast skill. Lower values indicate better prediction
 
 ```{r }
 
-#combined <- combined_scores("terrestrial_30min") |>  filter(time > dashboard$reference_datetime)
+knitr::opts_chunk$set(eval=FALSE) # SKIP 30 MIN
 
 theme <- "terrestrial_30min"
 combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
