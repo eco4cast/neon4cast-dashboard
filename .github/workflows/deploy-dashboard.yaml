@@ -26,7 +26,7 @@ jobs:
           apt-get update && apt-get -y install libgdal-dev libgeos-dev libproj-dev libudunits2-dev
       - name: Install R deps
         shell: Rscript {0}
-        run |
+        run: |
           install.packages("remotes")
           remotes::install_deps()
           remotes::install_version("ggplot2", "3.3.6")
