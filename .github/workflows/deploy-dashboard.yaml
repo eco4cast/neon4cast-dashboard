@@ -23,7 +23,7 @@ jobs:
 
       - name: Install system deps
         run: |
-          apt-get update && apt-get -y install libgdal-dev libgeos-dev libproj-dev libudunits2-dev
+          sudo apt-get update && sudo apt-get -y install libgdal-dev libgeos-dev libproj-dev libudunits2-dev
       - name: Install R deps
         shell: Rscript {0}
         run: |
