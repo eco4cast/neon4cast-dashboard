@@ -18,17 +18,17 @@ jobs:
 
 #        with:
 #          r-version: 'devel'
-#      - uses: r-lib/actions/setup-r-dependencies@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
 #      - uses: r-lib/actions/setup-renv@v2
 
-      - name: Install system deps
+#      - name: Install system deps
+#        run: |
+#          apt-get update && apt-get -y install libgdal-dev libgeos-dev libproj-dev libudunits2-dev
+#      - name: Install R deps
+#        shell: Rscript {0}
         run: |
-          apt-get update && apt-get -y install libgdal-dev libgeos-dev libproj-dev libudunits2-dev
-      - name: Install R deps
-        shell: Rscript {0}
-        run: |
-          install.packages("remotes")
-          remotes::install_deps()
+#          install.packages("remotes")
+#          remotes::install_deps()
           remotes::install_version("ggplot2", "3.3.6")
 
 
