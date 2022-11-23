@@ -1,10 +1,11 @@
 
-#library(minio)
-#install_mc()
-#mc_alias_set("efi",  endpoint="data.ecoforecast.org",
-#             access_key = "", secret_key = "")
-#mc("mirror --overwrite efi/neon4cast-scores cache/")
+if(dir.exists("cache/"))
+  fs::dir_delete("cache/")
 
-fs::dir_delete("cache/")
+library(minio)
+install_mc()
+mc_alias_set("efi",  endpoint="data.ecoforecast.org",
+             access_key = "", secret_key = "")
+mc("mirror --overwrite efi/neon4cast-scores cache/")
 
 
