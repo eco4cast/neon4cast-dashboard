@@ -1,7 +1,4 @@
 
-if(dir.exists("cache/"))
-  fs::dir_delete("cache/")
-
 library(minio)
 install_mc()
 mc_alias_set("efi",  endpoint="data.ecoforecast.org",
