@@ -25,7 +25,7 @@ source("R/plot-utils.R")
 ```{r include=FALSE}
 dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 combined <- arrow::open_dataset("cache/parquet/aquatics") |>
-  filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime)) |>
+  filter(date >= dashboard$reference_datetime) |>
   collect() |> score4cast::include_horizon()
 
 ```

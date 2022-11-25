@@ -32,8 +32,9 @@ dashboard <- yaml::read_yaml("dashboard.yml")
 #combined <- combined_scores("terrestrial_daily") |> filter(time > dashboard$reference_datetime)
 
 theme <- "terrestrial_daily"
-combined <- arrow::open_dataset("cache/parquet/terrestrial_daily") |>
-  filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime))  |>
+combined <- arrow::open_dataset("cache/parquet/terrestrial_daily",
+                                unify_schemas = FALSE) |>
+  filter(date >= dashboard$reference_datetime)  |>
   collect() |> score4cast::include_horizon()
 ```
 
