@@ -21,32 +21,11 @@
     "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\nNo data\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)\n\n\n\nOverall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. Tip: Mouse over a color to highlight the scores of one team"
   },
   {
-    "objectID": "aquatics.html#most-recent-forecasts",
-    "href": "aquatics.html#most-recent-forecasts",
-    "title": "Aquatics",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n# A tibble: 27 × 2\n   model_id                   date      \n   <chr>                      <chr>     \n 1 air2waterSat               2022-09-08\n 2 air2waterSat_2             2022-11-27\n 3 climatology                2022-11-26\n 4 fable_ARIMA                2022-10-20\n 5 fable_TSLM_lagged          2022-10-10\n 6 fARIMA                     2022-11-26\n 7 fTSLM_lag                  2022-11-26\n 8 GLEON_Chloe_precip         2022-10-29\n 9 GLEON_JRabaey_mod          2022-11-07\n10 GLEON_JRabaey_temp_physics 2022-11-27\n# … with 17 more rows\n\n\n# A tibble: 1 × 1\n  date               \n  <dttm>             \n1 2022-12-12 00:00:00\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n# A tibble: 31,608 × 18\n   referenc…¹ site_id datetime            family varia…² obser…³    crps    logs\n   <chr>      <chr>   <dttm>              <chr>  <chr>     <dbl>   <dbl>   <dbl>\n 1 2022-12-12 ARIK    2022-12-12 00:00:00 sample temper…  3.26    0.235    0.493\n 2 2022-12-12 BARC    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 3 2022-12-12 BIGC    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 4 2022-12-12 BLDE    2022-12-12 00:00:00 sample temper… -0.0252  0.125  Inf    \n 5 2022-12-12 BLWA    2022-12-12 00:00:00 sample temper… 16.9     0.282    0.893\n 6 2022-12-12 CARI    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 7 2022-12-12 COMO    2022-12-12 00:00:00 sample temper… -0.318   0.418  Inf    \n 8 2022-12-12 CRAM    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 9 2022-12-12 CUPE    2022-12-12 00:00:00 sample temper… 21.9     0.0470  -0.896\n10 2022-12-12 FLNT    2022-12-12 00:00:00 sample temper… 17.3     0.221    1.36 \n# … with 31,598 more rows, 10 more variables: mean <dbl>, median <dbl>,\n#   sd <dbl>, quantile97.5 <dbl>, quantile02.5 <dbl>, quantile90 <dbl>,\n#   quantile10 <dbl>, model_id <chr>, date <chr>, horizon <dbl>, and\n#   abbreviated variable names ¹​reference_datetime, ²​variable, ³​observation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one team"
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "phenology.html#most-recent-forecasts",
-    "href": "phenology.html#most-recent-forecasts",
-    "title": "Phenology",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\n\n\n\nSites 1 - 67-1213 - 18"
-  },
-  {
-    "objectID": "phenology.html#leaderboard",
-    "href": "phenology.html#leaderboard",
-    "title": "Phenology",
-    "section": "Leaderboard",
-    "text": "Leaderboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.\nTip: Mouse over a color to highlight the scores of one team"
   },
   {
     "objectID": "noaa.html",
@@ -84,11 +63,18 @@
     "text": "Average skill by start date"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "home",
-    "section": "",
-    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
+    "title": "Ticks",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\n\n\n\n\n\n\n\n\nAmblyomma americanum"
   },
   {
     "objectID": "beetles.html#most-recent-forecasts",
@@ -105,17 +91,31 @@
     "text": "Leaderboard\n\n\n\n\nrichnessabundance"
   },
   {
-    "objectID": "ticks.html#most-recent-forecasts",
-    "href": "ticks.html#most-recent-forecasts",
-    "title": "Ticks",
+    "objectID": "phenology.html#most-recent-forecasts",
+    "href": "phenology.html#most-recent-forecasts",
+    "title": "Phenology",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, ‘forecasts’ lag considerably behind current dates.\n\nAmblyomma americanumIxodes scapularis"
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n\n\n\n\nSites 1 - 67-1213 - 18"
   },
   {
-    "objectID": "ticks.html#leaderboard",
-    "href": "ticks.html#leaderboard",
-    "title": "Ticks",
+    "objectID": "phenology.html#leaderboard",
+    "href": "phenology.html#leaderboard",
+    "title": "Phenology",
     "section": "Leaderboard",
-    "text": "Leaderboard\n\n\n\n\n\n\n\n\nAmblyomma americanum"
+    "text": "Leaderboard\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall model_id rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.\nTip: Mouse over a color to highlight the scores of one team"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "aquatics.html#most-recent-forecasts",
+    "href": "aquatics.html#most-recent-forecasts",
+    "title": "Aquatics",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.\n\n\n# A tibble: 27 × 2\n   model_id                   date      \n   <chr>                      <chr>     \n 1 air2waterSat               2022-09-08\n 2 air2waterSat_2             2022-11-27\n 3 climatology                2022-11-26\n 4 fable_ARIMA                2022-10-20\n 5 fable_TSLM_lagged          2022-10-10\n 6 fARIMA                     2022-11-26\n 7 fTSLM_lag                  2022-11-26\n 8 GLEON_Chloe_precip         2022-10-29\n 9 GLEON_JRabaey_mod          2022-11-07\n10 GLEON_JRabaey_temp_physics 2022-11-27\n# … with 17 more rows\n\n\n# A tibble: 1 × 1\n  date               \n  <dttm>             \n1 2022-12-12 00:00:00\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n# A tibble: 31,608 × 18\n   referenc…¹ site_id datetime            family varia…² obser…³    crps    logs\n   <chr>      <chr>   <dttm>              <chr>  <chr>     <dbl>   <dbl>   <dbl>\n 1 2022-12-12 ARIK    2022-12-12 00:00:00 sample temper…  3.26    0.235    0.493\n 2 2022-12-12 BARC    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 3 2022-12-12 BIGC    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 4 2022-12-12 BLDE    2022-12-12 00:00:00 sample temper… -0.0252  0.125  Inf    \n 5 2022-12-12 BLWA    2022-12-12 00:00:00 sample temper… 16.9     0.282    0.893\n 6 2022-12-12 CARI    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 7 2022-12-12 COMO    2022-12-12 00:00:00 sample temper… -0.318   0.418  Inf    \n 8 2022-12-12 CRAM    2022-12-12 00:00:00 sample temper… NA      NA       NA    \n 9 2022-12-12 CUPE    2022-12-12 00:00:00 sample temper… 21.9     0.0470  -0.896\n10 2022-12-12 FLNT    2022-12-12 00:00:00 sample temper… 17.3     0.221    1.36 \n# … with 31,598 more rows, 10 more variables: mean <dbl>, median <dbl>,\n#   sd <dbl>, quantile97.5 <dbl>, quantile02.5 <dbl>, quantile90 <dbl>,\n#   quantile10 <dbl>, model_id <chr>, date <chr>, horizon <dbl>, and\n#   abbreviated variable names ¹​reference_datetime, ²​variable, ³​observation\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOxygenTemperatureChlorophyll-A\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOverall team rankings by forecast skill, as well as skill by date of initial forecast.\nTop plots: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.\nLower plot: Forecast skill over time at each site. Not all teams submit multiple forecasts.\nTip: Mouse over a color to highlight the scores of one team"
   }
 ]
