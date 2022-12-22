@@ -41,23 +41,6 @@
         "promises"
       ]
     },
-    "EML": {
-      "Package": "EML",
-      "Version": "2.0.6.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "620b7aa0a2505e9455a82097cca1a281",
-      "Requirements": [
-        "digest",
-        "dplyr",
-        "emld",
-        "jqr",
-        "jsonlite",
-        "rmarkdown",
-        "uuid",
-        "xml2"
-      ]
-    },
     "ISOweek": {
       "Package": "ISOweek",
       "Version": "0.6-2",
@@ -165,18 +148,6 @@
         "Rcpp"
       ]
     },
-    "V8": {
-      "Package": "V8",
-      "Version": "4.2.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "ebee37dadb0a8f5086663825d2c33076",
-      "Requirements": [
-        "Rcpp",
-        "curl",
-        "jsonlite"
-      ]
-    },
     "XML": {
       "Package": "XML",
       "Version": "3.99-0.13",
@@ -246,11 +217,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "cboettig",
       "RemoteRepo": "aws.s3",
-      "RemoteRef": "master",
+      "RemoteUsername": "cboettig",
+      "RemoteRef": "HEAD",
       "RemoteSha": "c71001327475c1d15c4168bef45537fb1875c18f",
-      "Hash": "400236f04792926a75deb8c0ffc84aab",
+      "Hash": "95ba86dbb5c5635701ab6205eb2c5202",
       "Requirements": [
         "aws.signature",
         "base64enc",
@@ -318,16 +289,15 @@
     },
     "broom": {
       "Package": "broom",
-      "Version": "1.0.1",
+      "Version": "1.0.2",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "c90ff735b7812b60f067a3f7a3b4de63",
+      "Hash": "1773f8d5102f9853ecd18a0d13d460fd",
       "Requirements": [
         "backports",
         "dplyr",
         "ellipsis",
         "generics",
-        "ggplot2",
         "glue",
         "purrr",
         "rlang",
@@ -338,16 +308,18 @@
     },
     "bslib": {
       "Package": "bslib",
-      "Version": "0.4.1",
+      "Version": "0.4.2",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "89a0cd0c45161e3bd1c1e74a2d65e516",
+      "Hash": "a7fbf03946ad741129dc81098722fca1",
       "Requirements": [
+        "base64enc",
         "cachem",
         "htmltools",
         "jquerylib",
         "jsonlite",
         "memoise",
+        "mime",
         "rlang",
         "sass"
       ]
@@ -409,10 +381,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.4.1",
+      "Version": "3.5.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "0d297d01734d2bcea40197bd4971a764",
+      "Hash": "eb9fc121ad9a1075c471107ef185be46",
       "Requirements": []
     },
     "clipr": {
@@ -647,19 +619,6 @@
       "Hash": "bb0eec2fe32e88d9e2836c2f73ea2077",
       "Requirements": [
         "rlang"
-      ]
-    },
-    "emld": {
-      "Package": "emld",
-      "Version": "0.5.1",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "6098f89bda95bbbc579fe594f353a361",
-      "Requirements": [
-        "jsonld",
-        "jsonlite",
-        "xml2",
-        "yaml"
       ]
     },
     "evaluate": {
@@ -998,13 +957,15 @@
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
-      "Version": "1.5.4",
+      "Version": "1.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "76147821cd3fcd8c4b04e1ef0498e7fb",
+      "Hash": "f894e7b76e36258a483c602a786d7270",
       "Requirements": [
         "htmltools",
         "jsonlite",
+        "knitr",
+        "rmarkdown",
         "yaml"
       ]
     },
@@ -1043,22 +1004,11 @@
     },
     "isoband": {
       "Package": "isoband",
-      "Version": "0.2.6",
+      "Version": "0.2.7",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "cfdea9dea85c1a973991c8cbe299f4da",
+      "Hash": "0080607b4a1a7b28979aecef976d8bc2",
       "Requirements": []
-    },
-    "jqr": {
-      "Package": "jqr",
-      "Version": "1.2.3",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "a0637f1eb368d00f3c561552f52b39f3",
-      "Requirements": [
-        "lazyeval",
-        "magrittr"
-      ]
     },
     "jquerylib": {
       "Package": "jquerylib",
@@ -1079,18 +1029,6 @@
       "Requirements": [
         "Rcpp",
         "rapidjsonr"
-      ]
-    },
-    "jsonld": {
-      "Package": "jsonld",
-      "Version": "2.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "173b7fe6d4c05b04aef7d350bc72ffeb",
-      "Requirements": [
-        "V8",
-        "curl",
-        "jsonlite"
       ]
     },
     "jsonlite": {
@@ -1351,13 +1289,11 @@
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "neon4cast",
       "RemoteRef": "main",
-      "RemoteSha": "d4ab5a1cc25877b92b71cac9b5f104e7d78fb7df",
+      "RemoteSha": "afd1b7cbe4b98cde6045ef072933d22c166db74a",
       "RemoteHost": "api.github.com",
       "Remotes": "github::eco4cast/read4cast, github::eco4cast/score4cast,\n    github::cboettig/aws.s3",
-      "Hash": "9ddbab4f5a626c8fdfd31aa42590b485",
+      "Hash": "b4ee0f7690e10450159704a9f5f66305",
       "Requirements": [
-        "EML",
-        "ISOweek",
         "arrow",
         "aws.s3",
         "distributional",
@@ -1367,11 +1303,8 @@
         "rlang",
         "score4cast",
         "tibble",
-        "tidync",
         "tidyr",
-        "tidyverse",
-        "usethis",
-        "yaml"
+        "usethis"
       ]
     },
     "neonstore": {
@@ -1398,10 +1331,10 @@
     },
     "nlme": {
       "Package": "nlme",
-      "Version": "3.1-160",
+      "Version": "3.1-161",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "02e3c6e7df163aafa8477225e6827bc5",
+      "Hash": "b49e163093c0ef46fbbfc40bcb87916c",
       "Requirements": [
         "lattice"
       ]
@@ -1549,13 +1482,16 @@
     },
     "purrr": {
       "Package": "purrr",
-      "Version": "0.3.5",
+      "Version": "1.0.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "54842a2443c76267152eface28d9e90a",
+      "Hash": "1ad491d27989ec6c26a2918ad6df116b",
       "Requirements": [
+        "cli",
+        "lifecycle",
         "magrittr",
-        "rlang"
+        "rlang",
+        "vctrs"
       ]
     },
     "quarto": {
@@ -1607,12 +1543,12 @@
       "Version": "0.0.2",
       "Source": "GitHub",
       "RemoteType": "github",
-      "RemoteHost": "api.github.com",
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "read4cast",
-      "RemoteRef": "main",
+      "RemoteRef": "HEAD",
       "RemoteSha": "d991fa7831872836ad083752631e5902770f8eb2",
-      "Hash": "7e5975a18e2d6ce0f8a7fcf30ebf2c47",
+      "RemoteHost": "api.github.com",
+      "Hash": "d653f286323a0ebc7cf80e5160f9d1b4",
       "Requirements": [
         "dplyr",
         "lubridate",
@@ -1672,14 +1608,6 @@
         "tibble"
       ]
     },
-    "remotes": {
-      "Package": "remotes",
-      "Version": "2.4.2",
-      "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "227045be9aee47e6dda9bb38ac870d67",
-      "Requirements": []
-    },
     "renv": {
       "Package": "renv",
       "Version": "0.16.0",
@@ -1718,10 +1646,10 @@
     },
     "rmarkdown": {
       "Package": "rmarkdown",
-      "Version": "2.18",
+      "Version": "2.19",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "8063c4e953cefb651e8cd58c82c82d2d",
+      "Hash": "4e29299e1f4c7eabb0b8365b338adf3c",
       "Requirements": [
         "bslib",
         "evaluate",
@@ -1835,11 +1763,11 @@
       "RemoteType": "github",
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "score4cast",
-      "RemoteRef": "main",
-      "RemoteSha": "c019ada976a4c9d8a395475a17668ad35fdf4a28",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "b48f5b522ffaffdc9b8f757413e52f404120eb8a",
       "RemoteHost": "api.github.com",
       "Remotes": "github::eco4cast/read4cast",
-      "Hash": "b6f114ba445cea1f2593a03987890b49",
+      "Hash": "6cf4bcd3bdfec98f440aaae9c247124c",
       "Requirements": [
         "ISOweek",
         "arrow",
