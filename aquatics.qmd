@@ -55,19 +55,19 @@ ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_p
 ## Oxygen
 
 ```{r}
-leaderboard_plots(leaderboard, "oxygen")
+leaderboard_plots(combined, "oxygen")
 ```
 
 ## Temperature
 
 ```{r}
-leaderboard_plots(leaderboard, "temperature")
+leaderboard_plots(combined, "temperature")
 ```
 
 ## Chlorophyll-A
 
 ```{r}
-leaderboard_plots(leaderboard, "chla")
+leaderboard_plots(combined, "chla")
 ```
 :::
 
