@@ -15,7 +15,9 @@ Depends: tidyverse,
          bslib,
          remotes,
          minio,
-         decor
+         decor,
+         remotes,
+         brio
 Remotes:  
     github::eco4cast/score4cast, 
     github::eco4cast/neon4cast, 

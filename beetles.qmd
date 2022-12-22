@@ -5,6 +5,8 @@ title: "Beetles"
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 source("R/plot-utils.R")
+score4cast::ignore_sigpipe()
+
 ```
 
 ```{r}

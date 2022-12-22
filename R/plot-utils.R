@@ -5,7 +5,7 @@ library(neon4cast)
 library(score4cast)
 library(glue)
 
-forecast_ggobj <- function(df, ncol = NULL) {
+forecast_ggobj <- function(df, ncol = NULL, show.legend = TRUE) {
 
     df |> collect() |>
     ggplot() +
@@ -14,18 +14,18 @@ forecast_ggobj <- function(df, ncol = NULL) {
                                 fill = model_id, data_id = model_id, tooltip = model_id),
                             alpha = 0.2, show.legend=FALSE) +
     geom_line_interactive(aes(datetime, mean, col = model_id,
-                              tooltip = model_id, data_id = model_id), show.legend=FALSE) +
+                              tooltip = model_id, data_id = model_id), show.legend=show.legend) +
     facet_wrap(~site_id, scales = "free", ncol=ncol) +
     theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
     theme_bw()
 }
 
 
-forecast_plots <- function(df, ncol = NULL) {
+forecast_plots <- function(df, ncol = NULL, show.legend = TRUE) {
 
   if(nrow(df)==0) return(NULL)
 
-  ggobj <- forecast_ggobj(df, ncol)
+  ggobj <- forecast_ggobj(df, ncol, show.legend)
   girafe(ggobj = ggobj,
          width_svg = 8, height_svg = 4,
          options = list(
@@ -38,7 +38,7 @@ forecast_plots <- function(df, ncol = NULL) {
 
 
 
-leaderboard_plots <- function(df, var) {
+leaderboard_plots <- function(df, var, show.legend=TRUE) {
 
   df <- df |> filter(variable == var)
   if(nrow(df)==0) return(NULL)
@@ -76,9 +76,9 @@ leaderboard_plots <- function(df, var) {
     pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
     ggplot(aes(x = horizon, y= score,  col=model_id)) +
     geom_point_interactive(aes(tooltip = model_id, data_id = model_id),
-                           show.legend = FALSE) +
+                           show.legend = show.legend) +
     facet_wrap(~metric, scales='free') +
-    theme(axis.text.x = element_blank()) +
+    theme(axis.text.x = element_blank(), legend.position="bottom") +
     theme_bw()
 
   ggob <- board1 / board2 # patchwork stack

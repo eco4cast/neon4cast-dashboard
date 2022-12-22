@@ -12,9 +12,10 @@ library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
-library(thematic)
 library(glue)
 source("R/plot-utils.R")
+score4cast::ignore_sigpipe()
+
 
 ```
 
