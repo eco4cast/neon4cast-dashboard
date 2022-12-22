@@ -34,7 +34,7 @@ n_data <- 10
 who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
 
-ex <- combined |> filter(reference_datetime == ref) 
+ex <- combined |> filter(reference_datetime == ref) |> collect()
 ```
 
 

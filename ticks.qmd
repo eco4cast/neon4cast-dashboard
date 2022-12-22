@@ -3,7 +3,7 @@ title: "Ticks"
 ---
 
 
-```{r, setup}
+```{r, setup, echo = FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, eval=FALSE)
 source("R/plot-utils.R")
  
@@ -15,7 +15,7 @@ source("R/plot-utils.R")
 theme <- "ticks"
 cutoff <- as.character(Sys.Date() - 120)
 combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
-  filter(date >= cutoff)
+  filter(date >= cutoff) |> collect()
 
 ```
 

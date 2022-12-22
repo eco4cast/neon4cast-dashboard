@@ -4,23 +4,7 @@ title: "Beetles"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
-
-## where has all the data gone....
-knitr::opts_chunk$set(eval = FALSE)
-```
-
-```{r}
-library(ggiraph)
-library(patchwork)
-library(tidyverse)
-library(neon4cast)
-library(score4cast)
-library(thematic)
-thematic_rmd(bg="white", fg="black", accent="blue")
-
 source("R/plot-utils.R")
-
-
 ```
 
 
@@ -28,7 +12,7 @@ source("R/plot-utils.R")
 theme <- "beetles"
 cutoff <- as.character(Sys.Date() - 120)
 combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
-  filter(date >= cutoff)
+  filter(date >= cutoff) |> collect()
 
 ```
 
