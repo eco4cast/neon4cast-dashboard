@@ -18,16 +18,15 @@ source("R/plot-utils.R")
 
 ```
 
-
 # Daily averages
 
 ```{r }
 theme <- "terrestrial_daily"
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
-  filter(date >= cutoff)
-```
+  filter(date >= cutoff) |> collect()
 
+```
 
 ```{r}
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
@@ -39,13 +38,11 @@ ex <- combined |> filter(reference_datetime == ref, site_id %in% sites)
 
 ```
 
-
 ## Most recent forecasts
 
 Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
-
 ## Latent evaporation
 
 ```{r}
@@ -62,12 +59,10 @@ ex |> filter(reference_datetime == ref, variable == "nee") |> forecast_plots()
 
 ## vswc
 
-
 ```{r}
  ex |> filter(reference_datetime == ref, variable == "vswc") |> forecast_plots()
 ```
 :::
-
 
 ::: panel-tabset
 ## Latent evaporation
@@ -89,5 +84,4 @@ leaderboard_plots(combined, "nee")
 ```{r}
 # leaderboard_plots(combined, "vswc")
 ```
-
 :::

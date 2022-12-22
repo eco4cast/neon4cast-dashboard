@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "beetles.html#most-recent-forecasts",
-    "href": "beetles.html#most-recent-forecasts",
-    "title": "Beetles",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\n\nrichness\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nabundance\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "beetles.html#leaderboard",
-    "href": "beetles.html#leaderboard",
-    "title": "Beetles",
-    "section": "Leaderboard",
-    "text": "Leaderboard\n\nrichnessabundance"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "1 + 1\n\n[1] 2"
-  },
-  {
     "objectID": "phenology.html#most-recent-forecasts",
     "href": "phenology.html#most-recent-forecasts",
     "title": "Phenology",
@@ -33,6 +12,69 @@
     "title": "Phenology",
     "section": "Leaderboard",
     "text": "Leaderboard"
+  },
+  {
+    "objectID": "terrestrial.html#most-recent-forecasts",
+    "href": "terrestrial.html#most-recent-forecasts",
+    "title": "Terrestrial",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+  },
+  {
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
+    "title": "Ticks",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\n“amblyomma_americanum”\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n“ixodes_scapularis”\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\n\nrichnessabundance"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "aquatics.html#most-recent-forecasts",
+    "href": "aquatics.html#most-recent-forecasts",
+    "title": "Aquatics",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n::: panel-tabset"
+  },
+  {
+    "objectID": "aquatics.html#temperature",
+    "href": "aquatics.html#temperature",
+    "title": "Aquatics",
+    "section": "Temperature",
+    "text": "Temperature"
+  },
+  {
+    "objectID": "aquatics.html#chlorophyll-a",
+    "href": "aquatics.html#chlorophyll-a",
+    "title": "Aquatics",
+    "section": "Chlorophyll-A",
+    "text": "Chlorophyll-A\n\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "beetles.html#most-recent-forecasts",
+    "href": "beetles.html#most-recent-forecasts",
+    "title": "Beetles",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\nrichness\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nabundance\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "beetles.html#leaderboard",
+    "href": "beetles.html#leaderboard",
+    "title": "Beetles",
+    "section": "Leaderboard",
+    "text": "Leaderboard\n\nrichnessabundance"
   },
   {
     "objectID": "noaa.html",
@@ -70,52 +112,17 @@
     "text": "Average skill by start date"
   },
   {
-    "objectID": "ticks.html#most-recent-forecasts",
-    "href": "ticks.html#most-recent-forecasts",
-    "title": "Ticks",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\n\n“amblyomma_americanum”\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n“ixodes_scapularis”\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "ticks.html#leaderboard",
-    "href": "ticks.html#leaderboard",
-    "title": "Ticks",
-    "section": "Leaderboard",
-    "text": "Leaderboard\n\nrichnessabundance"
-  },
-  {
-    "objectID": "aquatics.html#most-recent-forecasts",
-    "href": "aquatics.html#most-recent-forecasts",
-    "title": "Aquatics",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\n\n\n::: panel-tabset ## Oxygen"
-  },
-  {
-    "objectID": "aquatics.html#temperature",
-    "href": "aquatics.html#temperature",
-    "title": "Aquatics",
-    "section": "Temperature",
-    "text": "Temperature"
-  },
-  {
-    "objectID": "aquatics.html#chlorophyll-a",
-    "href": "aquatics.html#chlorophyll-a",
-    "title": "Aquatics",
-    "section": "Chlorophyll-A",
-    "text": "Chlorophyll-A\n\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "terrestrial.html#most-recent-forecasts",
-    "href": "terrestrial.html#most-recent-forecasts",
-    "title": "Terrestrial",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "home",
     "section": "",
     "text": "This site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions.\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nNEON Ecological Forecasting Challenge sites\n\n\n\n\n\n\n\nSites scaled by number of forecasts submitted.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "aquatics.html#oxygen",
+    "href": "aquatics.html#oxygen",
+    "title": "Aquatics",
+    "section": "Oxygen",
+    "text": "Oxygen"
   }
 ]

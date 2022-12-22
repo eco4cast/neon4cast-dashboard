@@ -19,7 +19,7 @@ source("R/plot-utils.R")
 cutoff <- as.character(Sys.Date() - 30)
 #combined <- combined_scores("phenology")
 combined <- arrow::open_dataset("cache/parquet/phenology") |>
-  filter(date >= cutoff,variable == "gcc_90") 
+  filter(date >= cutoff,variable == "gcc_90") |> collect()
 ```
 
 ## Most recent forecasts

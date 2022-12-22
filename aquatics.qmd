@@ -15,7 +15,7 @@ source("R/plot-utils.R")
 ```{r include=FALSE}
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("cache/parquet/aquatics") |>
-  filter(date >= cutoff)
+  filter(date >= cutoff) |> collect()
 
 ```
 
@@ -24,16 +24,17 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.
 
 ```{r}
-sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
+sites <- combined |> distinct(site_id) |> slice_head(n=6) |> collect() |> pull(site_id)
 ## with at least n observations to compare!
 n_data <- 10
 who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
-ex <- combined |> filter(reference_datetime == ref) 
+ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
 
 ```
 
-::: panel-tabset
+::: panel-tabset 
+
 ## Oxygen
 
 ```{r}
@@ -48,10 +49,10 @@ ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_p
 
 ## Chlorophyll-A
 
-
 <!-- Heading 1: navbar -->
 
 ::: panel-tabset
+
 ## Oxygen
 
 ```{r}
@@ -70,5 +71,3 @@ leaderboard_plots(combined, "temperature")
 leaderboard_plots(combined, "chla")
 ```
 :::
-
-
