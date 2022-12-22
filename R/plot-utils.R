@@ -61,11 +61,11 @@ leaderboard_plots <- function(df, var) {
     facet_wrap(~metric, scales='free') +
     theme(axis.text.x = element_blank()) +
     theme_bw()
-
   ## summary statistics
-  leaderboard2 <-  combined |>
+  leaderboard2 <-  df |>
+    score4cast::include_horizon(allow_difftime = TRUE) |>
     filter(variable == var) |>
-    group_by(model_id, datetime) |>
+    group_by(model_id, horizon) |>
     summarise(crps = mean(crps, na.rm=TRUE),
               logs = mean(logs, na.rm=TRUE),
               .groups = "drop") |>
@@ -74,7 +74,7 @@ leaderboard_plots <- function(df, var) {
 
   board2 <- leaderboard2 |>
     pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
-    ggplot(aes(x = datetime, y= score,  col=model_id)) +
+    ggplot(aes(x = horizon, y= score,  col=model_id)) +
     geom_point_interactive(aes(tooltip = model_id, data_id = model_id),
                            show.legend = FALSE) +
     facet_wrap(~metric, scales='free') +

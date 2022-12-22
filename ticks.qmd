@@ -29,7 +29,7 @@ who <- combined |> filter(!is.na(observation)) |> distinct(reference_datetime) |
 ref <- as.character (who[6,1]) # 
 ```
 
-### "amblyomma_americanum"
+### *Amblyomma americanum*
 
 ::: panel-tabset
 ```{r}
@@ -74,7 +74,7 @@ richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ```
 :::
 
-### "ixodes_scapularis"
+### *Ixodes scapularis*
 
 ::: panel-tabset
 ```{r}
@@ -121,18 +121,23 @@ abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 
 
 
+
 ## Leaderboard
 
+Average skill scores of each model across all sites.  
+Scores are shown by reference date and forecast horizon (in days).  
+Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since `r cutoff`.
 
 ::: panel-tabset
-## richness
+
+## *Amblyomma americanum*
 
 ```{r}
 leaderboard_plots(combined, "amblyomma_americanum")
 
 ```
 
-## abundance
+## *Ixodes scapularis*
 
 ```{r}
 leaderboard_plots(combined, "ixodes_scapularis")
