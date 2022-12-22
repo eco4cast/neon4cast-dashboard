@@ -7,7 +7,6 @@ knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 source("R/plot-utils.R")
 ```
 
-
 ```{r}
 theme <- "beetles"
 cutoff <- as.character(Sys.Date() - 120)
@@ -116,15 +115,15 @@ abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ```
 :::
 
-
-
-
 ## Leaderboard
 
-Average skill scores of each model across all sites.  
-Scores are shown by reference date and forecast horizon (in days).  
-Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since `r cutoff`.
+Average skill scores of each model across all sites.\
+Scores are shown by reference date and forecast horizon (in days).\
+Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff date.
 
+```{r include=TRUE}
+cutoff
+```
 
 ::: panel-tabset
 ## richness
