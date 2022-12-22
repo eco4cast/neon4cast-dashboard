@@ -49,7 +49,14 @@ ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_p
 
 ## Chlorophyll-A
 
-<!-- Heading 1: navbar -->
+
+```{r}
+ex |> filter(reference_datetime == ref, variable == "chla") |> forecast_plots()
+```
+
+
+:::
+
 
 ::: panel-tabset
 
