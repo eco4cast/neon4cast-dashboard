@@ -40,11 +40,11 @@ forecast_plots <- function(df, ncol = NULL) {
 
 leaderboard_plots <- function(df, var) {
 
+  df <- df |> filter(variable == var)
   if(nrow(df)==0) return(NULL)
 
   leaderboard <-
     df |>
-    filter(variable == var) |>
     group_by(model_id, reference_datetime) |>
     summarise(crps = mean(crps, na.rm=TRUE),
               logs = mean(logs, na.rm=TRUE),
