@@ -2,80 +2,141 @@
 title: "Ticks"
 ---
 
-```{r, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, eval=FALSE)
-```
 
 ```{r, setup}
-library(ggiraph)
-library(patchwork)
-library(tidyverse)
-library(neon4cast)
-library(score4cast)
-library(thematic)
-thematic_rmd(bg="white", fg="black", accent="blue")
-
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE, eval=FALSE)
 source("R/plot-utils.R")
+ 
 
 ```
 
+
 ```{r}
-combined <- combined_scores("ticks") |>
-  score4cast::include_horizon()
+theme <- "ticks"
+cutoff <- as.character(Sys.Date() - 120)
+combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
+  filter(date >= cutoff)
 
 ```
 
 ## Most recent forecasts
 
 ```{r}
-min_data <- 10
-day <- combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n >= min_data) |> 
-  filter(reference_datetime == max(reference_datetime)) |> # must happen second
-  select(reference_datetime) |> distinct(reference_datetime) |> first()
-
+sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
+## with at least n observations to compare!
+n_data <- 30
+who <- combined |> filter(!is.na(observation)) |> distinct(reference_datetime) |> arrange(desc(reference_datetime)) |> collect()
+ref <- as.character (who[6,1]) # 
 ```
 
-Below is the latest forecasts for which we have at least `r min_data` observations. Mouse over to see the team id, scroll to zoom. Note that due to latency of data collection for ticks, 'forecasts' lag considerably behind current dates.
+### "amblyomma_americanum"
 
 ::: panel-tabset
-## *Amblyomma americanum*
-
 ```{r}
-combined |> 
-  filter(reference_datetime == day, variable == "amblyomma_americanum") |> 
-  forecast_plots()
+richness <- combined |> 
+  filter(reference_datetime == ref, variable == "amblyomma_americanum")
 ```
 
-## *Ixodes scapularis*
+## Sites 1 - 8
 
 ```{r}
-combined |> filter(reference_datetime == day, variable == "ixodes_scapularis") |> forecast_plots()
+richness |>  filter(site_id %in% sites[1:8]) |> forecast_plots(ncol=4)
+```
+
+## Sites 9 - 16
+
+```{r}
+richness |> filter(site_id %in% sites[9:16]) |> forecast_plots(ncol=4)
+```
+
+## Sites 17 - 24
+
+```{r}
+richness |>  filter(site_id %in% sites[17:24]) |> forecast_plots(ncol=4)
+```
+
+## Sites 25 - 32
+
+```{r}
+richness |> filter(site_id %in% sites[25:32]) |> forecast_plots(ncol=4)
+```
+
+## Sites 33 - 40
+
+```{r}
+richness |>  filter(site_id %in% sites[33:40]) |> forecast_plots(ncol=4)
+```
+
+## Sites 41 - 47
+
+```{r}
+richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ```
 :::
 
+### "ixodes_scapularis"
+
+::: panel-tabset
 ```{r}
-filled_scores <- fill_scores(combined, "tickGlobalNull_RandomWalk")
+abundance <- combined |> 
+  filter(reference_datetime == ref, variable == "ixodes_scapularis")
 ```
+
+## Sites 1 - 8
+
+```{r}
+abundance |>  filter(site_id %in% sites[1:8]) |> forecast_plots(ncol=4)
+```
+
+## Sites 9 - 16
+
+```{r}
+abundance |> filter(site_id %in% sites[9:16]) |> forecast_plots(ncol=4)
+```
+
+## Sites 17 - 24
+
+```{r}
+abundance |>  filter(site_id %in% sites[17:24]) |> forecast_plots(ncol=4)
+```
+
+## Sites 25 - 32
+
+```{r}
+abundance |> filter(site_id %in% sites[25:32]) |> forecast_plots(ncol=4)
+```
+
+## Sites 33 - 40
+
+```{r}
+abundance |>  filter(site_id %in% sites[33:40]) |> forecast_plots(ncol=4)
+```
+
+## Sites 41 - 47
+
+```{r}
+abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
+```
+:::
+
+
 
 ## Leaderboard
 
-```{r}
 
-leaderboard <-  filled_scores %>% 
-  group_by(variable, model_id) %>%
-  summarise(crps = mean(crps),
-            logs = mean(logs, na.rm=TRUE)) %>% 
-  arrange(crps)
-leaderboard %>% DT::datatable(fillContainer = FALSE, escape=FALSE)
-```
-
-### *Amblyomma americanum*
+::: panel-tabset
+## richness
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "amblyomma_americanum")
+leaderboard_plots(combined, "amblyomma_americanum")
+
 ```
+
+## abundance
+
+```{r}
+leaderboard_plots(combined, "ixodes_scapularis")
+```
+:::
 
 <!-- Consider adding site-by-site breakout on scores -->
