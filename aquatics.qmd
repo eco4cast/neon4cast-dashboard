@@ -2,105 +2,52 @@
 title: "Aquatics"
 ---
 
-```{r, include=FALSE}
+```{r setup, echo = FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
-```
-
-```{r setup}
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
-
-
-library(thematic)
-thematic_rmd(bg="white", fg="black", accent="blue")
-
 source("R/plot-utils.R")
-
-
 ```
 
 ```{r include=FALSE}
-dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
+cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("cache/parquet/aquatics") |>
-  filter(date >= dashboard$reference_datetime) |>
-  collect() |> score4cast::include_horizon()
+  filter(date >= cutoff)
 
 ```
 
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
+Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.
 
 ```{r}
-## date of each team's most recent forecast
-days <- combined |> 
-  group_by(model_id) |> 
-  summarise(date = max(reference_datetime))
+sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
+## with at least n observations to compare!
+n_data <- 10
+who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
+ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
+ex <- combined |> filter(reference_datetime == ref) 
 
-## date of each team's most recent forecast for which data is available
-combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n > 15) |> ungroup() |>
-  group_by(model_id) |>
-  summarise(date = max(reference_datetime))
-
-
-## last date for which data is available (end of the previous month)
-combined |>
-  filter(!is.na(observation)) |>
-  filter(datetime == max(datetime)) |>
-  summarise(date = max(datetime))
-
-
-day <- combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n > 15) |> 
-  # at least 15 data points
-  filter(reference_datetime == max(reference_datetime, na.rm = TRUE)) |> # must happen second
-  select(reference_datetime) |> 
-  distinct(reference_datetime) |>
-  first()
 ```
 
 ::: panel-tabset
 ## Oxygen
 
 ```{r}
-combined |> filter(reference_datetime == day, variable == "oxygen") |> forecast_plots()
-combined |> filter(reference_datetime >= day)
+ex |> filter(reference_datetime == ref, variable == "oxygen") |> forecast_plots()
 ```
 
 ## Temperature
 
 ```{r}
-combined |> filter(reference_datetime == day, variable == "temperature") |> forecast_plots()
+ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_plots()
 ```
 
 ## Chlorophyll-A
 
-```{r}
-# combined |> filter(reference_datetime == day, variable == "chla") |> forecast_plots()
-```
-:::
-
-```{r}
-# no persistence submissions...
-filled_scores <- score4cast::fill_scores(combined, "climatology")
-```
-
-```{r}
-leaderboard <-  filled_scores |> 
-  group_by(variable, model_id) |>
-  summarise(crps = mean(crps, na.rm=T),
-            logs = mean(logs, na.rm=T),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop") 
-```
 
 <!-- Heading 1: navbar -->
 
@@ -108,28 +55,20 @@ leaderboard <-  filled_scores |>
 ## Oxygen
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "oxygen")
+leaderboard_plots(leaderboard, "oxygen")
 ```
 
 ## Temperature
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "temperature")
+leaderboard_plots(leaderboard, "temperature")
 ```
 
 ## Chlorophyll-A
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "chla")
+leaderboard_plots(leaderboard, "chla")
 ```
 :::
 
-------------------------------------------------------------------------
 
-Overall team rankings by forecast skill, as well as skill by date of initial forecast.
-
-**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
-
-**Lower plot**: Forecast skill over time at each site. Not all teams submit multiple forecasts.
-
-**Tip**: *Mouse over a color to highlight the scores of one team*

@@ -12,187 +12,58 @@ library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
-library(thematic)
-thematic_rmd(bg="white", fg="black", accent="blue")
-
+source("R/plot-utils.R")
 ```
 
 ```{r}
-# load the relevant data, and compute filled_scores
-
-dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
-
+cutoff <- as.character(Sys.Date() - 30)
 #combined <- combined_scores("phenology")
 combined <- arrow::open_dataset("cache/parquet/phenology") |>
-  filter(date >= dashboard$reference_datetime) |>
-  collect() |> score4cast::include_horizon()
+  filter(date >= cutoff,variable == "gcc_90") 
 ```
 
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
-
-```{r}
-green <- combined |>
-  filter(variable == "gcc_90") 
-sites <- green |> select(site_id) |> distinct() |> pull(site_id)
-day <- green |>
-  filter(!is.na(observation), site_id == sites[[1]]) |>
-  count(variable, model_id, reference_datetime) |>
-  filter(n > 15) |> # at least 10 data points
-  filter(reference_datetime == max(reference_datetime)) |> # must happen second
-  select(reference_datetime) |> distinct(reference_datetime) |> first()
-```
 
 ```{r}
 
-plotme <- function(df) {
-  ggobj <- 
-    ggplot(df) +
-    geom_point(aes(datetime, observation)) + 
-    geom_ribbon_interactive(aes(x = datetime, ymin = quantile02.5, ymax = quantile97.5,
-                                fill = model_id, data_id = model_id, tooltip = model_id),
-                            alpha = 0.2, show.legend=FALSE) +
-    geom_line_interactive(aes(datetime, mean, col = model_id, 
-                              tooltip = model_id, data_id = model_id), show.legend=FALSE) +
-    facet_wrap(~site_id, scales = "free_y") +
-    labs(y = "greenness index (gcc 90)") +
-    theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) + 
-    theme_bw()
-    
-  
-  girafe(ggobj = ggobj,
-       width_svg = 8, height_svg = 4,
-  options = list(
-    opts_hover_inv(css = "opacity:0.20;"),
-    opts_hover(css = "stroke-width:2;"),
-    opts_zoom(max = 4)
-  ))
+sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
 
-}
+## with at least n observations to compare!
+n_data <- 10
+who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
+ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
+
+ex <- combined |> filter(reference_datetime == ref) 
 ```
+
 
 ::: panel-tabset
 ## Sites 1 - 6
 
 ```{r}
-green |> filter(reference_datetime == day) |> filter(site_id %in% sites[1:6]) |> plotme()
+ex |> 
+  filter(site_id %in% sites[1:6]) |> 
+  collect() |> 
+  forecast_plots()
 ```
 
 ## 7-12
 
 ```{r}
-green |> filter(reference_datetime == day, site_id %in% sites[7:12]) |> plotme()
+combined |> filter(reference_datetime == ref, site_id %in% sites[7:12]) |> forecast_plots()
 ```
 
 ## 13 - 18
 
 ```{r}
-green |>  filter(reference_datetime == day, site_id %in% sites[13:18]) |>  plotme()
+combined |>  filter(reference_datetime == ref, site_id %in% sites[13:18]) |>   forecast_plots()
 ```
 :::
 
 ## Leaderboard
 
-```{r}
-filled_scores <- fill_scores(combined, null="persistence")
-```
 
 ```{r}
-## summary statistics
-leaderboard <-  filled_scores |> 
-  group_by(variable, model_id) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop") |> 
-  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
-```
-
-<!-- Heading 1: navbar -->
-
-```{r fig.height=10}
-board1 <- 
-leaderboard |>
-  pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
-  ggplot(aes(x = model_id, y= score, fill=model_id, col=model_id)) + 
-  geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
-                       show.legend = FALSE) + 
-  coord_flip() +
-  facet_wrap(~metric, scales='free') + 
-  theme(axis.text.x = element_blank()) +
-  theme_bw()
-```
-
-```{r}
-
-by_start <-  filled_scores |> 
-  group_by(variable, model_id, reference_datetime) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model))) |> 
-  arrange(crps)
-
-board2 <- 
-  by_start |> 
-  filter(percent_na < .1) |>
-  ggplot(aes(reference_datetime, crps, col=model_id)) + 
-  geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
-  labs(title = "Forecast skill") +
-  theme_bw()
-
-board2_logs <- 
-  by_start |> 
-  filter(percent_na < .1) |>
-  ggplot(aes(reference_datetime, logs, col=model_id)) + 
-  geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
-  labs(title = "Forecast skill")
-
-## caption doesn't display all that nicely, better to use storyboard
-      #caption = 
-      #   "Top: Forecast skill measured by CRPS and log skill.\\n
-      #   Lower values indicate better predictions. Both score\\n
-      #   probablistic forecasts, but log skill penalizes     \\n
-      #   observations outside expected range much more heavily.")
-```
-
-Overall model_id rankings by forecast skill, as well as skill by date of initial forecast.
-
-**Top plots**: Forecast skill measured by CRPS and log skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily.
-
-**Lower plot**: Many phenology teams submit a new 35-day forecast daily. This plot summarizes the score of each of those 35-day forecasts (over all 35 days and over all sites) as the challenge progresses.
-
-**Tip**: *Mouse over a color to highlight the scores of one team*
-
-```{r girafe, fig.width=8, fig.height=4}
-ggob <- board1 / board2 # patchwork stack
-girafe(ggobj = ggob,
-       width_svg = 8, height_svg = 4,
-  options = list(
-    opts_hover_inv(css = "opacity:0.20;"),
-    opts_hover(css = "stroke-width:2;"),
-    opts_zoom(max = 4)
-  ))
-```
-
-------------------------------------------------------------------------
-
-```{r}
-## more possible stuff, not plotted
-some_sites <- c("BART", "HARV", "WOOD", "DELA")
-greenness_forecasts <-
-  combined |>
-  filter(reference_datetime==max(reference_datetime, na.rm=TRUE), site_id %in% some_sites) |>
-  filter(variable == "gcc_90") |> 
-  ggplot() +
-  geom_point(aes(time, observation), size = .05) + 
-  geom_ribbon_interactive(aes(x = time, ymin = quantile02.5, ymax = quantile97.5,
-                              fill = model_id, data_id = model_id, tooltip = model_id),
-                          alpha = 0.2, show.legend=FALSE) +
-  geom_line_interactive(aes(time, mean, col = model_id, 
-                            tooltip = model_id, data_id = model_id), show.legend=FALSE) +
-  labs(y = "greenness index (gcc 90)") +
-  facet_wrap(~site_id, ncol=2) + 
-  theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
-  ggtitle("30th day ahead or longer prediction") 
+leaderboard_plots(combined, "gcc_90")
 ```

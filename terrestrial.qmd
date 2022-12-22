@@ -14,155 +14,42 @@ library(neon4cast)
 library(score4cast)
 library(thematic)
 library(glue)
-#library(bslib)
-#bslib::theme_bootswatch("lux")
-thematic_rmd(bg="white", fg="black", accent="blue")
-
 source("R/plot-utils.R")
 
 ```
 
-```{r}
-dashboard <- yaml::read_yaml("dashboard.yml")
-```
 
 # Daily averages
 
 ```{r }
-#combined <- combined_scores("terrestrial_daily") |> filter(time > dashboard$reference_datetime)
-
 theme <- "terrestrial_daily"
-combined <- arrow::open_dataset("cache/parquet/terrestrial_daily",
-                                unify_schemas = FALSE) |>
-  filter(date >= dashboard$reference_datetime)  |>
-  collect() |> score4cast::include_horizon()
-```
-
-## Most recent forecasts
-
-Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
-
-```{r}
-day <- combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n > 15) |> 
-  # at least 15 data points
-  filter(reference_datetime == max(reference_datetime)) |> # must happen second
-  select(reference_datetime) |> distinct(reference_datetime) |> first()
-```
-
-## Leaderboard (daily averages)
-
-::: panel-tabset
-## Latent evaporation
-
-```{r}
-combined |> filter(reference_datetime == day, variable == "le") |> forecast_plots()
-```
-
-## CO2 Flux
-
-Net ecosystem exchange of CO2 (NEE)
-
-```{r}
-combined |> filter(reference_datetime == day, variable == "nee") |> forecast_plots()
-```
-
-## vswc
-
-No data
-
-```{r}
-combined |> filter(variable == "vswc", !is.na(observation))
-```
-:::
-
-```{r}
-filled_scores <- fill_scores(combined, null_model = "persistence")
-```
-
-```{r}
-leaderboard <-  filled_scores |> 
-  group_by(variable, model_id) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop")
-```
-
-```{r}
-by_start <-  filled_scores |> 
-  group_by(variable, model_id, reference_datetime, site_id) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop")
-
-```
-
-::: panel-tabset
-## Latent evaporation
-
-```{r}
-leaderboard_plots(leaderboard, NULL, "le")
-```
-
-## CO2 flux
-
-```{r}
-leaderboard_plots(leaderboard, NULL, "nee")
-```
-
-## vswc
-
-(no data)
-:::
-
-Overall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. **Tip**: *Mouse over a color to highlight the scores of one a team*
-
-------------------------------------------------------------------------
-
-# 30 Minute averages
-
-```{r }
-
-knitr::opts_chunk$set(eval=FALSE) # SKIP 30 MIN
-
-theme <- "terrestrial_30min"
+cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
-  filter(datetime >= lubridate::as_datetime(dashboard$reference_datetime)) |>
-  collect()|> 
-  score4cast::include_horizon() |>
-  mutate(reference_datetime = as.Date(reference_datetime))
+  filter(date >= cutoff)
+```
+
+
+```{r}
+sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
+## with at least n observations to compare!
+n_data <- 10
+who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
+ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
+ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
 
 ```
+
 
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
-
-```{r}
-day <- combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n > 100) |> 
-  # at least 15 data points
-  filter(reference_datetime == max(reference_datetime)) |> # must happen second
-  select(reference_datetime) |> distinct(reference_datetime) |> first()
-
-end <- as.Date(day) + 4
-```
+Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.
 
 ::: panel-tabset
+
 ## Latent evaporation
 
 ```{r}
-combined |> 
-  filter(reference_datetime == day, 
-         variable == "le",
-         datetime < end) |>
-  forecast_plots(ncol=3)
+ex |> filter(reference_datetime == ref, variable == "le") |> forecast_plots()
 ```
 
 ## CO2 Flux
@@ -170,64 +57,37 @@ combined |>
 Net ecosystem exchange of CO2 (NEE)
 
 ```{r}
-combined |> 
-  filter(reference_datetime == day, 
-         variable == "nee",
-         datetime < end) |> 
-  forecast_plots()
+ex |> filter(reference_datetime == ref, variable == "nee") |> forecast_plots()
 ```
 
 ## vswc
 
-No data
 
 ```{r}
-combined |> filter(variable == "vswc", !is.na(observation))
+ ex |> filter(reference_datetime == ref, variable == "vswc") |> forecast_plots()
 ```
 :::
 
-```{r}
-## Fill scores relative to the "climatology" null
-
-
-filled_scores <- fill_scores(combined, null_model = "climatology")
-```
-
-```{r}
-leaderboard <-  filled_scores |> 
-  group_by(variable, model_id) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop")
-```
-
-```{r}
-by_start <-  filled_scores |> 
-  group_by(variable, model_id, reference_datetime, site_id) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps_model)),
-            .groups = "drop")
-
-```
 
 ::: panel-tabset
 ## Latent evaporation
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "le")
+leaderboard_plots(combined, "le")
 ```
 
 ## CO2 flux
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "nee")
+leaderboard_plots(combined, "nee")
 ```
 
 ## vswc
 
 (no data)
-:::
 
-Overall team rankings by forecast skill. Lower values indicate better predictions. Both score probabilistic forecasts, but log skill penalizes observations outside expected range much more heavily. **Tip**: *Mouse over a color to highlight the scores of one team*
+```{r}
+leaderboard_plots(combined, "vswc")
+```
+
+:::

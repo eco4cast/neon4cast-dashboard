@@ -23,35 +23,23 @@ source("R/plot-utils.R")
 
 ```
 
-```{r include=FALSE}
-# 
-# forecast_files <- fs::dir_ls(glob="beetles*.csv.gz")
-# targets <-
-#   "https://data.ecoforecast.org/targets/beetles/beetles-targets.csv.gz" %>%
-#   read_csv(col_types = "cDdd")
-# 
-# scores <- map_dfr(forecast_files, function(f) {
-# 
-#   forecast <- read4cast::read_forecast(f) |> mutate(filename = f)
-#   score4cast::score(forecast, targets, "beetles")
-# 
-# })
-# 
-# combined <- scores
-```
 
 ```{r}
-combined <- combined_scores("beetles") |> filter(!is.na(observation))
+theme <- "beetles"
+cutoff <- as.character(Sys.Date() - 120)
+combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
+  filter(date >= cutoff)
 
 ```
 
 ## Most recent forecasts
 
 ```{r}
-day <- as.Date("2022-01-01")
-end <- Sys.Date() 
-
-sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
+sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
+## with at least n observations to compare!
+n_data <- 30
+who <- combined |> filter(!is.na(observation)) |> distinct(reference_datetime) |> arrange(desc(reference_datetime)) |> collect()
+ref <- as.character (who[6,1]) # 
 ```
 
 ### richness
@@ -59,7 +47,7 @@ sites <- combined |> select(site_id) |> distinct() |> pull(site_id)
 ::: panel-tabset
 ```{r}
 richness <- combined |> 
-  filter(reference_datetime == day, variable == "richness", time < end)
+  filter(reference_datetime == ref, variable == "richness")
 ```
 
 ## Sites 1 - 8
@@ -104,7 +92,7 @@ richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ::: panel-tabset
 ```{r}
 abundance <- combined |> 
-  filter(reference_datetime == day, variable == "abundance", time < end)
+  filter(reference_datetime == ref, variable == "abundance")
 ```
 
 ## Sites 1 - 8
@@ -144,32 +132,23 @@ abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 ```
 :::
 
-```{r}
-filled_scores <- fill_scores(combined, "cb_f1")
-```
+
 
 ## Leaderboard
 
-```{r}
-
-leaderboard <-  filled_scores %>% 
-  group_by(variable, model_id) %>%
-  summarise(crps = mean(crps),
-            logs = mean(logs, na.rm=TRUE)) 
-```
 
 ::: panel-tabset
 ## richness
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "richness")
+leaderboard_plots(combined, "richness")
 
 ```
 
 ## abundance
 
 ```{r}
-leaderboard_plots(leaderboard, NULL, "abundance")
+leaderboard_plots(combined, "abundance")
 ```
 :::
 
