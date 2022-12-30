@@ -16,7 +16,7 @@ forecast_ggobj <- function(df, ncol = NULL, show.legend = TRUE) {
     geom_line_interactive(aes(datetime, mean, col = model_id,
                               tooltip = model_id, data_id = model_id), show.legend=show.legend) +
     facet_wrap(~site_id, scales = "free", ncol=ncol) +
-    theme(axis.text.x = element_text( angle = 90, hjust = 0.5, vjust = 0.5)) +
+    guides(x =  guide_axis(angle = 45)) +
     theme_bw()
 }
 
