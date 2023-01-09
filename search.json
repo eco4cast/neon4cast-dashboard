@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "terrestrial.html#most-recent-forecasts",
+    "href": "terrestrial.html#most-recent-forecasts",
+    "title": "Terrestrial",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\nNULL"
+  },
+  {
+    "objectID": "terrestrial.html#leaderboard",
+    "href": "terrestrial.html#leaderboard",
+    "title": "Terrestrial",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2022-12-10\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "noaa.html",
+    "href": "noaa.html",
+    "title": "Weather",
+    "section": "",
+    "text": "As a reference case, we can compare the NOAA Global Ensemble Forecast System (GEFS) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements."
+  },
+  {
+    "objectID": "noaa.html#most-recent-forecasts",
+    "href": "noaa.html#most-recent-forecasts",
+    "title": "Weather",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom."
+  },
+  {
+    "objectID": "noaa.html#relative-humidity",
+    "href": "noaa.html#relative-humidity",
+    "title": "Weather",
+    "section": "Relative Humidity",
+    "text": "Relative Humidity\n\nSites 1 - 89 - 1617 - 2425 - 3233 - 4041 - 4748 - 56"
+  },
+  {
+    "objectID": "noaa.html#skill-scores-over-time",
+    "href": "noaa.html#skill-scores-over-time",
+    "title": "Weather",
+    "section": "Skill Scores over time",
+    "text": "Skill Scores over time"
+  },
+  {
+    "objectID": "noaa.html#average-skill-by-start-date",
+    "href": "noaa.html#average-skill-by-start-date",
+    "title": "Weather",
+    "section": "Average skill by start date",
+    "text": "Average skill by start date"
+  },
+  {
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
+    "title": "Ticks",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\nAmblyomma americanum\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIxodes scapularis\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n\n\nAmblyomma americanumIxodes scapularis"
+  },
+  {
+    "objectID": "beetles.html#most-recent-forecasts",
+    "href": "beetles.html#most-recent-forecasts",
+    "title": "Beetles",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\nrichness\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nabundance\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "beetles.html#leaderboard",
+    "href": "beetles.html#leaderboard",
+    "title": "Beetles",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-09-11\"\n\n\n\nrichnessabundance"
+  },
+  {
+    "objectID": "phenology.html#most-recent-forecasts",
+    "href": "phenology.html#most-recent-forecasts",
+    "title": "Phenology",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nThese plots show the the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\n\nSites 1 - 67-1213 - 18"
+  },
+  {
+    "objectID": "phenology.html#leaderboard",
+    "href": "phenology.html#leaderboard",
+    "title": "Phenology",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2022-12-10\""
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions."
+  },
+  {
+    "objectID": "index.html#submit-a-forecast",
+    "href": "index.html#submit-a-forecast",
+    "title": "home",
+    "section": "Submit a forecast!",
+    "text": "Submit a forecast!\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "aquatics.html#most-recent-forecasts",
+    "href": "aquatics.html#most-recent-forecasts",
+    "title": "Aquatics",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2022-12-23\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#leaderboard",
+    "href": "aquatics.html#leaderboard",
+    "title": "Aquatics",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2022-12-10.\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#submission-statistics",
+    "href": "aquatics.html#submission-statistics",
+    "title": "Aquatics",
+    "section": "Submission statistics",
+    "text": "Submission statistics\n\n\n\nBetween 2022-12-10 and 2023-01-09:\n\n15 submitted to this challenge"
+  },
+  {
+    "objectID": "aquatics.html#annual-trends",
+    "href": "aquatics.html#annual-trends",
+    "title": "Aquatics",
+    "section": "Annual trends",
+    "text": "Annual trends"
+  }
+]
