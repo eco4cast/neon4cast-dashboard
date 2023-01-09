@@ -13,6 +13,7 @@ library(tidyverse)
 library(neon4cast)
 library(score4cast)
 library(glue)
+library(flexdashboard)
 source("R/plot-utils.R")
 score4cast::ignore_sigpipe()
 
@@ -28,6 +29,10 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
   filter(date >= cutoff) |> collect()
 
 ```
+
+
+
+
 
 ```{r}
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)

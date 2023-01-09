@@ -217,11 +217,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "aws.s3",
       "RemoteUsername": "cboettig",
-      "RemoteRef": "HEAD",
+      "RemoteRepo": "aws.s3",
+      "RemoteRef": "master",
       "RemoteSha": "c71001327475c1d15c4168bef45537fb1875c18f",
-      "Hash": "95ba86dbb5c5635701ab6205eb2c5202",
+      "Hash": "400236f04792926a75deb8c0ffc84aab",
       "Requirements": [
         "aws.signature",
         "base64enc",
@@ -927,10 +927,10 @@
     },
     "highr": {
       "Package": "highr",
-      "Version": "0.9",
+      "Version": "0.10",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "8eb36c8125038e648e5d111c0d7b2ed4",
+      "Hash": "06230136b2d2b9ba5805e1963fa6e890",
       "Requirements": [
         "xfun"
       ]
@@ -1313,10 +1313,10 @@
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "neon4cast",
       "RemoteRef": "main",
-      "RemoteSha": "afd1b7cbe4b98cde6045ef072933d22c166db74a",
+      "RemoteSha": "df93127e71baa3372ab350cd2befde68c818bcd6",
       "RemoteHost": "api.github.com",
       "Remotes": "github::eco4cast/read4cast, github::eco4cast/score4cast,\n    github::cboettig/aws.s3",
-      "Hash": "6ff312d076ab8e1ac787d8ac99049e57",
+      "Hash": "4595faafe9d9a57f0030526b91c7b0e9",
       "Requirements": [
         "arrow",
         "aws.s3",
@@ -1567,12 +1567,12 @@
       "Version": "0.0.2",
       "Source": "GitHub",
       "RemoteType": "github",
+      "RemoteHost": "api.github.com",
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "read4cast",
-      "RemoteRef": "HEAD",
+      "RemoteRef": "main",
       "RemoteSha": "d991fa7831872836ad083752631e5902770f8eb2",
-      "RemoteHost": "api.github.com",
-      "Hash": "d653f286323a0ebc7cf80e5160f9d1b4",
+      "Hash": "7e5975a18e2d6ce0f8a7fcf30ebf2c47",
       "Requirements": [
         "dplyr",
         "lubridate",
@@ -1796,13 +1796,14 @@
       "RemoteUsername": "eco4cast",
       "RemoteRepo": "score4cast",
       "RemoteRef": "HEAD",
-      "RemoteSha": "b48f5b522ffaffdc9b8f757413e52f404120eb8a",
+      "RemoteSha": "e7270e2eae1c35c3d0d1b3e03315ee2745c92acd",
       "RemoteHost": "api.github.com",
       "Remotes": "github::eco4cast/read4cast",
-      "Hash": "b788935860b6249c27ce2f14280bfd18",
+      "Hash": "b98bf6b2d2200e3ab6c1c9dce9e2efec",
       "Requirements": [
         "ISOweek",
         "arrow",
+        "brio",
         "cpp11",
         "decor",
         "distributional",
@@ -2329,10 +2330,10 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.35",
+      "Version": "0.36",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f576593107bdf9aa7db48ef75a8c05fb",
+      "Hash": "f5baec54606751aa53ac9c0e05848ed6",
       "Requirements": []
     },
     "xml2": {
