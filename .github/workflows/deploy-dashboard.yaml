@@ -35,11 +35,10 @@ jobs:
           R -e 'source("cache.R")'
       - name: Generate dashboard
         # Add any command line argument needed
-        run: |
-          quarto render
-      - name: Commit results
-        run: |
-          git config --local user.name "$GITHUB_ACTOR"
-          git config --local user.email "$GITHUB_ACTOR@users.noreply.github.com"
-          git commit docs/* -m 'Re-build site' || echo "No changes to commit"
-          git push origin || echo "No changes to commit"
+
+      - name: Publish to GitHub Pages (and render)
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+           target: gh-pages
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
