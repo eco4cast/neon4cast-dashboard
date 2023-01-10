@@ -10,7 +10,7 @@ library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
-source("R/plot-utils.R")
+library(vis4cast)
 score4cast::ignore_sigpipe()
 
 ```

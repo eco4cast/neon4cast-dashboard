@@ -994,10 +994,10 @@
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
-      "Version": "1.6.0",
+      "Version": "1.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f894e7b76e36258a483c602a786d7270",
+      "Hash": "b677ee5954471eaa974c0d099a343a1a",
       "Requirements": [
         "htmltools",
         "jsonlite",
@@ -2346,6 +2346,27 @@
       "Repository": "RSPM",
       "Hash": "62f4b5da3e08d8e5bcba6cac15603f70",
       "Requirements": []
+    },
+    "vis4cast": {
+      "Package": "vis4cast",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "vis4cast",
+      "RemoteUsername": "eco4cast",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "56331a0dfc0374d76ebddddc99828d114c9a9e8e",
+      "Hash": "56619a36bf87899e48abe12675b9928a",
+      "Requirements": [
+        "dplyr",
+        "forcats",
+        "ggiraph",
+        "ggplot2",
+        "lubridate",
+        "patchwork",
+        "tidyr"
+      ]
     },
     "vroom": {
       "Package": "vroom",
