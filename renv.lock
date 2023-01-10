@@ -1291,8 +1291,8 @@
       "RemoteRepo": "minio",
       "RemoteUsername": "cboettig",
       "RemoteRef": "HEAD",
-      "RemoteSha": "d9fc7b15a9dcea0d8954aa3473cf2eb51cc9f766",
-      "Hash": "343a640c976875bd9af8fc6c93986e25",
+      "RemoteSha": "f02db1b13b0440d4b7808bf396c4abc3b97a6f64",
+      "Hash": "a52f60b39737cb55797be6670061c4da",
       "Requirements": [
         "fs",
         "glue",
