@@ -117,9 +117,41 @@ combined |>
 ```
 
 
-## Annual trends
+## Long-term patterns
 
 
+Here we look at some long term patterns in the median scores across all models.  Are some months more predictable than others?  Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties.
+
+```{r}
+annual <- arrow::open_dataset("cache/parquet/aquatics") |>
+  mutate(month = lubridate::month(datetime, label=TRUE)) |>
+  group_by(month) |>
+  summarise(crps = median(crps,na.rm=TRUE), 
+            logs = median(logs, na.rm=TRUE))  |> 
+  collect() |>
+  pivot_longer(c(crps,logs), names_to="metric", values_to="score")
+
+gg <- ggplot(annual) + 
+  geom_col(aes(month, score, fill=metric), position="dodge") + theme_bw()
+
+girafe(gg)
+```
+```{r}
+sites <- arrow::open_dataset("cache/parquet/aquatics") |>
+  group_by(site_id) |>
+  summarise(crps = median(crps,na.rm=TRUE), 
+            logs = median(logs, na.rm=TRUE))  |> 
+  collect() |>
+  mutate(site_id = fct_rev(fct_reorder(site_id, crps))) |>
+  pivot_longer(c(crps,logs), names_to="metric", values_to="score")
 
 
+gg <- sites |>
+ggplot(aes(site_id, score, fill=metric)) + geom_col() +
+  facet_wrap(~metric, ncol=1) + 
+  guides(x =  guide_axis(angle = 45)) + theme_bw()
+
+girafe(ggobj = gg)
+
+```
 
