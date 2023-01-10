@@ -11,6 +11,7 @@ library(tidyverse)
 library(neon4cast)
 library(score4cast)
 library(vis4cast)
+library(glue)
 score4cast::ignore_sigpipe()
 
 ```
