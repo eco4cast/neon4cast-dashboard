@@ -13,6 +13,7 @@ library(tidyverse)
 library(neon4cast)
 library(score4cast)
 source("R/plot-utils.R")
+score4cast::ignore_sigpipe()
 ```
 
 ```{r}

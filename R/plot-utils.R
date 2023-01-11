@@ -5,7 +5,7 @@ library(neon4cast)
 library(score4cast)
 library(glue)
 
-forecast_ggobj <- function(df, ncol = NULL) {
+forecast_ggobj <- function(df, ncol = NULL, show.legend = TRUE) {
 
     df |> collect() |>
     ggplot() +
@@ -14,18 +14,18 @@ forecast_ggobj <- function(df, ncol = NULL) {
                                 fill = model_id, data_id = model_id, tooltip = model_id),
                             alpha = 0.2, show.legend=FALSE) +
     geom_line_interactive(aes(datetime, mean, col = model_id,
-                              tooltip = model_id, data_id = model_id), show.legend=FALSE) +
+                              tooltip = model_id, data_id = model_id), show.legend=show.legend) +
     facet_wrap(~site_id, scales = "free", ncol=ncol) +
     guides(x =  guide_axis(angle = 45)) +
     theme_bw()
 }
 
 
-forecast_plots <- function(df, ncol = NULL) {
+forecast_plots <- function(df, ncol = NULL, show.legend = FALSE) {
 
   if(nrow(df)==0) return(NULL)
 
-  ggobj <- forecast_ggobj(df, ncol)
+  ggobj <- forecast_ggobj(df, ncol, show.legend)
   girafe(ggobj = ggobj,
          width_svg = 8, height_svg = 4,
          options = list(
@@ -38,11 +38,34 @@ forecast_plots <- function(df, ncol = NULL) {
 
 
 
-leaderboard_plots <- function(df, var) {
+by_model_id <- function(df, show.legend = FALSE) {
+  leaderboard <-
+    df |>
+    group_by(model_id) |>
+    summarise(crps = mean(crps, na.rm=TRUE),
+              logs = mean(logs, na.rm=TRUE),
+              .groups = "drop") |>
+    collect() |>
+    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
-  df <- df |> filter(variable == var)
-  if(nrow(df)==0) return(NULL)
+  leaderboard |>
+    pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
 
+    ggplot(aes(x = model_id, y= score,  fill=model_id)) +
+    geom_col_interactive(aes(tooltip = model_id, data_id = model_id),
+                           show.legend = FALSE) +
+   # scale_y_log10() +
+    coord_flip() +
+    facet_wrap(~metric, scales='free') +
+    theme_bw() +
+   theme(axis.text.y = element_blank()) # don't show model_id twice
+
+  }
+
+
+
+
+by_reference_datetime <- function(df, show.legend = FALSE) {
   leaderboard <-
     df |>
     group_by(model_id, reference_datetime) |>
@@ -53,40 +76,73 @@ leaderboard_plots <- function(df, var) {
     collect() |>
     mutate(model_id = fct_rev(fct_reorder(model_id, crps)))
 
-  board1 <- leaderboard |>
+  leaderboard |>
     pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
+
     ggplot(aes(x = reference_datetime, y= score,  col=model_id)) +
     geom_point_interactive(aes(tooltip = model_id, data_id = model_id),
                            show.legend = FALSE) +
+    scale_y_log10() +
     facet_wrap(~metric, scales='free') +
-    theme(axis.text.x = element_blank()) +
+    guides(x =  guide_axis(angle = 45)) +
     theme_bw()
-  ## summary statistics
-  leaderboard2 <-  df |>
-    score4cast::include_horizon(allow_difftime = TRUE) |>
-    filter(variable == var) |>
-    group_by(model_id, horizon) |>
-    summarise(crps = mean(crps, na.rm=TRUE),
-              logs = mean(logs, na.rm=TRUE),
-              .groups = "drop") |>
-    collect() |>
-    mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
+}
 
-  board2 <- leaderboard2 |>
+
+
+by_horizon <- function(df, show.legend=FALSE) {
+
+  leaderboard2 <- df |>
+  group_by(model_id, horizon) |>
+  summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs, na.rm=TRUE),
+            .groups = "drop") |>
+  collect() |>
+  mutate(model_id = fct_rev(fct_reorder(model_id, crps)))  # sort by score
+
+  leaderboard2 |>
     pivot_longer(cols = c(crps, logs), names_to="metric", values_to="score") |>
     ggplot(aes(x = horizon, y= score,  col=model_id)) +
     geom_point_interactive(aes(tooltip = model_id, data_id = model_id),
-                           show.legend = FALSE) +
+                           show.legend = show.legend) +
     facet_wrap(~metric, scales='free') +
-    theme(axis.text.x = element_blank()) +
+    scale_y_log10() +
     theme_bw()
+}
 
-  ggob <- board1 / board2 # patchwork stack
+
+horizon_filter <- function(df, horizon_cutoff=35, horizon_units="days") {
+  df |>
+    mutate(horizon =
+             difftime(
+               lubridate::as_datetime(datetime),
+               lubridate::as_datetime(reference_datetime),
+               units = horizon_units)
+    ) |>
+    filter(horizon <= horizon_cutoff, horizon > 0)
+}
+
+leaderboard_plots <- function(df,
+                              var,
+                              horizon_cutoff = 35,
+                              horizon_units = "days",
+                              show.legend=TRUE) {
+
+  df <- df |> filter(variable == var)
+  if(nrow(df)==0) return(NULL)
+
+  df <- horizon_filter(df, horizon_cutoff, horizon_units)
+
+  board1 <- by_model_id(df, show.legend = FALSE)
+  board2 <- by_reference_datetime(df, show.legend = FALSE) + theme_bw()
+  board3 <- by_horizon(df, show.legend = FALSE) + theme_bw()
+
+  ggob <- board1 / board2 / board3 # patchwork stack
 
   girafe(
     ggobj = ggob,
     width_svg = 8,
-    height_svg = 4,
+    height_svg = 6,
     options = list(
       opts_hover_inv(css = "opacity:0.20;"),
       opts_hover(css = "stroke-width:2;"),

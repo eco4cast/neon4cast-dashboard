@@ -2269,6 +2269,29 @@
       "Hash": "62f4b5da3e08d8e5bcba6cac15603f70",
       "Requirements": []
     },
+    "vis4cast": {
+      "Package": "vis4cast",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "Remotes": "github::cboettig/minio",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "vis4cast",
+      "RemoteUsername": "eco4cast",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "18ae140ec83a408e749a16a36514651b61583e7d",
+      "Hash": "e246ec1dbb6bb3eca14e26b4e14811ff",
+      "Requirements": [
+        "dplyr",
+        "forcats",
+        "ggiraph",
+        "ggplot2",
+        "lubridate",
+        "minio",
+        "patchwork",
+        "tidyr"
+      ]
+    },
     "vroom": {
       "Package": "vroom",
       "Version": "1.6.0",

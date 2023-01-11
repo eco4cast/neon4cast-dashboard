@@ -5,6 +5,8 @@ title: "Ticks"
 ```{r, setup, echo = FALSE, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message=FALSE, warning=FALSE)
 source("R/plot-utils.R")
+score4cast::ignore_sigpipe()
+
 ```
 
 ```{r}
@@ -15,6 +17,10 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 
 combined |> filter(!is.na(observation))
 
+```
+
+```{r}
+knitr::opts_chunk$set(eval=FALSE) # no tick data
 ```
 
 ## Most recent forecasts

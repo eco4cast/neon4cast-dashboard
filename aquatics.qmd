@@ -1,5 +1,6 @@
 ---
 title: "Aquatics"
+engine: knitr
 ---
 
 ```{r setup, echo = FALSE, message=FALSE, warning=FALSE}
@@ -9,32 +10,43 @@ library(patchwork)
 library(tidyverse)
 library(neon4cast)
 library(score4cast)
-source("R/plot-utils.R")
+library(vis4cast)
+library(glue)
+score4cast::ignore_sigpipe()
+
 ```
 
 ```{r include=FALSE}
 cutoff <- as.character(Sys.Date() - 30)
 combined <- arrow::open_dataset("cache/parquet/aquatics") |>
-  filter(date >= cutoff) |> collect()
+  filter(reference_datetime >= cutoff) |> collect()
 
 ```
 
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.
+
+
+
 
 ```{r}
 sites <- combined |> distinct(site_id) |> slice_head(n=6) |> collect() |> pull(site_id)
 ## with at least n observations to compare!
-n_data <- 10
+n_data <- 15
 who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
 ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
-
 ```
 
-::: panel-tabset 
+Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected.  Mouse over to see the team id, scroll to zoom.
 
+```{r}
+ref
+```
+
+
+
+::: panel-tabset
 ## Oxygen
 
 ```{r}
@@ -49,29 +61,17 @@ ex |> filter(reference_datetime == ref, variable == "temperature") |> forecast_p
 
 ## Chlorophyll-A
 
-
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "chla") |> forecast_plots()
 ```
-
-
 :::
-
-
 
 ## Leaderboard
 
+Average skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff date, `r cutoff`.
 
-Average skill scores of each model across all sites.  
-Scores are shown by reference date and forecast horizon (in days).  
-Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff date:
-
-```{r include=TRUE}
-cutoff
-```
 
 ::: panel-tabset
-
 ## Oxygen
 
 ```{r}
@@ -90,3 +90,69 @@ leaderboard_plots(combined, "temperature")
 leaderboard_plots(combined, "chla")
 ```
 :::
+
+
+## Submission statistics
+
+
+```{r}
+n_models <- combined |> distinct(model_id) |> nrow()
+```
+
+
+Between `r cutoff` and  `r Sys.Date()`:
+
+- `r n_models` submitted to this challenge
+
+
+```{r}
+combined |> 
+  distinct(model_id, reference_datetime) |>
+  count(model_id, sort=TRUE) |>
+  mutate(model_id = fct_reorder(model_id, n)) |>
+  ggplot(aes(model_id, n, fill=model_id)) +
+  geom_col(show.legend = FALSE) + 
+  coord_flip() + 
+  theme_bw() + 
+  ggtitle(glue("Number of forecast submissions since {cutoff}"))
+```
+
+
+## Long-term patterns
+
+
+Here we look at some long term patterns in the median scores across all models.  Are some months more predictable than others?  Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties.
+
+```{r}
+annual <- arrow::open_dataset("cache/parquet/aquatics") |>
+  mutate(month = lubridate::month(datetime, label=TRUE)) |>
+  group_by(month) |>
+  summarise(crps = median(crps,na.rm=TRUE), 
+            logs = median(logs, na.rm=TRUE))  |> 
+  collect() |>
+  pivot_longer(c(crps,logs), names_to="metric", values_to="score")
+
+gg <- ggplot(annual) + 
+  geom_col(aes(month, score, fill=metric), position="dodge") + theme_bw()
+
+girafe(gg)
+```
+```{r}
+sites <- arrow::open_dataset("cache/parquet/aquatics") |>
+  group_by(site_id) |>
+  summarise(crps = median(crps,na.rm=TRUE), 
+            logs = median(logs, na.rm=TRUE))  |> 
+  collect() |>
+  mutate(site_id = fct_rev(fct_reorder(site_id, crps))) |>
+  pivot_longer(c(crps,logs), names_to="metric", values_to="score")
+
+
+gg <- sites |>
+ggplot(aes(site_id, score, fill=metric)) + geom_col() +
+  facet_wrap(~metric, ncol=1) + 
+  guides(x =  guide_axis(angle = 45)) + theme_bw()
+
+girafe(ggobj = gg)
+
+```
+
