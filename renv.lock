@@ -1,6 +1,6 @@
 {
   "R": {
-    "Version": "4.2.1",
+    "Version": "4.2.2",
     "Repositories": [
       {
         "Name": "CRAN",
@@ -63,7 +63,7 @@
       "Package": "MASS",
       "Version": "7.3-58.1",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "762e1804143a332333c054759f89a706",
       "Requirements": []
     },
@@ -287,6 +287,14 @@
         "vctrs"
       ]
     },
+    "brio": {
+      "Package": "brio",
+      "Version": "1.1.3",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "976cf154dfb043c012d87cddd8bca363",
+      "Requirements": []
+    },
     "broom": {
       "Package": "broom",
       "Version": "1.0.2",
@@ -381,10 +389,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.5.0",
+      "Version": "3.6.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "eb9fc121ad9a1075c471107ef185be46",
+      "Hash": "3177a5a16c243adc199ba33117bd9657",
       "Requirements": []
     },
     "clipr": {
@@ -919,10 +927,10 @@
     },
     "highr": {
       "Package": "highr",
-      "Version": "0.9",
+      "Version": "0.10",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "8eb36c8125038e648e5d111c0d7b2ed4",
+      "Hash": "06230136b2d2b9ba5805e1963fa6e890",
       "Requirements": [
         "xfun"
       ]
@@ -957,10 +965,10 @@
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
-      "Version": "1.6.0",
+      "Version": "1.6.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f894e7b76e36258a483c602a786d7270",
+      "Hash": "b677ee5954471eaa974c0d099a343a1a",
       "Requirements": [
         "htmltools",
         "jsonlite",
@@ -1217,7 +1225,7 @@
       "Package": "mgcv",
       "Version": "1.8-41",
       "Source": "Repository",
-      "Repository": "RSPM",
+      "Repository": "CRAN",
       "Hash": "6b3904f13346742caa3e82dd0303d4ad",
       "Requirements": [
         "Matrix",
@@ -1231,6 +1239,23 @@
       "Repository": "RSPM",
       "Hash": "18e9c28c1d3ca1560ce30658b22ce104",
       "Requirements": []
+    },
+    "minio": {
+      "Package": "minio",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "minio",
+      "RemoteUsername": "cboettig",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "f02db1b13b0440d4b7808bf396c4abc3b97a6f64",
+      "Hash": "a52f60b39737cb55797be6670061c4da",
+      "Requirements": [
+        "fs",
+        "glue",
+        "processx"
+      ]
     },
     "modelr": {
       "Package": "modelr",
@@ -1261,10 +1286,10 @@
     },
     "ncdf4": {
       "Package": "ncdf4",
-      "Version": "1.20",
+      "Version": "1.21",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "3c76293ea096d36ab24ce447a21053d9",
+      "Hash": "a7b262641ef4659767d415c6bb78413f",
       "Requirements": []
     },
     "ncmeta": {
@@ -1285,14 +1310,14 @@
       "Package": "neon4cast",
       "Version": "0.1.0",
       "Source": "GitHub",
+      "Remotes": "github::eco4cast/read4cast, github::eco4cast/score4cast,\n        github::cboettig/aws.s3",
       "RemoteType": "github",
-      "RemoteUsername": "eco4cast",
-      "RemoteRepo": "neon4cast",
-      "RemoteRef": "main",
-      "RemoteSha": "afd1b7cbe4b98cde6045ef072933d22c166db74a",
       "RemoteHost": "api.github.com",
-      "Remotes": "github::eco4cast/read4cast, github::eco4cast/score4cast,\n    github::cboettig/aws.s3",
-      "Hash": "b4ee0f7690e10450159704a9f5f66305",
+      "RemoteRepo": "neon4cast",
+      "RemoteUsername": "eco4cast",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "a41413869ecdf4a9b04379152b4e37fb082b83eb",
+      "Hash": "4d0e3b15c6cdcb04ac6f75ed48c424d9",
       "Requirements": [
         "arrow",
         "aws.s3",
@@ -1442,10 +1467,10 @@
     },
     "progressr": {
       "Package": "progressr",
-      "Version": "0.12.0",
+      "Version": "0.13.0",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "e59a5a5d07c56229458c3374951cb8d0",
+      "Hash": "376a8ebcc878f9c1395e212548fc297a",
       "Requirements": [
         "digest"
       ]
@@ -1482,10 +1507,10 @@
     },
     "purrr": {
       "Package": "purrr",
-      "Version": "1.0.0",
+      "Version": "1.0.1",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "1ad491d27989ec6c26a2918ad6df116b",
+      "Hash": "d71c815267c640f17ddbf7f16144b4bb",
       "Requirements": [
         "cli",
         "lifecycle",
@@ -1607,6 +1632,14 @@
       "Requirements": [
         "tibble"
       ]
+    },
+    "remotes": {
+      "Package": "remotes",
+      "Version": "2.4.2",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "227045be9aee47e6dda9bb38ac870d67",
+      "Requirements": []
     },
     "renv": {
       "Package": "renv",
@@ -1760,17 +1793,18 @@
       "Package": "score4cast",
       "Version": "0.0.0.9000",
       "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteUsername": "eco4cast",
-      "RemoteRepo": "score4cast",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "b48f5b522ffaffdc9b8f757413e52f404120eb8a",
-      "RemoteHost": "api.github.com",
       "Remotes": "github::eco4cast/read4cast",
-      "Hash": "6cf4bcd3bdfec98f440aaae9c247124c",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "score4cast",
+      "RemoteUsername": "eco4cast",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "be4668c3c46e9ca101ebedac2607a56f00fe96d6",
+      "Hash": "bacd4662602b9be8f53b1ea815cef64e",
       "Requirements": [
         "ISOweek",
         "arrow",
+        "brio",
         "cpp11",
         "decor",
         "distributional",
@@ -2297,10 +2331,10 @@
     },
     "xfun": {
       "Package": "xfun",
-      "Version": "0.35",
+      "Version": "0.36",
       "Source": "Repository",
       "Repository": "RSPM",
-      "Hash": "f576593107bdf9aa7db48ef75a8c05fb",
+      "Hash": "f5baec54606751aa53ac9c0e05848ed6",
       "Requirements": []
     },
     "xml2": {
