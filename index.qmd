@@ -12,7 +12,7 @@ This site provides daily updates to visualize recent scores of all forecasts sub
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 library(tidyverse)
 library(arrow)
-library(flexdashboard)
+library(bslib)
 ```
 
 
@@ -27,17 +27,20 @@ last_updated <- Sys.Date()
 ```
 
 ```{r}
-valueBox(n_forecasts,
-         caption = "Total number of forecasts submitted to the EFI Challenge",
-         icon = NULL,
-         color = "red",
-         href = NULL)
+layout_column_wrap(
+  width = "250px",
+  value_box(
+    title = "Total forecasts submitted to the EFI Challenge", 
+    value = n_forecasts,
+    showcase = bs_icon("graph-up")
+  ),
+  value_box(
+    title = "Unique models submitted to the EFI Challenge", 
+    value = n_models,
+    showcase = bs_icon("pie-chart")
+  )
+)
 
-valueBox(n_models,
-         caption = "Unique models submitted to the EFI Challenge",
-         icon = NULL,
-         color = "orange",
-         href = NULL)
 ```
 
 

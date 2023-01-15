@@ -13,7 +13,6 @@ library(tidyverse)
 library(neon4cast)
 library(score4cast)
 library(glue)
-library(flexdashboard)
 source("R/plot-utils.R")
 score4cast::ignore_sigpipe()
 
