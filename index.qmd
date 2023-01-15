@@ -13,6 +13,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 library(tidyverse)
 library(arrow)
 library(bslib)
+library(bsicons)
 ```
 
 
@@ -27,6 +28,7 @@ last_updated <- Sys.Date()
 ```
 
 ```{r}
+
 layout_column_wrap(
   width = "250px",
   value_box(

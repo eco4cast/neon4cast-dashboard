@@ -314,6 +314,16 @@
         "tidyr"
       ]
     },
+    "bsicons": {
+      "Package": "bsicons",
+      "Version": "0.1",
+      "Source": "Repository",
+      "Repository": "RSPM",
+      "Hash": "6d1f170155965ab16b429a76e1d7dbc1",
+      "Requirements": [
+        "htmltools"
+      ]
+    },
     "bslib": {
       "Package": "bslib",
       "Version": "0.4.2",
