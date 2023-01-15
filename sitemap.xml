@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/terrestrial.html</loc>
-    <lastmod>2023-01-11T08:12:21.680Z</lastmod>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/index.html</loc>
+    <lastmod>2023-01-15T20:24:27.509Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/about.html</loc>
-    <lastmod>2023-01-11T08:12:24.176Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
-    <lastmod>2023-01-11T08:12:26.293Z</lastmod>
+    <lastmod>2023-01-15T20:24:29.449Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/ticks.html</loc>
-    <lastmod>2023-01-11T08:12:32.809Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/beetles.html</loc>
-    <lastmod>2023-01-11T08:12:52.895Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
-    <lastmod>2023-01-11T08:13:04.584Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/index.html</loc>
-    <lastmod>2023-01-11T08:13:31.450Z</lastmod>
+    <lastmod>2023-01-15T20:24:34.741Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/aquatics.html</loc>
-    <lastmod>2023-01-11T08:14:09.437Z</lastmod>
+    <lastmod>2023-01-15T20:25:15.381Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
+    <lastmod>2023-01-15T20:25:24.774Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/terrestrial.html</loc>
+    <lastmod>2023-01-15T20:25:51.702Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
+    <lastmod>2023-01-15T20:25:53.266Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/beetles.html</loc>
+    <lastmod>2023-01-15T20:26:09.762Z</lastmod>
   </url>
 </urlset>
