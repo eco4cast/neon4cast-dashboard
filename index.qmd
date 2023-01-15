@@ -34,7 +34,8 @@ layout_column_wrap(
   value_box(
     title = "Total forecasts submitted to the EFI Challenge", 
     value = n_forecasts,
-    showcase = bs_icon("graph-up")
+    showcase = bs_icon("graph-up"),
+    theme_color = "success" 
   ),
   value_box(
     title = "Unique models submitted to the EFI Challenge", 
