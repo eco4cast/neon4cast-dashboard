@@ -27,7 +27,7 @@ last_updated <- Sys.Date()
 
 ```
 
-```{r}
+```{r include = FALSE}
 
 layout_column_wrap(
   width = "250px",
