@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/index.html</loc>
-    <lastmod>2023-01-19T08:31:55.985Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/about.html</loc>
-    <lastmod>2023-01-19T08:31:58.165Z</lastmod>
-  </url>
-  <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/ticks.html</loc>
-    <lastmod>2023-01-19T08:32:06.425Z</lastmod>
+    <lastmod>2023-01-21T08:44:17.009Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/aquatics.html</loc>
-    <lastmod>2023-01-19T08:33:12.026Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
-    <lastmod>2023-01-19T08:33:23.966Z</lastmod>
+    <lastmod>2023-01-21T08:44:59.336Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/terrestrial.html</loc>
-    <lastmod>2023-01-19T08:34:04.334Z</lastmod>
+    <lastmod>2023-01-21T08:45:24.948Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
-    <lastmod>2023-01-19T08:34:06.138Z</lastmod>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/index.html</loc>
+    <lastmod>2023-01-21T08:45:47.156Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
+    <lastmod>2023-01-21T08:46:00.504Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/beetles.html</loc>
-    <lastmod>2023-01-19T08:34:27.151Z</lastmod>
+    <lastmod>2023-01-21T08:46:17.136Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/about.html</loc>
+    <lastmod>2023-01-21T08:46:18.876Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
+    <lastmod>2023-01-21T08:46:20.568Z</lastmod>
   </url>
 </urlset>
