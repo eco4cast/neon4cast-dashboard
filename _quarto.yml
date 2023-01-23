@@ -22,6 +22,8 @@ website:
         icon: bug-fill
       - href: beetles.qmd
         icon: bug
+      - href: status.qmd
+        icon: clipboard-pulse
 
   page-footer:
     left: "CC-BY"
