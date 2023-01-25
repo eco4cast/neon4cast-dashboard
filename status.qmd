@@ -21,22 +21,52 @@ score4cast::ignore_sigpipe()
 
 ## Data Status
 
+```{r}
+## table that covers general forecasting challenge diagnostics
+
+# themes_list <- c('aquatics','phenology','ticks','beetles') #terrestrial name is different (need to ask)
+# 
+# theme_stats <- theme_statistics(themes_list)
+# 
+# reactable(theme_stats,
+#           columns = list(theme = colDef(name='Theme'),
+#                          n_teams = colDef(name='Number of Teams'),
+#                          n_submissions = colDef(name='Forecasts')),
+#           highlight = TRUE)
+
+```
+
+
+```{r}
+
+## Define functions and variables to be used in theme panels 
+
+cutoff_week <- as.character(Sys.Date() - 7)
+cutoff_month <- as.character(Sys.Date() - 30)
+cutoff_year <- as.character(Sys.Date() - 365)
+
+# might consider puttin this function somewhere else and sourcing it in
+forecast_time_summary <- function(time_cutoff, forecast_theme){
+  cache_path <- paste0('cache/parquet/',forecast_theme)
+  forecasts_df <- arrow::open_dataset("cache/parquet/aquatics") %>%
+    filter(reference_datetime >= time_cutoff) %>%
+    distinct(model_id, reference_datetime) %>%
+    count(model_id) %>%
+    collect()
+
+  n_4cast <- sum(forecasts_df$n)
+  return(n_4cast)
+}
+
+```
+
 ::: panel-tabset
 
 ## Met Data
 This shows the date of the most recent NOAA forecast run for each site
 ```{r}
 print('met data')
-```
 
-## Phenology Data
-
-```{r}
-```
-
-## Aquatics Data
-
-```{r}
 # NOAA DATA TEST 
 #df_noaa <- neon4cast::noaa_stage2()
 
@@ -48,19 +78,45 @@ print('met data')
 #reactable(df_noaa2)
 
 
-### AQUATICS DATA TEST 
+```
+
+## Phenology Data
+
+```{r}
+## Post forecast submission stats 
+
+pheno_forecasts_week <- forecast_time_summary(cutoff_week,'phenology')
+pheno_forecasts_month <- forecast_time_summary(cutoff_month,'phenology')
+pheno_forecasts_year <- forecast_time_summary(cutoff_year,'phenology')
+
+print(paste('Forecasts submitted over the last week:',pheno_forecasts_week))
+print(paste('Forecasts submitted over the last month:',pheno_forecasts_month))
+print(paste('Forecasts submitted over the last year:',pheno_forecasts_year))
+
+```
+
+## Aquatics Data
+
+```{r}
+
+## Post forecast submission stats 
+
+aquatic_forecasts_week <- forecast_time_summary(cutoff_week,'aquatics')
+aquatic_forecasts_month <- forecast_time_summary(cutoff_month,'aquatics')
+aquatic_forecasts_year <- forecast_time_summary(cutoff_year,'aquatics')
+
+print(paste('Forecasts submitted over the last week:',aquatic_forecasts_week))
+print(paste('Forecasts submitted over the last month:',aquatic_forecasts_month))
+print(paste('Forecasts submitted over the last year:',aquatic_forecasts_year))
+
 ## TABLE TO SUMMARIZE DATA BY SITE AND VARIABLE (SEARCHABLE)
+
 df_aquatics <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz")
 
-#forecast_sites <- c('BARC','CRAM','LIRO','PRLA','PRPO','SUGG')
-
 df_summary <- df_aquatics %>%
-  #filter(site_id %in% forecast_sites) %>%
   drop_na(observation) %>%
   group_by(site_id,variable) %>%
-  #group_by(site_id) %>%
   summarize(max_date = max(lubridate::as_date(datetime)))
-
 
 reactable(df_summary, 
           columns = list(max_date = colDef(name='max date')),
@@ -74,16 +130,36 @@ reactable(df_summary,
 ## Terrestrial Data
 
 ```{r}
+## Post forecast submission stats --check back on this about daily or 30 min 
+
 ```
 
 ## Ticks Data
 
 ```{r}
+## Post forecast submission stats 
+
+ticks_forecasts_week <- forecast_time_summary(cutoff_week,'ticks')
+ticks_forecasts_month <- forecast_time_summary(cutoff_month,'ticks')
+ticks_forecasts_year <- forecast_time_summary(cutoff_year,'ticks')
+
+print(paste('Forecasts submitted over the last week:',ticks_forecasts_week))
+print(paste('Forecasts submitted over the last month:',ticks_forecasts_month))
+print(paste('Forecasts submitted over the last year:',ticks_forecasts_year))
 ```
 
 ## Beetles Data
 
 ```{r}
+## Post forecast submission stats 
+
+beetles_forecasts_week <- forecast_time_summary(cutoff_week,'beetles')
+beetles_forecasts_month <- forecast_time_summary(cutoff_month,'beetles')
+beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
+
+print(paste('Forecasts submitted over the last week:',beetles_forecasts_week))
+print(paste('Forecasts submitted over the last month:',beetles_forecasts_month))
+print(paste('Forecasts submitted over the last year:',beetles_forecasts_year))
 ```
 
 
