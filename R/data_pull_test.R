@@ -64,11 +64,24 @@ aquatic_forecasts_year <- forecast_time_summary(cutoff_year,'aquatics')
 
 ## TEST MAKING FORECAST TABLE FOR EACH THEME
 
-forecast_info <- arrow::open_dataset("cache/parquet/aquatics") %>%
+forecast_recent_dates <- arrow::open_dataset("cache/parquet/aquatics") %>%
   group_by(model_id, variable) %>%
-  count(reference_datetime) %>%
   summarise(recent_submission = max(reference_datetime)) %>%
-  ungroup() %>%
-  #distinct(model_id,variable, .keep_all = TRUE) %>%
   collect()
 
+forecast_team_submissions <- arrow::open_dataset("cache/parquet/aquatics") %>%
+  group_by(model_id, variable) %>%
+  summarise(n_submissions = n_distinct(reference_datetime)) %>%
+  collect()
+
+forecast_info <- forecast_recent_dates %>%
+  left_join(forecast_team_submissions, by=c('model_id','variable'))
+
+reactable(forecast_info,
+          columns = list(model_id = colDef(name='Model ID (team name)'),
+                         variable = colDef(name='Variable'),
+                        recent_submission  = colDef(name='Most Recent Submission'),
+                        n_submissions  = colDef(name='Number of Submissions')),
+          defaultPageSize = 20,
+          filterable = TRUE,
+          highlight = TRUE)

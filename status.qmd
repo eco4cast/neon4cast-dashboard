@@ -17,6 +17,9 @@ library(reactable)
 library(httr)
 score4cast::ignore_sigpipe()
 
+## source function script 
+source("~/R/status_functions.R")
+
 ```
 
 ## Data Status
@@ -24,7 +27,7 @@ score4cast::ignore_sigpipe()
 ```{r}
 ## table that covers general forecasting challenge diagnostics
 
-# themes_list <- c('aquatics','phenology','ticks','beetles') #terrestrial name is different (need to ask)
+# themes_list <- c('aquatics','beetles,'phenology','terrestrial_30min','terrestrial_daily,'ticks',) 
 # 
 # theme_stats <- theme_statistics(themes_list)
 # 
@@ -34,31 +37,9 @@ score4cast::ignore_sigpipe()
 #                          n_submissions = colDef(name='Forecasts')),
 #           highlight = TRUE)
 
+# ADD ROW THAT SUMS OF ALL COLUMNS (TOTAL TEAMS, TOTAL FORECASTS, ETC.)
 ```
 
-
-```{r}
-
-## Define functions and variables to be used in theme panels 
-
-cutoff_week <- as.character(Sys.Date() - 7)
-cutoff_month <- as.character(Sys.Date() - 30)
-cutoff_year <- as.character(Sys.Date() - 365)
-
-# might consider puttin this function somewhere else and sourcing it in
-forecast_time_summary <- function(time_cutoff, forecast_theme){
-  cache_path <- paste0('cache/parquet/',forecast_theme)
-  forecasts_df <- arrow::open_dataset("cache/parquet/aquatics") %>%
-    filter(reference_datetime >= time_cutoff) %>%
-    distinct(model_id, reference_datetime) %>%
-    count(model_id) %>%
-    collect()
-
-  n_4cast <- sum(forecasts_df$n)
-  return(n_4cast)
-}
-
-```
 
 ::: panel-tabset
 
@@ -83,56 +64,61 @@ print('met data')
 ## Phenology Data
 
 ```{r}
-## Post forecast submission stats 
-
+## Create forecast submission stats 
 pheno_forecasts_week <- forecast_time_summary(cutoff_week,'phenology')
 pheno_forecasts_month <- forecast_time_summary(cutoff_month,'phenology')
 pheno_forecasts_year <- forecast_time_summary(cutoff_year,'phenology')
-
-print(paste('Forecasts submitted over the last week:',pheno_forecasts_week))
-print(paste('Forecasts submitted over the last month:',pheno_forecasts_month))
-print(paste('Forecasts submitted over the last year:',pheno_forecasts_year))
-
 ```
+
+Forecasts submitted over the last week: `r pheno_forecast_week`
+Forecasts submitted over the last month: `r pheno_forecast_month`
+Forecasts submitted over the last year: `r pheno_forecast_year`
 
 ## Aquatics Data
 
 ```{r}
-
-## Post forecast submission stats 
-
+## Create forecast submission stats 
 aquatic_forecasts_week <- forecast_time_summary(cutoff_week,'aquatics')
 aquatic_forecasts_month <- forecast_time_summary(cutoff_month,'aquatics')
 aquatic_forecasts_year <- forecast_time_summary(cutoff_year,'aquatics')
+```
 
-print(paste('Forecasts submitted over the last week:',aquatic_forecasts_week))
-print(paste('Forecasts submitted over the last month:',aquatic_forecasts_month))
-print(paste('Forecasts submitted over the last year:',aquatic_forecasts_year))
+Forecasts submitted over the last week: `r aquatic_forecasts_week`
+Forecasts submitted over the last month: `r aquatic_forecasts_month`
+Forecasts submitted over the last year: `r aquatic_forecasts_year`
 
-## TABLE TO SUMMARIZE DATA BY SITE AND VARIABLE (SEARCHABLE)
-
+```{r}
+## Create Targets Table 
 df_aquatics <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz")
+theme_targets_table(df_aquatics)
+```
 
-df_summary <- df_aquatics %>%
-  drop_na(observation) %>%
-  group_by(site_id,variable) %>%
-  summarize(max_date = max(lubridate::as_date(datetime)))
-
-reactable(df_summary, 
-          columns = list(max_date = colDef(name='max date')),
-          defaultPageSize = 20, 
-          filterable = TRUE, 
-          highlight = TRUE)
-
-
+```{r}
+## Create Forecast Table 
+theme_forecast_table(df_aquatics)
 ```
 
 ## Terrestrial Data
 
 ```{r}
 ## Post forecast submission stats --check back on this about daily or 30 min 
+terr_30_forecasts_week <- forecast_time_summary(cutoff_week,'Terrestrial_30min')
+terr_30_forecasts_month <- forecast_time_summary(cutoff_month,'Terrestrial_30min')
+terr_30_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_30min')
+
+terr_daily_forecasts_week <- forecast_time_summary(cutoff_week,'Terrestrial_daily')
+terr_daily_forecasts_month <- forecast_time_summary(cutoff_month,'Terrestrial_daily')
+terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_daily')
 
 ```
+
+Forecasts submitted over the last week: `r terr_30_forecasts_week`
+Forecasts submitted over the last month: `r terr_30_forecasts_month`
+Forecasts submitted over the last year: `r terr_30_forecasts_year`
+
+Forecasts submitted over the last week: `r terr_daily_forecasts_week`
+Forecasts submitted over the last month: `r terr_daily_forecasts_month`
+Forecasts submitted over the last year: `r terr_daily_forecasts_year`
 
 ## Ticks Data
 
@@ -142,11 +128,11 @@ reactable(df_summary,
 ticks_forecasts_week <- forecast_time_summary(cutoff_week,'ticks')
 ticks_forecasts_month <- forecast_time_summary(cutoff_month,'ticks')
 ticks_forecasts_year <- forecast_time_summary(cutoff_year,'ticks')
-
-print(paste('Forecasts submitted over the last week:',ticks_forecasts_week))
-print(paste('Forecasts submitted over the last month:',ticks_forecasts_month))
-print(paste('Forecasts submitted over the last year:',ticks_forecasts_year))
 ```
+
+Forecasts submitted over the last week: `r ticks_forecasts_week`
+Forecasts submitted over the last month: `r ticks_forecasts_month`
+Forecasts submitted over the last year: `r ticks_forecasts_year`
 
 ## Beetles Data
 
@@ -156,12 +142,11 @@ print(paste('Forecasts submitted over the last year:',ticks_forecasts_year))
 beetles_forecasts_week <- forecast_time_summary(cutoff_week,'beetles')
 beetles_forecasts_month <- forecast_time_summary(cutoff_month,'beetles')
 beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
-
-print(paste('Forecasts submitted over the last week:',beetles_forecasts_week))
-print(paste('Forecasts submitted over the last month:',beetles_forecasts_month))
-print(paste('Forecasts submitted over the last year:',beetles_forecasts_year))
 ```
 
+Forecasts submitted over the last week: `r beetles_forecasts_week`
+Forecasts submitted over the last month: `r beetles_forecasts_month`
+Forecasts submitted over the last year: `r beetles_forecasts_year`
 
 ## Automated Jobs
 
