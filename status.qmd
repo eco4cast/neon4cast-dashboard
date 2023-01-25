@@ -18,7 +18,7 @@ library(httr)
 score4cast::ignore_sigpipe()
 
 ## source function script 
-source("~/R/status_functions.R")
+source("R/status_functions.R")
 
 ```
 
@@ -70,9 +70,9 @@ pheno_forecasts_month <- forecast_time_summary(cutoff_month,'phenology')
 pheno_forecasts_year <- forecast_time_summary(cutoff_year,'phenology')
 ```
 
-Forecasts submitted over the last week: `r pheno_forecast_week`
-Forecasts submitted over the last month: `r pheno_forecast_month`
-Forecasts submitted over the last year: `r pheno_forecast_year`
+- Forecasts submitted over the last week: `r pheno_forecasts_week`
+- Forecasts submitted over the last month: `r pheno_forecasts_month`
+- Forecasts submitted over the last year: `r pheno_forecasts_year`
 
 ## Aquatics Data
 
@@ -83,9 +83,9 @@ aquatic_forecasts_month <- forecast_time_summary(cutoff_month,'aquatics')
 aquatic_forecasts_year <- forecast_time_summary(cutoff_year,'aquatics')
 ```
 
-Forecasts submitted over the last week: `r aquatic_forecasts_week`
-Forecasts submitted over the last month: `r aquatic_forecasts_month`
-Forecasts submitted over the last year: `r aquatic_forecasts_year`
+- Forecasts submitted over the last week: `r aquatic_forecasts_week`
+- Forecasts submitted over the last month: `r aquatic_forecasts_month`
+- Forecasts submitted over the last year: `r aquatic_forecasts_year`
 
 ```{r}
 ## Create Targets Table 
@@ -93,9 +93,10 @@ df_aquatics <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/a
 theme_targets_table(df_aquatics)
 ```
 
+
 ```{r}
 ## Create Forecast Table 
-theme_forecast_table(df_aquatics)
+theme_forecast_table('aquatics')
 ```
 
 ## Terrestrial Data
@@ -112,13 +113,13 @@ terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_dail
 
 ```
 
-Forecasts submitted over the last week: `r terr_30_forecasts_week`
-Forecasts submitted over the last month: `r terr_30_forecasts_month`
-Forecasts submitted over the last year: `r terr_30_forecasts_year`
+- Forecasts submitted over the last week: `r terr_30_forecasts_week`
+- Forecasts submitted over the last month: `r terr_30_forecasts_month`
+- Forecasts submitted over the last year: `r terr_30_forecasts_year`
 
-Forecasts submitted over the last week: `r terr_daily_forecasts_week`
-Forecasts submitted over the last month: `r terr_daily_forecasts_month`
-Forecasts submitted over the last year: `r terr_daily_forecasts_year`
+- Forecasts submitted over the last week: `r terr_daily_forecasts_week`
+- Forecasts submitted over the last month: `r terr_daily_forecasts_month`
+- Forecasts submitted over the last year: `r terr_daily_forecasts_year`
 
 ## Ticks Data
 
@@ -130,9 +131,9 @@ ticks_forecasts_month <- forecast_time_summary(cutoff_month,'ticks')
 ticks_forecasts_year <- forecast_time_summary(cutoff_year,'ticks')
 ```
 
-Forecasts submitted over the last week: `r ticks_forecasts_week`
-Forecasts submitted over the last month: `r ticks_forecasts_month`
-Forecasts submitted over the last year: `r ticks_forecasts_year`
+- Forecasts submitted over the last week: `r ticks_forecasts_week`
+- Forecasts submitted over the last month: `r ticks_forecasts_month`
+- Forecasts submitted over the last year: `r ticks_forecasts_year`
 
 ## Beetles Data
 
@@ -144,9 +145,9 @@ beetles_forecasts_month <- forecast_time_summary(cutoff_month,'beetles')
 beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
 ```
 
-Forecasts submitted over the last week: `r beetles_forecasts_week`
-Forecasts submitted over the last month: `r beetles_forecasts_month`
-Forecasts submitted over the last year: `r beetles_forecasts_year`
+- Forecasts submitted over the last week: `r beetles_forecasts_week`
+- Forecasts submitted over the last month: `r beetles_forecasts_month`
+- Forecasts submitted over the last year: `r beetles_forecasts_year`
 
 ## Automated Jobs
 

@@ -27,7 +27,7 @@ theme_targets_table <- function(targets_df){
 
   targets_table <- reactable(df_summary,
             columns = list(max_date = colDef(name='max date')),
-            defaultPageSize = 20,
+            defaultPageSize = 10,
             filterable = TRUE,
             highlight = TRUE)
 
@@ -57,7 +57,7 @@ theme_forecast_table <- function(forecast_theme){
                                          variable = colDef(name='Variable'),
                                          recent_submission  = colDef(name='Most Recent Submission'),
                                          n_submissions  = colDef(name='Number of Submissions')),
-                          defaultPageSize = 20,
+                          defaultPageSize = 10,
                           filterable = TRUE,
                           highlight = TRUE)
 
