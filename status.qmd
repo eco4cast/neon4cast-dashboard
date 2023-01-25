@@ -63,7 +63,7 @@ source("R/status_functions.R")
 ::: panel-tabset
 
 ## Met Data
-This shows the date of the most recent NOAA forecast run for each site
+Below are the statuses of each NOAA related process:
 ```{r}
 
 health_check_table('NOAA')
@@ -82,6 +82,19 @@ pheno_forecasts_year <- forecast_time_summary(cutoff_year,'phenology')
 - Forecasts submitted over the last week: `r pheno_forecasts_week`
 - Forecasts submitted over the last month: `r pheno_forecasts_month`
 - Forecasts submitted over the last year: `r pheno_forecasts_year`
+
+```{r}
+## Create Targets Table 
+df_pheno <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/phenology/phenology-targets.csv.gz", guess_max = 1e6) |> 
+  na.omit()
+theme_targets_table(df_pheno)
+```
+
+
+```{r}
+## Create Forecast Table 
+theme_forecast_table('phenonlogy')
+```
 
 ## Aquatics Data
 
@@ -122,14 +135,40 @@ terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_dail
 
 ```
 
-- Forecasts submitted over the last week: `r terr_30_forecasts_week`
-- Forecasts submitted over the last month: `r terr_30_forecasts_month`
-- Forecasts submitted over the last year: `r terr_30_forecasts_year`
+- Thirty minute forecasts submitted over the last week: `r terr_30_forecasts_week`
+- Thirty minute forecasts submitted over the last month: `r terr_30_forecasts_month`
+- Thirty minute forecasts submitted over the last year: `r terr_30_forecasts_year`
 
-- Forecasts submitted over the last week: `r terr_daily_forecasts_week`
-- Forecasts submitted over the last month: `r terr_daily_forecasts_month`
-- Forecasts submitted over the last year: `r terr_daily_forecasts_year`
+- Daily forecasts submitted over the last week: `r terr_daily_forecasts_week`
+- Daily forecasts submitted over the last month: `r terr_daily_forecasts_month`
+- Daily forecasts submitted over the last year: `r terr_daily_forecasts_year`
 
+```{r}
+## Create 30 min Targets Table 
+df_terr_30 <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/terrestrial_30min/terrestrial_30min-targets.csv.gz", guess_max = 1e6)
+theme_targets_table(df_terr_30)
+```
+
+
+```{r}
+## Create 30 min Forecast Table 
+theme_forecast_table('terrestrial_30min')
+```
+
+
+```{r}
+## Create Daily Targets Table 
+df_terr_daily <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/terrestrial_daily/terrestrial_daily-targets.csv.gz", guess_max = 1e6) |> 
+  na.omit()
+
+theme_targets_table(df_terr_daily)
+```
+
+
+```{r}
+## Create Daily Forecast Table 
+theme_forecast_table('terrestrial_daily')
+```
 ## Ticks Data
 
 ```{r}
@@ -144,6 +183,18 @@ ticks_forecasts_year <- forecast_time_summary(cutoff_year,'ticks')
 - Forecasts submitted over the last month: `r ticks_forecasts_month`
 - Forecasts submitted over the last year: `r ticks_forecasts_year`
 
+```{r}
+## Create Targets Table 
+df_ticks <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/ticks/ticks-targets.csv.gz", guess_max = 1e6)
+theme_targets_table(df_ticks)
+```
+
+
+```{r}
+## Create Forecast Table 
+theme_forecast_table('ticks')
+```
+
 ## Beetles Data
 
 ```{r}
@@ -157,6 +208,18 @@ beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
 - Forecasts submitted over the last week: `r beetles_forecasts_week`
 - Forecasts submitted over the last month: `r beetles_forecasts_month`
 - Forecasts submitted over the last year: `r beetles_forecasts_year`
+
+```{r}
+## Create Targets Table 
+df_beetles <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/beetles/beetles-targets.csv.gz", guess_max = 1e6)
+theme_targets_table(df_beetles)
+```
+
+
+```{r}
+## Create Forecast Table 
+theme_forecast_table('beetles')
+```
 
 ## Automated Jobs
 

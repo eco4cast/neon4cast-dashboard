@@ -7,7 +7,7 @@ cutoff_year <- as.character(Sys.Date() - 365)
 
 forecast_time_summary <- function(time_cutoff, forecast_theme){
   cache_path <- paste0('cache/parquet/',forecast_theme)
-  forecasts_df <- arrow::open_dataset("cache/parquet/aquatics") %>%
+  forecasts_df <- arrow::open_dataset(cache_path) %>%
     filter(reference_datetime >= time_cutoff) %>%
     distinct(model_id, reference_datetime) %>%
     count(model_id) %>%
@@ -98,6 +98,8 @@ health_check_table <- function(context){
       filter(hc_names %in% noaa_processes)
 
     hc_table_noaa <- reactable(checks_noaa,
+                               defaultColDef = colDef(
+                                 align = "center"),
                           columns = list(hc_names = colDef(name='Process Name'),
                                          hc_status = colDef(name='Status'),
                                          hc_latest = colDef(name = 'Updated (UTC)')),
@@ -110,6 +112,8 @@ health_check_table <- function(context){
   } else if (context == 'ALL'){
 
   hc_table <- reactable(check_df,
+                        defaultColDef = colDef(
+                          align = "center"),
             columns = list(hc_names = colDef(name='Process Name'),
                            hc_status = colDef(name='Status'),
                            hc_latest = colDef(name = 'Updated (UTC)')),
