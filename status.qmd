@@ -46,18 +46,8 @@ source("R/status_functions.R")
 ## Met Data
 This shows the date of the most recent NOAA forecast run for each site
 ```{r}
-print('met data')
 
-# NOAA DATA TEST 
-#df_noaa <- neon4cast::noaa_stage2()
-
-#df_noaa2 <- df_noaa %>% 
-#  group_by(site_id) %>% 
-#  summarize(max = max(lubridate::as_date(start_date))) %>% 
-#  collect()
-
-#reactable(df_noaa2)
-
+health_check_table('NOAA')
 
 ```
 
@@ -152,33 +142,7 @@ beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
 ## Automated Jobs
 
 ```{r}
-health_check <- GET(
-  "https://healthchecks.io/api/v1/checks/",
-  accept_json(),
-  add_headers('X-Api-Key' = 'YKpvNOQWGtcGtyKu4rgC0Z7_0AQFo4kj')
-)
-
-check_parsed <- content(health_check,as='parsed')$checks
-
-hc_names <- c()
-hc_status <- c()
-
-for (i in seq.int(1,length(check_parsed))){
-  hc_names[i] <- check_parsed[[i]][[1]] # json objects 1 and 7 are the name and status, respectively
-  hc_status[i] <- check_parsed[[i]][[7]]
-}
-
-check_df <- data.frame(hc_names,hc_status)
-
-
-reactable(check_df,
-          columns = list(hc_names = colDef(name='Process Name'),
-                         hc_status = colDef(name='Status')),
-          defaultPageSize = 20,
-          filterable = TRUE,
-          highlight = TRUE)
-
-## STILL NEED TO MAKE PROCESS NAMES MORE USER READABLE 
+health_check_table('ALL')
 ```
 
 :::
