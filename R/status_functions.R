@@ -107,7 +107,7 @@ health_check_table <- function(context){
     return(hc_table_noaa)
 
     ## this is for making a table of ALL processes
-  } else if (conext == 'ALL'){
+  } else if (context == 'ALL'){
 
   hc_table <- reactable(check_df,
             columns = list(hc_names = colDef(name='Process Name'),

@@ -27,15 +27,34 @@ source("R/status_functions.R")
 ```{r}
 ## table that covers general forecasting challenge diagnostics
 
-# themes_list <- c('aquatics','beetles,'phenology','terrestrial_30min','terrestrial_daily,'ticks',) 
+# themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestrial_daily','ticks')
 # 
 # theme_stats <- theme_statistics(themes_list)
 # 
 # reactable(theme_stats,
+#           defaultColDef = colDef(
+#             align = "center"),
 #           columns = list(theme = colDef(name='Theme'),
 #                          n_teams = colDef(name='Number of Teams'),
-#                          n_submissions = colDef(name='Forecasts')),
-#           highlight = TRUE)
+#                          n_submissions = colDef(name='Forecasts'),
+#                          n_obs_forecasts_pairs = colDef(name='Forecast/Observation Pairs')),
+#           highlight = TRUE,
+#           bordered = TRUE)
+# 
+# #summed table of summaries
+# df_totals <- data.frame(theme_total = nrow(theme_stats),
+#                         team_total = sum(theme_stats$n_teams),
+#                         submission_total = sum(theme_stats$n_submissions),
+#                         forecast_obs_total = sum(theme_stats$n_obs_forecasts_pairs))
+# 
+# reactable(df_totals,
+#           defaultColDef = colDef(
+#             align = "center"),
+#           columns = list(theme_total = colDef(name='Total Themes'),
+#                          team_total = colDef(name='Total Teams'),
+#                          submission_total = colDef(name='Total Submissions'),
+#                          forecast_obs_total = colDef(name='Total Forecast/Obs Pairs')),
+#           bordered = TRUE)
 
 # ADD ROW THAT SUMS OF ALL COLUMNS (TOTAL TEAMS, TOTAL FORECASTS, ETC.)
 ```

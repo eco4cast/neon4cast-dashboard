@@ -13,30 +13,50 @@ reactable(df_interest)
 
 
 
-df_test <- neon4cast::noaa_stage2()
-
-df_test1 <- neon4cast::noaa_stage1()
-
-df2 <- df_test1 %>%
-  filter(site_id == 'SUGG', start_date >= as.character('2023-01-22'), variable == 'TMP') %>%
-  group_by(parameter, start_date) %>%
-  summarise(max = max(horizon)) %>%
-  collect()
+# df_test <- neon4cast::noaa_stage2()
+#
+# df_test1 <- neon4cast::noaa_stage1()
+#
+# df2 <- df_test1 %>%
+#   filter(site_id == 'SUGG', start_date >= as.character('2023-01-22'), variable == 'TMP') %>%
+#   group_by(parameter, start_date) %>%
+#   summarise(max = max(horizon)) %>%
+#   collect()
 
 
 
 #### TEST OUT COLLECTING AND SUMMARIZING FORECAST DATA (used for informing theme stats for each tab)
 #aquatic_4cast <- arrow::open_dataset("cache/parquet/aquatics")
 
-themes_list <- c('aquatics','phenology','ticks','beetles') #terrestrial name is different (need to ask)
+themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestrial_daily','ticks')
 
 theme_stats <- theme_statistics(themes_list)
 
 reactable(theme_stats,
+          defaultColDef = colDef(
+            align = "center"),
           columns = list(theme = colDef(name='Theme'),
                          n_teams = colDef(name='Number of Teams'),
-                         n_submissions = colDef(name='Forecasts')),
-          highlight = TRUE)
+                         n_submissions = colDef(name='Forecasts'),
+                         n_obs_forecasts_pairs = colDef(name='Forecast/Observation Pairs')),
+          highlight = TRUE,
+          bordered = TRUE)
+
+#summed table of summaries
+df_totals <- data.frame(theme_total = nrow(theme_stats),
+                        team_total = sum(theme_stats$n_teams),
+                        submission_total = sum(theme_stats$n_submissions),
+                        forecast_obs_total = sum(theme_stats$n_obs_forecasts_pairs))
+
+reactable(df_totals,
+          defaultColDef = colDef(
+            align = "center"),
+          columns = list(theme_total = colDef(name='Total Themes'),
+                         team_total = colDef(name='Total Teams'),
+                         submission_total = colDef(name='Total Submissions'),
+                         forecast_obs_total = colDef(name='Total Forecast/Obs Pairs')),
+          bordered = TRUE)
+
 
 
 #### TEST OUT COLLECTING DATA FROM SPECIFIC TIME RANGES
