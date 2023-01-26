@@ -29,7 +29,11 @@ theme_targets_table <- function(targets_df){
             columns = list(max_date = colDef(name='max date')),
             defaultPageSize = 10,
             filterable = TRUE,
-            highlight = TRUE)
+            highlight = TRUE) %>%
+    reactablefmtr::add_title('Targets',
+                             align = 'center',
+                             font_size = '30',
+                             margin = margin(t=35,r=1,l=1,b=5))
 
   return(targets_table)
 }
@@ -53,13 +57,18 @@ theme_forecast_table <- function(forecast_theme){
     left_join(forecast_team_submissions, by=c('model_id','variable'))
 
  final_table <- reactable(forecast_info,
+                          defaultSorted = list(recent_submission = 'desc'),
                           columns = list(model_id = colDef(name='Model ID (team name)'),
                                          variable = colDef(name='Variable'),
                                          recent_submission  = colDef(name='Most Recent Submission'),
                                          n_submissions  = colDef(name='Number of Submissions')),
                           defaultPageSize = 10,
                           filterable = TRUE,
-                          highlight = TRUE)
+                          highlight = TRUE) %>%
+   reactablefmtr::add_title('Forecasts',
+                            align = 'center',
+                            font_size = '30',
+                            margin = margin(t=35,r=1,l=1,b=5))
 
  return(final_table)
 }

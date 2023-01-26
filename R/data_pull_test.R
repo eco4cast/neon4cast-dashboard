@@ -99,7 +99,8 @@ forecast_team_submissions <- arrow::open_dataset("cache/parquet/aquatics") %>%
 forecast_info <- forecast_recent_dates %>%
   left_join(forecast_team_submissions, by=c('model_id','variable'))
 
-reactable(forecast_info,
+df_test5 <- reactable(forecast_info,
+          defaultSorted = list(recent_submission = 'desc'),
           columns = list(model_id = colDef(name='Model ID (team name)'),
                          variable = colDef(name='Variable'),
                         recent_submission  = colDef(name='Most Recent Submission'),
@@ -107,3 +108,8 @@ reactable(forecast_info,
           defaultPageSize = 20,
           filterable = TRUE,
           highlight = TRUE)
+
+df_test5 %>% reactablefmtr::add_title('Forecasts',
+                                      align = 'center',
+                                      font_size = '30',
+                                      margin = margin(t=40,r=0.5,l=0.5,b=0.5))
