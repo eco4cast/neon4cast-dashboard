@@ -32,7 +32,15 @@ themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestri
 
 theme_stats <- theme_statistics(themes_list)
 
-reactable(theme_stats,
+#summed table of summaries
+df_totals <- data.frame(theme = nrow(theme_stats),
+                        n_teams = sum(theme_stats$n_teams),
+                        n_submissions = sum(theme_stats$n_submissions),
+                        n_obs_forecasts_pairs = sum(theme_stats$n_obs_forecasts_pairs))
+
+bound_summary_table <- rbind(theme_stats, df_totals)
+
+reactable(bound_summary_table,
           defaultColDef = colDef(
             align = "center"),
           columns = list(theme = colDef(name='Theme'),
@@ -42,20 +50,14 @@ reactable(theme_stats,
           highlight = TRUE,
           bordered = TRUE)
 
-#summed table of summaries
-df_totals <- data.frame(theme_total = nrow(theme_stats),
-                        team_total = sum(theme_stats$n_teams),
-                        submission_total = sum(theme_stats$n_submissions),
-                        forecast_obs_total = sum(theme_stats$n_obs_forecasts_pairs))
-
-reactable(df_totals,
-          defaultColDef = colDef(
-            align = "center"),
-          columns = list(theme_total = colDef(name='Total Themes'),
-                         team_total = colDef(name='Total Teams'),
-                         submission_total = colDef(name='Total Submissions'),
-                         forecast_obs_total = colDef(name='Total Forecast/Obs Pairs')),
-          bordered = TRUE)
+# reactable(df_totals,
+#           defaultColDef = colDef(
+#             align = "center"),
+#           columns = list(theme_total = colDef(name='Total Themes'),
+#                          team_total = colDef(name='Total Teams'),
+#                          submission_total = colDef(name='Total Submissions'),
+#                          forecast_obs_total = colDef(name='Total Forecast/Obs Pairs')),
+#           bordered = TRUE)
 
 
 

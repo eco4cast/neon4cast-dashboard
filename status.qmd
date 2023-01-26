@@ -31,7 +31,15 @@ source("R/status_functions.R")
 # 
 # theme_stats <- theme_statistics(themes_list)
 # 
-# reactable(theme_stats,
+# #summed table of summaries
+# df_totals <- data.frame(theme = nrow(theme_stats),
+#                         n_teams = sum(theme_stats$n_teams),
+#                         n_submissions = sum(theme_stats$n_submissions),
+#                         n_obs_forecasts_pairs = sum(theme_stats$n_obs_forecasts_pairs))
+# 
+# bound_summary_table <- rbind(theme_stats, df_totals)
+# 
+# reactable(bound_summary_table,
 #           defaultColDef = colDef(
 #             align = "center"),
 #           columns = list(theme = colDef(name='Theme'),
@@ -40,30 +48,13 @@ source("R/status_functions.R")
 #                          n_obs_forecasts_pairs = colDef(name='Forecast/Observation Pairs')),
 #           highlight = TRUE,
 #           bordered = TRUE)
-# 
-# #summed table of summaries
-# df_totals <- data.frame(theme_total = nrow(theme_stats),
-#                         team_total = sum(theme_stats$n_teams),
-#                         submission_total = sum(theme_stats$n_submissions),
-#                         forecast_obs_total = sum(theme_stats$n_obs_forecasts_pairs))
-# 
-# reactable(df_totals,
-#           defaultColDef = colDef(
-#             align = "center"),
-#           columns = list(theme_total = colDef(name='Total Themes'),
-#                          team_total = colDef(name='Total Teams'),
-#                          submission_total = colDef(name='Total Submissions'),
-#                          forecast_obs_total = colDef(name='Total Forecast/Obs Pairs')),
-#           bordered = TRUE)
-
-# ADD ROW THAT SUMS OF ALL COLUMNS (TOTAL TEAMS, TOTAL FORECASTS, ETC.)
 ```
 
 
 ::: panel-tabset
 
 ## Met Data
-Below are the statuses of each NOAA related process:
+NOAA related processes:
 ```{r}
 
 health_check_table('NOAA')
@@ -93,7 +84,7 @@ theme_targets_table(df_pheno)
 
 ```{r}
 ## Create Forecast Table 
-theme_forecast_table('phenonlogy')
+theme_forecast_table('phenology')
 ```
 
 ## Aquatics Data
@@ -121,27 +112,18 @@ theme_targets_table(df_aquatics)
 theme_forecast_table('aquatics')
 ```
 
-## Terrestrial Data
+## Terrestrial Data (30min)
 
 ```{r}
 ## Post forecast submission stats --check back on this about daily or 30 min 
-terr_30_forecasts_week <- forecast_time_summary(cutoff_week,'Terrestrial_30min')
-terr_30_forecasts_month <- forecast_time_summary(cutoff_month,'Terrestrial_30min')
-terr_30_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_30min')
-
-terr_daily_forecasts_week <- forecast_time_summary(cutoff_week,'Terrestrial_daily')
-terr_daily_forecasts_month <- forecast_time_summary(cutoff_month,'Terrestrial_daily')
-terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'Terrestrial_daily')
-
+terr_30_forecasts_week <- forecast_time_summary(cutoff_week,'terrestrial_30min')
+terr_30_forecasts_month <- forecast_time_summary(cutoff_month,'terrestrial_30min')
+terr_30_forecasts_year <- forecast_time_summary(cutoff_year,'terrestrial_30min')
 ```
 
 - Thirty minute forecasts submitted over the last week: `r terr_30_forecasts_week`
 - Thirty minute forecasts submitted over the last month: `r terr_30_forecasts_month`
 - Thirty minute forecasts submitted over the last year: `r terr_30_forecasts_year`
-
-- Daily forecasts submitted over the last week: `r terr_daily_forecasts_week`
-- Daily forecasts submitted over the last month: `r terr_daily_forecasts_month`
-- Daily forecasts submitted over the last year: `r terr_daily_forecasts_year`
 
 ```{r}
 ## Create 30 min Targets Table 
@@ -155,6 +137,17 @@ theme_targets_table(df_terr_30)
 theme_forecast_table('terrestrial_30min')
 ```
 
+## Terrestrial Data (Daily)
+
+```{r}
+terr_daily_forecasts_week <- forecast_time_summary(cutoff_week,'terrestrial_daily')
+terr_daily_forecasts_month <- forecast_time_summary(cutoff_month,'terrestrial_daily')
+terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'terrestrial_daily')
+```
+
+- Daily forecasts submitted over the last week: `r terr_daily_forecasts_week`
+- Daily forecasts submitted over the last month: `r terr_daily_forecasts_month`
+- Daily forecasts submitted over the last year: `r terr_daily_forecasts_year`
 
 ```{r}
 ## Create Daily Targets Table 
@@ -164,11 +157,11 @@ df_terr_daily <- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets
 theme_targets_table(df_terr_daily)
 ```
 
-
 ```{r}
 ## Create Daily Forecast Table 
 theme_forecast_table('terrestrial_daily')
 ```
+
 ## Ticks Data
 
 ```{r}
