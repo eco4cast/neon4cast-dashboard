@@ -18,21 +18,21 @@
     "href": "aquatics.html#most-recent-forecasts",
     "title": "Aquatics",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-01-09\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-01-10\"\n\n\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#leaderboard",
     "href": "aquatics.html#leaderboard",
     "title": "Aquatics",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2022-12-28.\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2022-12-29.\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#submission-statistics",
     "href": "aquatics.html#submission-statistics",
     "title": "Aquatics",
     "section": "Submission statistics",
-    "text": "Submission statistics\n\n\n\nBetween 2022-12-28 and 2023-01-27:\n\n29 submitted to this challenge"
+    "text": "Submission statistics\n\n\n\nBetween 2022-12-29 and 2023-01-28:\n\n30 submitted to this challenge"
   },
   {
     "objectID": "aquatics.html#long-term-patterns",
@@ -53,7 +53,7 @@
     "href": "terrestrial.html#leaderboard",
     "title": "Terrestrial",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2022-12-28\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2022-12-29\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
   },
   {
     "objectID": "index.html",
@@ -81,7 +81,7 @@
     "href": "phenology.html#leaderboard",
     "title": "Phenology",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2022-12-28\""
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2022-12-29\""
   },
   {
     "objectID": "beetles.html#most-recent-forecasts",
@@ -95,7 +95,7 @@
     "href": "beetles.html#leaderboard",
     "title": "Beetles",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-09-29\"\n\n\n\nrichnessabundance"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-09-30\"\n\n\n\nrichnessabundance"
   },
   {
     "objectID": "about.html",
