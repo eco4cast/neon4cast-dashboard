@@ -1,17 +1,107 @@
-df<- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz")
+library(ggiraph)
+library(patchwork)
+library(tidyverse)
+library(neon4cast)
+library(score4cast)
+library(vis4cast)
+library(glue)
+library(reactable)
+library(httr)
+library(reactablefmtr)
 
-#forecast_sites <- c('BARC','CRAM','LIRO','PRLA','PRPO','SUGG')
+# df<- readr::read_csv("https://data.ecoforecast.org/neon4cast-targets/aquatics/aquatics-targets.csv.gz")
+#
+# #forecast_sites <- c('BARC','CRAM','LIRO','PRLA','PRPO','SUGG')
+#
+# df_interest <- df %>%
+#   filter(site_id %in% forecast_sites) %>%
+#   drop_na(observation) %>%
+#   group_by(site_id,variable) %>%
+#   summarize(max = max(lubridate::as_date(datetime)))
+#
+# reactable(df_interest)
+#
 
-df_interest <- df %>%
-  filter(site_id %in% forecast_sites) %>%
-  drop_na(observation) %>%
-  group_by(site_id,variable) %>%
-  summarize(max = max(lubridate::as_date(datetime)))
+################################
+combined_scores <- function(theme, collect = TRUE){
 
-reactable(df_interest)
+  vars <- neon4cast:::arrow_env_vars()
+
+  #GENERALIZATION: THIS IS A SPECIFIC ENDPOINT
+  s3 <- arrow::s3_bucket(bucket = paste0("neon4cast-scores/parquet/", theme),
+                         endpoint_override = "data.ecoforecast.org",
+                         anonymous = TRUE)
+  ds <- arrow::open_dataset(s3, schema=score4cast::score_schema())
+  if (collect) {
+    ds <- dplyr::collect(ds)
+  }
+  on.exit(neon4cast:::unset_arrow_vars(vars))
+  ds
+}
 
 
+theme_statistics <- function(themes){
 
+  theme_stats <- purrr::map_dfr(themes, function(theme){
+
+    message(theme)
+
+    theme_scores <- combined_scores(theme = theme, collect = FALSE)
+
+    message('data collected...starting calculations')
+
+    teams <- theme_scores |>
+      dplyr::summarise(n = dplyr::n_distinct(model_id)) |>
+      dplyr::collect() |>
+      dplyr::pull(n)
+
+    forecasts <- theme_scores |>
+      dplyr::select(model_id,reference_datetime, variable) |>
+      dplyr::distinct() |>
+      dplyr::summarise(n = dplyr::n(), .groups = "drop") |>
+      dplyr::summarise(total = sum(n)) |>
+      dplyr::collect() |>
+      dplyr::pull(total)
+
+    # forecast_obs <- theme_scores |>
+    #   dplyr::filter(!is.na(crps)) |>
+    #   dplyr::summarise(n = n(), .groups = "drop") |>
+    #   dplyr::summarise(total = sum(n)) |>
+    #   dplyr::collect() |>
+    #   dplyr::pull(total)
+
+    output <- tibble::tibble(theme = theme,
+                             n_teams = teams,
+                             n_submissions = forecasts)#,
+                             #n_obs_forecasts_pairs = forecast_obs)
+
+    return(output)
+  })
+
+  return(theme_stats)
+
+}
+
+
+## this is for testing the processing time for statistics generation -- need to only call collect() once
+themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestrial_daily','ticks')
+
+test_stat <- theme_statistics(themes_list)
+
+
+theme_aquatic <- combined_scores(theme = 'aquatics', collect = FALSE)
+
+theme_aq2 <- theme_aquatic %>%
+  dplyr::summarise(n = dplyr::n_distinct(model_id)) %>%
+  dplyr::collect()
+
+theme_aq3 <- theme_aquatic %>%
+  dplyr::select(model_id,reference_datetime, variable) %>%
+  dplyr::distinct() %>%
+  dplyr::summarise(n = dplyr::n(), .groups = "drop") %>%
+  dplyr::summarise(total = sum(n)) %>%
+  dplyr::collect() %>%
+  dplyr::pull(total)
 
 # df_test <- neon4cast::noaa_stage2()
 #

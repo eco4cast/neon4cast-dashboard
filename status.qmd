@@ -26,33 +26,34 @@ source("R/status_functions.R")
 ## Data Status
 
 ```{r}
-## table that covers general forecasting challenge diagnostics
+## table that covers general forecasting challenge diagnostics 
+#### THIS WILL BE IMPLEMENTED LATER -- CURRENTLY TOO SLOW
 
-themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestrial_daily','ticks')
-
-theme_stats <- theme_statistics(themes_list)
-
-#summed table of theme information
-df_totals <- data.frame(theme = nrow(theme_stats),
-                        n_teams = sum(theme_stats$n_teams),
-                        n_submissions = sum(theme_stats$n_submissions),
-                        n_obs_forecasts_pairs = sum(theme_stats$n_obs_forecasts_pairs))
-
-bound_summary_table <- rbind(theme_stats, df_totals)
-
-reactable(bound_summary_table,
-          defaultColDef = colDef(
-            align = "center"),
-          columns = list(theme = colDef(name='Theme'),
-                         n_teams = colDef(name='Number of Teams'),
-                         n_submissions = colDef(name='Forecasts'),
-                         n_obs_forecasts_pairs = colDef(name='Forecast/Observation Pairs')),
-          highlight = TRUE,
-          bordered = TRUE) %>% 
-      reactablefmtr::add_title('Forecast Summary',
-                             align = 'center',
-                             font_size = '30',
-                             margin = margin(t=20,r=1,l=1,b=5))
+# themes_list <- c('aquatics','beetles','phenology','terrestrial_30min','terrestrial_daily','ticks')
+# 
+# theme_stats <- theme_statistics(themes_list)
+# 
+# #summed table of theme information
+# df_totals <- data.frame(theme = nrow(theme_stats),
+#                         n_teams = sum(theme_stats$n_teams),
+#                         n_submissions = sum(theme_stats$n_submissions),
+#                         n_obs_forecasts_pairs = sum(theme_stats$n_obs_forecasts_pairs))
+# 
+# bound_summary_table <- rbind(theme_stats, df_totals)
+# 
+# reactable(bound_summary_table,
+#           defaultColDef = colDef(
+#             align = "center"),
+#           columns = list(theme = colDef(name='Theme'),
+#                          n_teams = colDef(name='Number of Teams'),
+#                          n_submissions = colDef(name='Forecasts'),
+#                          n_obs_forecasts_pairs = colDef(name='Forecast/Observation Pairs')),
+#           highlight = TRUE,
+#           bordered = TRUE) %>% 
+#       reactablefmtr::add_title('Forecast Summary',
+#                              align = 'center',
+#                              font_size = '30',
+#                              margin = margin(t=20,r=1,l=1,b=5))
 ```
 
 
