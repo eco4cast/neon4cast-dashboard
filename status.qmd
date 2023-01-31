@@ -23,7 +23,7 @@ source("R/status_functions.R")
 
 ```
 
-## Data Status
+## Data and Forecasts
 
 ```{r}
 ## table that covers general forecasting challenge diagnostics 
@@ -43,7 +43,7 @@ source("R/status_functions.R")
 # 
 # reactable(bound_summary_table,
 #           defaultColDef = colDef(
-#             align = "center"),
+#             align = "left"),
 #           columns = list(theme = colDef(name='Theme'),
 #                          n_teams = colDef(name='Number of Teams'),
 #                          n_submissions = colDef(name='Forecasts'),
