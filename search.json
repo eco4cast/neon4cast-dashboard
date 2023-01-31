@@ -18,7 +18,7 @@
     "href": "aquatics.html#most-recent-forecasts",
     "title": "Aquatics",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-01-13\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-01-14\"\n\n\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#leaderboard",
@@ -98,11 +98,11 @@
     "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-10-03\"\n\n\n\nrichnessabundance"
   },
   {
-    "objectID": "status.html#data-status",
-    "href": "status.html#data-status",
+    "objectID": "status.html#data-and-forecasts",
+    "href": "status.html#data-and-forecasts",
     "title": "Status",
-    "section": "Data Status",
-    "text": "Data Status\n\n\n\n\nMet DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 63\nForecasts submitted over the last month: 131\nForecasts submitted over the last year: 1089\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 105\nForecasts submitted over the last month: 306\nForecasts submitted over the last year: 1236\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 12\nThirty minute forecasts submitted over the last month: 48\nThirty minute forecasts submitted over the last year: 321\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 60\nDaily forecasts submitted over the last month: 125\nDaily forecasts submitted over the last year: 705\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 6\nForecasts submitted over the last month: 6\nForecasts submitted over the last year: 14\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 8\nForecasts submitted over the last month: 12\nForecasts submitted over the last year: 37\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts"
+    "section": "Data and Forecasts",
+    "text": "Data and Forecasts\n\n\n\n\nMet DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 64\nForecasts submitted over the last month: 132\nForecasts submitted over the last year: 1090\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 107\nForecasts submitted over the last month: 308\nForecasts submitted over the last year: 1240\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 13\nThirty minute forecasts submitted over the last month: 49\nThirty minute forecasts submitted over the last year: 322\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 61\nDaily forecasts submitted over the last month: 126\nDaily forecasts submitted over the last year: 706\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 6\nForecasts submitted over the last month: 6\nForecasts submitted over the last year: 14\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 8\nForecasts submitted over the last month: 12\nForecasts submitted over the last year: 37\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts"
   },
   {
     "objectID": "about.html",
