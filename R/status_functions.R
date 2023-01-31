@@ -26,6 +26,8 @@ theme_targets_table <- function(targets_df){
     summarize(max_date = max(lubridate::as_date(datetime)))
 
   targets_table <- reactable(df_summary,
+            defaultColDef = colDef(
+              align = "left"),
             columns = list(max_date = colDef(name='max date')),
             defaultPageSize = 10,
             filterable = TRUE,
@@ -57,6 +59,8 @@ theme_forecast_table <- function(forecast_theme){
     left_join(forecast_team_submissions, by=c('model_id','variable'))
 
  final_table <- reactable(forecast_info,
+                          defaultColDef = colDef(
+                            align = "left"),
                           defaultSorted = list(recent_submission = 'desc'),
                           columns = list(model_id = colDef(name='Model ID (team name)'),
                                          variable = colDef(name='Variable'),
@@ -108,7 +112,7 @@ health_check_table <- function(context){
 
     hc_table_noaa <- reactable(checks_noaa,
                                defaultColDef = colDef(
-                                 align = "center"),
+                                 align = "left"),
                           columns = list(hc_names = colDef(name='Process Name'),
                                          hc_status = colDef(name='Status'),
                                          hc_latest = colDef(name = 'Updated (UTC)')),
@@ -122,7 +126,7 @@ health_check_table <- function(context){
 
   hc_table <- reactable(check_df,
                         defaultColDef = colDef(
-                          align = "center"),
+                          align = "left"),
             columns = list(hc_names = colDef(name='Process Name'),
                            hc_status = colDef(name='Status'),
                            hc_latest = colDef(name = 'Updated (UTC)')),
