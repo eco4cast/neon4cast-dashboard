@@ -74,11 +74,15 @@ health_check_table('NOAA')
 pheno_forecasts_week <- forecast_time_summary(cutoff_week,'phenology')
 pheno_forecasts_month <- forecast_time_summary(cutoff_month,'phenology')
 pheno_forecasts_year <- forecast_time_summary(cutoff_year,'phenology')
+pheno_all <- forecast_all_summary('phenology')
+
 ```
 
 - Forecasts submitted over the last week: `r pheno_forecasts_week`
 - Forecasts submitted over the last month: `r pheno_forecasts_month`
 - Forecasts submitted over the last year: `r pheno_forecasts_year`
+- Total Forecasts submitted: `r pheno_all`
+
 
 ```{r}
 ## Create Targets Table 
@@ -100,11 +104,13 @@ theme_forecast_table('phenology')
 aquatic_forecasts_week <- forecast_time_summary(cutoff_week,'aquatics')
 aquatic_forecasts_month <- forecast_time_summary(cutoff_month,'aquatics')
 aquatic_forecasts_year <- forecast_time_summary(cutoff_year,'aquatics')
+aquatic_all <- forecast_all_summary('aquatics')
 ```
 
 - Forecasts submitted over the last week: `r aquatic_forecasts_week`
 - Forecasts submitted over the last month: `r aquatic_forecasts_month`
 - Forecasts submitted over the last year: `r aquatic_forecasts_year`
+- Total Forecasts submitted: `r aquatic_all`
 
 ```{r}
 ## Create Targets Table 
@@ -125,11 +131,14 @@ theme_forecast_table('aquatics')
 terr_30_forecasts_week <- forecast_time_summary(cutoff_week,'terrestrial_30min')
 terr_30_forecasts_month <- forecast_time_summary(cutoff_month,'terrestrial_30min')
 terr_30_forecasts_year <- forecast_time_summary(cutoff_year,'terrestrial_30min')
+terr_30_all <- forecast_all_summary('terrestrial_30min')
+
 ```
 
 - Thirty minute forecasts submitted over the last week: `r terr_30_forecasts_week`
 - Thirty minute forecasts submitted over the last month: `r terr_30_forecasts_month`
 - Thirty minute forecasts submitted over the last year: `r terr_30_forecasts_year`
+- Total Forecasts submitted: `r terr_30_all`
 
 ```{r}
 ## Create 30 min Targets Table 
@@ -149,11 +158,14 @@ theme_forecast_table('terrestrial_30min')
 terr_daily_forecasts_week <- forecast_time_summary(cutoff_week,'terrestrial_daily')
 terr_daily_forecasts_month <- forecast_time_summary(cutoff_month,'terrestrial_daily')
 terr_daily_forecasts_year <- forecast_time_summary(cutoff_year,'terrestrial_daily')
+terr_daily_all <- forecast_all_summary('terrestrial_daily')
+
 ```
 
 - Daily forecasts submitted over the last week: `r terr_daily_forecasts_week`
 - Daily forecasts submitted over the last month: `r terr_daily_forecasts_month`
 - Daily forecasts submitted over the last year: `r terr_daily_forecasts_year`
+- Total Forecasts submitted: `r terr_daily_all`
 
 ```{r}
 ## Create Daily Targets Table 
@@ -176,11 +188,14 @@ theme_forecast_table('terrestrial_daily')
 ticks_forecasts_week <- forecast_time_summary(cutoff_week,'ticks')
 ticks_forecasts_month <- forecast_time_summary(cutoff_month,'ticks')
 ticks_forecasts_year <- forecast_time_summary(cutoff_year,'ticks')
+ticks_daily_all <- forecast_all_summary('ticks')
+
 ```
 
 - Forecasts submitted over the last week: `r ticks_forecasts_week`
 - Forecasts submitted over the last month: `r ticks_forecasts_month`
 - Forecasts submitted over the last year: `r ticks_forecasts_year`
+- Total Forecasts submitted: `r ticks_daily_all`
 
 ```{r}
 ## Create Targets Table 
@@ -202,11 +217,13 @@ theme_forecast_table('ticks')
 beetles_forecasts_week <- forecast_time_summary(cutoff_week,'beetles')
 beetles_forecasts_month <- forecast_time_summary(cutoff_month,'beetles')
 beetles_forecasts_year <- forecast_time_summary(cutoff_year,'beetles')
+beetles_daily_all <- forecast_all_summary('beetles')
 ```
 
 - Forecasts submitted over the last week: `r beetles_forecasts_week`
 - Forecasts submitted over the last month: `r beetles_forecasts_month`
 - Forecasts submitted over the last year: `r beetles_forecasts_year`
+- Total Forecasts submitted: `r beetles_daily_all`
 
 ```{r}
 ## Create Targets Table 

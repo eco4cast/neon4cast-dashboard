@@ -17,6 +17,17 @@ forecast_time_summary <- function(time_cutoff, forecast_theme){
   return(n_4cast)
 }
 
+forecast_all_summary <- function(forecast_theme){
+  cache_path <- paste0('cache/parquet/',forecast_theme)
+  forecasts_df <- arrow::open_dataset(cache_path) %>%
+    distinct(model_id, reference_datetime) %>%
+    count(model_id) %>%
+    collect()
+
+  n_4cast <- sum(forecasts_df$n)
+  return(n_4cast)
+}
+
 
 ## function for creating targets table for each theme
 theme_targets_table <- function(targets_df){
