@@ -128,10 +128,9 @@ leaderboard_plots <- function(df,
                               horizon_units = "days",
                               show.legend=TRUE) {
 
-  df <- df |> filter(variable == var)
-  if(nrow(df)==0) return(NULL)
-
+  df <- df |> filter(variable == var) |> filter(!is.na(observation))
   df <- horizon_filter(df, horizon_cutoff, horizon_units)
+  if(nrow(df)==0) return(NULL)
 
   board1 <- by_model_id(df, show.legend = FALSE)
   board2 <- by_reference_datetime(df, show.legend = FALSE) + theme_bw()

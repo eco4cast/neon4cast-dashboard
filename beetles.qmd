@@ -20,11 +20,19 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 ## Most recent forecasts
 
 ```{r}
-sites <- combined |> distinct(site_id) |> collect() |> pull(site_id)
+sites <- combined |>
+  distinct(site_id) |>
+  collect() |> 
+  pull(site_id)
 ## with at least n observations to compare!
 n_data <- 30
-who <- combined |> filter(!is.na(observation)) |> distinct(reference_datetime) |> arrange(desc(reference_datetime)) |> collect()
-ref <- as.character (who[6,1]) # 
+who <- combined |>
+  filter(!is.na(observation)) |> 
+  distinct(reference_datetime) |> 
+  arrange(desc(reference_datetime)) |>
+  collect()
+
+ref <- as.character (who[1,"reference_datetime"]) # 
 ```
 
 ### richness
@@ -131,14 +139,14 @@ cutoff
 ## richness
 
 ```{r}
-leaderboard_plots(combined, "richness")
+leaderboard_plots(combined, "richness", horizon_cutoff=100)
 
 ```
 
 ## abundance
 
 ```{r}
-leaderboard_plots(combined, "abundance")
+leaderboard_plots(combined, "abundance", horizon_cutoff=100)
 ```
 :::
 
