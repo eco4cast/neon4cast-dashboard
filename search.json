@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
     "objectID": "terrestrial.html#most-recent-forecasts",
     "href": "terrestrial.html#most-recent-forecasts",
     "title": "Terrestrial",
@@ -11,7 +18,98 @@
     "href": "terrestrial.html#leaderboard",
     "title": "Terrestrial",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-02-12\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-02-17\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+  },
+  {
+    "objectID": "aquatics.html#most-recent-forecasts",
+    "href": "aquatics.html#most-recent-forecasts",
+    "title": "Aquatics",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-03-01\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#leaderboard",
+    "href": "aquatics.html#leaderboard",
+    "title": "Aquatics",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-02-17.\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#submission-statistics",
+    "href": "aquatics.html#submission-statistics",
+    "title": "Aquatics",
+    "section": "Submission statistics",
+    "text": "Submission statistics\n\n\n\nBetween 2023-02-17 and 2023-03-19:\n\n32 submitted to this challenge"
+  },
+  {
+    "objectID": "aquatics.html#long-term-patterns",
+    "href": "aquatics.html#long-term-patterns",
+    "title": "Aquatics",
+    "section": "Long-term patterns",
+    "text": "Long-term patterns\nHere we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties."
+  },
+  {
+    "objectID": "beetles.html#most-recent-forecasts",
+    "href": "beetles.html#most-recent-forecasts",
+    "title": "Beetles",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\nrichness\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nabundance\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "beetles.html#leaderboard",
+    "href": "beetles.html#leaderboard",
+    "title": "Beetles",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-11-19\"\n\n\n\nrichnessabundance"
+  },
+  {
+    "objectID": "phenology.html#most-recent-forecasts",
+    "href": "phenology.html#most-recent-forecasts",
+    "title": "Phenology",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nThese plots show the the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\n\nSites 1 - 67-1213 - 18"
+  },
+  {
+    "objectID": "phenology.html#leaderboard",
+    "href": "phenology.html#leaderboard",
+    "title": "Phenology",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2023-02-17\""
+  },
+  {
+    "objectID": "ticks.html#most-recent-forecasts",
+    "href": "ticks.html#most-recent-forecasts",
+    "title": "Ticks",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\n\n\n\n\nAmblyomma americanum\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIxodes scapularis\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n\n\nAmblyomma americanumIxodes scapularis"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions."
+  },
+  {
+    "objectID": "index.html#submit-a-forecast",
+    "href": "index.html#submit-a-forecast",
+    "title": "home",
+    "section": "Submit a forecast!",
+    "text": "Submit a forecast!\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "status.html#data-and-forecasts",
+    "href": "status.html#data-and-forecasts",
+    "title": "Status",
+    "section": "Data and Forecasts",
+    "text": "Data and Forecasts\n\n\n\n\nMet DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 88\nForecasts submitted over the last month: 372\nForecasts submitted over the last year: 1505\nTotal Forecasts submitted: 3580\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 184\nForecasts submitted over the last month: 746\nForecasts submitted over the last year: 2381\nTotal Forecasts submitted: 2450\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 6\nThirty minute forecasts submitted over the last month: 51\nThirty minute forecasts submitted over the last year: 403\nTotal Forecasts submitted: 431\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 88\nDaily forecasts submitted over the last month: 373\nDaily forecasts submitted over the last year: 1205\nTotal Forecasts submitted: 1307\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 9\nForecasts submitted over the last month: 36\nForecasts submitted over the last year: 67\nTotal Forecasts submitted: 125\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 9\nForecasts submitted over the last month: 39\nForecasts submitted over the last year: 95\nTotal Forecasts submitted: 104\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts"
   },
   {
     "objectID": "noaa.html",
@@ -47,103 +145,5 @@
     "title": "Weather",
     "section": "Average skill by start date",
     "text": "Average skill by start date"
-  },
-  {
-    "objectID": "status.html#data-and-forecasts",
-    "href": "status.html#data-and-forecasts",
-    "title": "Status",
-    "section": "Data and Forecasts",
-    "text": "Data and Forecasts\n\n\n\n\nMet DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 77\nForecasts submitted over the last month: 357\nForecasts submitted over the last year: 1438\nTotal Forecasts submitted: 3505\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 173\nForecasts submitted over the last month: 731\nForecasts submitted over the last year: 2244\nTotal Forecasts submitted: 2308\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 11\nThirty minute forecasts submitted over the last month: 57\nThirty minute forecasts submitted over the last year: 399\nTotal Forecasts submitted: 427\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 77\nDaily forecasts submitted over the last month: 360\nDaily forecasts submitted over the last year: 1138\nTotal Forecasts submitted: 1232\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 9\nForecasts submitted over the last month: 45\nForecasts submitted over the last year: 67\nTotal Forecasts submitted: 125\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 9\nForecasts submitted over the last month: 49\nForecasts submitted over the last year: 95\nTotal Forecasts submitted: 104\n\n\n\n\nTargets\n\n\n\n\n\n\n\nForecasts"
-  },
-  {
-    "objectID": "phenology.html#most-recent-forecasts",
-    "href": "phenology.html#most-recent-forecasts",
-    "title": "Phenology",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nThese plots show the the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\n\nSites 1 - 67-1213 - 18"
-  },
-  {
-    "objectID": "phenology.html#leaderboard",
-    "href": "phenology.html#leaderboard",
-    "title": "Phenology",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2023-02-12\""
-  },
-  {
-    "objectID": "aquatics.html#most-recent-forecasts",
-    "href": "aquatics.html#most-recent-forecasts",
-    "title": "Aquatics",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\nBelow is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-02-25\"\n\n\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "aquatics.html#leaderboard",
-    "href": "aquatics.html#leaderboard",
-    "title": "Aquatics",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-02-12.\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "aquatics.html#submission-statistics",
-    "href": "aquatics.html#submission-statistics",
-    "title": "Aquatics",
-    "section": "Submission statistics",
-    "text": "Submission statistics\n\n\n\nBetween 2023-02-12 and 2023-03-14:\n\n30 submitted to this challenge"
-  },
-  {
-    "objectID": "aquatics.html#long-term-patterns",
-    "href": "aquatics.html#long-term-patterns",
-    "title": "Aquatics",
-    "section": "Long-term patterns",
-    "text": "Long-term patterns\nHere we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties."
-  },
-  {
-    "objectID": "beetles.html#most-recent-forecasts",
-    "href": "beetles.html#most-recent-forecasts",
-    "title": "Beetles",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\n\nrichness\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\n\nabundance\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "beetles.html#leaderboard",
-    "href": "beetles.html#leaderboard",
-    "title": "Beetles",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2022-11-14\"\n\n\n\nrichnessabundance"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "home",
-    "section": "",
-    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions."
-  },
-  {
-    "objectID": "index.html#submit-a-forecast",
-    "href": "index.html#submit-a-forecast",
-    "title": "home",
-    "section": "Submit a forecast!",
-    "text": "Submit a forecast!\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
-  },
-  {
-    "objectID": "ticks.html#most-recent-forecasts",
-    "href": "ticks.html#most-recent-forecasts",
-    "title": "Ticks",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\n\n\n\nAmblyomma americanum\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIxodes scapularis\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "ticks.html#leaderboard",
-    "href": "ticks.html#leaderboard",
-    "title": "Ticks",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n\n\nAmblyomma americanumIxodes scapularis"
   }
 ]
