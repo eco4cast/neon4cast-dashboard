@@ -2,6 +2,8 @@
 title: "Weather"
 ---
 
+***DRAFT***
+
 As a reference case, we can compare the NOAA [Global Ensemble Forecast System (GEFS)](https://www.ncei.noaa.gov/products/weather-climate-models/global-ensemble-forecast) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements.
 
 ```{r, include=FALSE}
@@ -13,129 +15,195 @@ knitr::opts_chunk$set(eval=FALSE)
 library(ggiraph)
 library(patchwork)
 library(tidyverse)
+library(lubridate)
 library(neon4cast)
 library(score4cast)
-
-
+library(arrow)
+library(glue)
 library(thematic)
 thematic_rmd(bg="white", fg="black", accent="blue")
 source("R/plot-utils.R")
 dashboard <- yaml::read_yaml("dashboard.yml") # Some configurable options
 
+options(arrow.pull_as_vector = TRUE)
+
 ```
 
+
+
 ```{r}
-# So far we use scores of RH only.
-# See R/score_noaa.R to generate updated scores files for RH
-s3 <- arrow::s3_bucket("neon4cast-scores/noaa", endpoint_override="data.ecoforecast.org")
-combined <- arrow::open_dataset(s3$path("RH")) |> 
-  mutate(model_id = "noaa_gefs") |> 
-  mutate(reference_datetime = reference_datetime, target_id = "weather") |>
+neon_bucket <- function(table, endpoint = "https://sdsc.osn.xsede.org") {
+  tbl =  stringr::str_replace(table, "-(DP\\d)", "/\\1") |> stringr::str_split_1("/")
+  path = file.path("neon4cast-neonstore", tbl[[2]], tbl[[1]])
+  bucket = paste0("bio230014-bucket01/", path)
+  s3 <- arrow::S3FileSystem$create(endpoint_override = endpoint,
+                                   access_key = Sys.getenv("OSN_KEY"),
+                                   secret_key = Sys.getenv("OSN_SECRET"))
+  s3_dir <- arrow::SubTreeFileSystem$create(bucket, s3)
+  s3_dir
+}
+
+#library(neonstore)
+#db <- neon_db()
+#tables <- db |> DBI::dbListTables()
+
+
+```
+
+
+```{r}
+# temperature target
+taat <- neon_bucket("TAAT_30min-basic-DP1.00003.001")
+
+cutoff <- as.character(Sys.Date() - 70L)
+
+sites <- arrow::open_dataset(taat) |> distinct(siteID) |> pull(siteID)
+sites <- sites[1:6]
+
+temp <- arrow::open_dataset(taat) |> 
+  mutate(startDateTime = as.character(startDateTime)) |>
+  filter(startDateTime > cutoff, siteID %in% sites) |>
+  select(datetime = endDateTime, 
+         observation = tempTripleMean, site_id = siteID) |>
+  mutate(variable = "TMP", datetime = as_datetime(datetime)) |>
+  collect()
+
+```
+
+
+```{r}
+
+rh_bucket <- neon_bucket("RH_30min-basic-DP1.00098.001")
+rh <- arrow::open_dataset(rh_bucket) |> 
+  mutate(startDateTime = as.character(startDateTime)) |>
+  filter(startDateTime > cutoff, siteID %in% sites) |>
+  select(datetime = endDateTime, 
+         observation = RHMean, site_id = siteID) |>
+  mutate(variable = "RH", datetime = as_datetime(datetime)) |>
   collect()
 ```
 
+
 ## Most recent forecasts
 
-Below is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom.
+Forecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.)  The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this.  Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:
 
 ```{r}
-day <- combined |>
-  filter(!is.na(observation)) |>
-  count(variable, model_id, reference_datetime, site_id) |>
-  filter(n > 50) |> 
-  # at least 15 data points
-  filter(reference_datetime == max(reference_datetime)) |> # must happen second
-  select(reference_datetime) |> distinct(reference_datetime) |> first()
+# reference_datetime for a fully-scored forecast
+ref <- temp |> summarise(ref = max(datetime))  |> pull(ref) |> lubridate::as_date() -35L
+ref
 ```
 
-## Relative Humidity
+Lets access that forecast from the NOAA snapshots.
+
+
+```{r}
+s3 <- S3FileSystem$create(endpoint_override = "data.ecoforecast.org")
+path <- SubTreeFileSystem$create(glue("neon4cast-drivers/noaa/gefs-v12/stage1/0/{ref}"), s3)
+noaa_ds <- open_dataset(path) 
+```
+
+
+
+```{r}
+noaa <- noaa_ds |> 
+  filter(site_id %in% sites) |>
+  mutate(datetime = as_datetime(datetime),
+         model_id = "noaa_gefs")
+```
+
+
+
+
+
+
 
 ::: panel-tabset
-```{r}
-sites <- combined |> distinct(site_id) |> pull(site_id)
+## Temperature
 
-richness <- combined |> filter(reference_datetime == day, variable == "RH")
+```{r}
+tmp_scores <- noaa |> 
+  filter(variable == "TMP") |> 
+  collect() |>
+  score4cast::score(temp) |> 
+  filter(!is.na(observation))
+
+tmp_scores |> filter(sites %in% sites_subset)  |> forecast_plots()
 ```
 
-## Sites 1 - 8
+## RH
 
 ```{r}
-richness |>  filter(site_id %in% sites[1:8]) |> forecast_plots(ncol=4)
+rh_scores <- noaa |> 
+  filter(variable == "RH") |> 
+  collect() |>
+  score4cast::score(rh) |> 
+  filter(!is.na(observation)) 
+
+
+rh_scores  |> filter(sites %in% sites_subset)  |> forecast_plots()
 ```
 
-## 9 - 16
+
+:::
+
+## Skill scores
+
+::: panel-tabset
+
+## Temperature
 
 ```{r}
-richness |> filter(site_id %in% sites[9:16]) |> forecast_plots(ncol=4)
+tmp_scores |> ggplot(aes(datetime, crps)) + geom_line() + facet_wrap(~site_id)
 ```
 
-## 17 - 24
-
 ```{r}
-richness |>  filter(site_id %in% sites[17:24]) |> forecast_plots(ncol=4)
+
+tmp_scores |> group_by(datetime) |> 
+  summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs), na.rm=TRUE) |>
+  pivot_longer(c("crps", "logs"), names_to="metric", values_to = "score") |>
+  ggplot(aes(datetime, score)) + geom_line() + facet_wrap(~metric, scales="free")
+
+```
+```{r}
+tmp_scores |> 
+  group_by(site_id) |>
+summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs), na.rm=TRUE) |>
+  pivot_longer(c("crps", "logs"), 
+               names_to="metric", values_to = "score") |>
+  ggplot(aes(site_id, score, fill=metric)) + 
+  geom_col(position="dodge") + facet_wrap(~metric, scales="free")
+
 ```
 
-## 25 - 32
+
+## Humidity
 
 ```{r}
-richness |> filter(site_id %in% sites[25:32]) |> forecast_plots(ncol=4)
+rh_scores |> ggplot(aes(datetime, crps)) + geom_line() + facet_wrap(~site_id)
 ```
 
-## 33 - 40
-
 ```{r}
-richness |>  filter(site_id %in% sites[33:40]) |> forecast_plots(ncol=4)
+
+rh_scores |> group_by(datetime) |> 
+  summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs), na.rm=TRUE) |>
+  pivot_longer(c("crps", "logs"), names_to="metric", values_to = "score") |>
+  ggplot(aes(datetime, score)) + geom_line() + facet_wrap(~metric, scales="free")
+
 ```
-
-## 41 - 47
-
 ```{r}
-richness |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
-```
+rh_scores |> 
+  group_by(site_id) |>
+summarise(crps = mean(crps, na.rm=TRUE),
+            logs = mean(logs), na.rm=TRUE) |>
+  pivot_longer(c("crps", "logs"), 
+               names_to="metric", values_to = "score") |>
+  ggplot(aes(site_id, score, fill=metric)) + 
+  geom_col(position="dodge") + facet_wrap(~metric, scales="free")
 
-## 48 - 56
-
-```{r}
-richness |> filter(site_id %in% sites[48:56]) |> forecast_plots(ncol=4)
 ```
 :::
 
-## Skill Scores over time
-
-```{r}
-horizon <-  combined |> filter(!is.na(crps)) |> 
-  mutate(horizon = as.numeric(time - reference_datetime, units="hours")) |>
-  group_by(variable, model_id, horizon) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps))) |> 
-  arrange(crps)
-
-horizon |> 
-  ggplot(aes(horizon, crps, col=model_id)) + 
-  geom_point_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
-  labs(title = "Average forecast skill by horizon", xlab = "horizon (hours)") +
-  theme_bw()
-
-
-```
-
-## Average skill by start date
-
-```{r}
-by_start <-  combined |> filter(!is.na(crps)) |>
-  group_by(variable, model_id, reference_datetime) |>
-  summarise(crps = mean(crps),
-            logs = mean(logs),
-            percent_na = mean(is.na(crps))) |> 
-  arrange(crps)
-
- 
-by_start |> 
-  ggplot(aes(reference_datetime, crps, col=model_id)) + 
-  geom_line_interactive(aes(tooltip = model_id, data_id = model_id), size=1, show.legend = FALSE)  +
-  labs(title = "Average forecast skill by start date") +
-  theme_bw()
-
-
-```

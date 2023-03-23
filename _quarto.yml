@@ -22,8 +22,11 @@ website:
         icon: bug-fill
       - href: beetles.qmd
         icon: bug
+      - href: noaa.qmd
+        icon: cloud-rain-fill
       - href: status.qmd
         icon: clipboard-pulse
+
 
   page-footer:
     left: "CC-BY"
