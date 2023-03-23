@@ -128,7 +128,7 @@ tmp_scores <- noaa |>
   score4cast::score(temp) |> 
   filter(!is.na(observation))
 
-tmp_scores |> filter(sites %in% sites_subset)  |> forecast_plots()
+tmp_scores |> filter(site_id %in% sites_subset)  |> forecast_plots()
 ```
 
 ## RH
@@ -141,7 +141,7 @@ rh_scores <- noaa |>
   filter(!is.na(observation)) 
 
 
-rh_scores  |> filter(sites %in% sites_subset)  |> forecast_plots()
+rh_scores  |> filter(site_id %in% sites_subset)  |> forecast_plots()
 ```
 
 
