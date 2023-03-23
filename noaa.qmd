@@ -58,11 +58,11 @@ taat <- neon_bucket("TAAT_30min-basic-DP1.00003.001")
 cutoff <- as.character(Sys.Date() - 70L)
 
 sites <- arrow::open_dataset(taat) |> distinct(siteID) |> pull(siteID)
-sites <- sites[1:6]
+sites_subset <- sites[1:6]
 
 temp <- arrow::open_dataset(taat) |> 
   mutate(startDateTime = as.character(startDateTime)) |>
-  filter(startDateTime > cutoff, siteID %in% sites) |>
+  filter(startDateTime > cutoff, siteID %in% sites_subset) |>
   select(datetime = endDateTime, 
          observation = tempTripleMean, site_id = siteID) |>
   mutate(variable = "TMP", datetime = as_datetime(datetime)) |>
@@ -76,7 +76,7 @@ temp <- arrow::open_dataset(taat) |>
 rh_bucket <- neon_bucket("RH_30min-basic-DP1.00098.001")
 rh <- arrow::open_dataset(rh_bucket) |> 
   mutate(startDateTime = as.character(startDateTime)) |>
-  filter(startDateTime > cutoff, siteID %in% sites) |>
+  filter(startDateTime > cutoff, siteID %in% sites_subset) |>
   select(datetime = endDateTime, 
          observation = RHMean, site_id = siteID) |>
   mutate(variable = "RH", datetime = as_datetime(datetime)) |>
@@ -107,7 +107,7 @@ noaa_ds <- open_dataset(path)
 
 ```{r}
 noaa <- noaa_ds |> 
-  filter(site_id %in% sites) |>
+  filter(site_id %in% sites_subset) |>
   mutate(datetime = as_datetime(datetime),
          model_id = "noaa_gefs")
 ```
