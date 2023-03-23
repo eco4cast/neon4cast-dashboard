@@ -123,7 +123,7 @@
     "href": "noaa.html#most-recent-forecasts",
     "title": "Weather",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nForecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.) The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this. Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:\n\n\n\nLets access that forecast from the NOAA snapshots.\n\n\n\n\n\n\n\nTemperatureRH"
+    "text": "Most recent forecasts\nForecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.) The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this. Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:\n\n\n[1] \"2023-01-25\"\n\n\nLets access that forecast from the NOAA snapshots.\n\n\n\n\n\n\n\nTemperatureRH"
   },
   {
     "objectID": "noaa.html#skill-scores",
