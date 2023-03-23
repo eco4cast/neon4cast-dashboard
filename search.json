@@ -116,34 +116,20 @@
     "href": "noaa.html",
     "title": "Weather",
     "section": "",
-    "text": "As a reference case, we can compare the NOAA Global Ensemble Forecast System (GEFS) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements."
+    "text": "DRAFT\nAs a reference case, we can compare the NOAA Global Ensemble Forecast System (GEFS) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements."
   },
   {
     "objectID": "noaa.html#most-recent-forecasts",
     "href": "noaa.html#most-recent-forecasts",
     "title": "Weather",
     "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nBelow is the latest forecasts for which we have at least 15 observations. Mouse over to see the team id, scroll to zoom."
+    "text": "Most recent forecasts\nForecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.) The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this. Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:\n\n\n\nLets access that forecast from the NOAA snapshots.\n\n\n\n\n\n\n\nTemperatureRH"
   },
   {
-    "objectID": "noaa.html#relative-humidity",
-    "href": "noaa.html#relative-humidity",
+    "objectID": "noaa.html#skill-scores",
+    "href": "noaa.html#skill-scores",
     "title": "Weather",
-    "section": "Relative Humidity",
-    "text": "Relative Humidity\n\nSites 1 - 89 - 1617 - 2425 - 3233 - 4041 - 4748 - 56"
-  },
-  {
-    "objectID": "noaa.html#skill-scores-over-time",
-    "href": "noaa.html#skill-scores-over-time",
-    "title": "Weather",
-    "section": "Skill Scores over time",
-    "text": "Skill Scores over time"
-  },
-  {
-    "objectID": "noaa.html#average-skill-by-start-date",
-    "href": "noaa.html#average-skill-by-start-date",
-    "title": "Weather",
-    "section": "Average skill by start date",
-    "text": "Average skill by start date"
+    "section": "Skill scores",
+    "text": "Skill scores\n\nTemperatureHumidity"
   }
 ]
