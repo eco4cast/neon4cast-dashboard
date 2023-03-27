@@ -1721,10 +1721,12 @@
     },
     "renv": {
       "Package": "renv",
-      "Version": "0.16.0",
+      "Version": "0.17.2",
+      "OS_type": NA,
+      "NeedsCompilation": "no",
+      "Repository": "CRAN",
+      "Path": NA,
       "Source": "Repository",
-      "Repository": "RSPM",
-      "Hash": "c9e8442ab69bc21c9697ecf856c1e6c7",
       "Requirements": []
     },
     "reprex": {
