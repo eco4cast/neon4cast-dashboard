@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/beetles.html</loc>
-    <lastmod>2023-05-09T08:35:27.699Z</lastmod>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
+    <lastmod>2023-05-13T08:41:04.095Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/terrestrial.html</loc>
-    <lastmod>2023-05-09T08:35:46.935Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/aquatics.html</loc>
-    <lastmod>2023-05-09T08:40:05.962Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/status.html</loc>
-    <lastmod>2023-05-09T08:42:05.427Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/about.html</loc>
-    <lastmod>2023-05-09T08:42:07.443Z</lastmod>
+    <lastmod>2023-05-13T08:41:27.624Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/index.html</loc>
-    <lastmod>2023-05-09T08:42:39.727Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
-    <lastmod>2023-05-09T08:43:04.444Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/eco4cast/neon4cast-dashboard/noaa.html</loc>
-    <lastmod>2023-05-09T08:44:18.628Z</lastmod>
+    <lastmod>2023-05-13T08:42:04.073Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/eco4cast/neon4cast-dashboard/ticks.html</loc>
-    <lastmod>2023-05-09T08:44:24.384Z</lastmod>
+    <lastmod>2023-05-13T08:42:10.845Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/phenology.html</loc>
+    <lastmod>2023-05-13T08:42:33.861Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/about.html</loc>
+    <lastmod>2023-05-13T08:42:35.985Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/status.html</loc>
+    <lastmod>2023-05-13T08:44:59.684Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/beetles.html</loc>
+    <lastmod>2023-05-13T08:45:28.009Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/eco4cast/neon4cast-dashboard/aquatics.html</loc>
+    <lastmod>2023-05-13T08:50:44.354Z</lastmod>
   </url>
 </urlset>
