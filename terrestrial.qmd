@@ -81,12 +81,4 @@ leaderboard_plots(combined, "le")
 ```{r}
 leaderboard_plots(combined, "nee")
 ```
-
-## vswc
-
-(no data)
-
-```{r}
-# leaderboard_plots(combined, "vswc")
-```
 :::
