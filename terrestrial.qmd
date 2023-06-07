@@ -29,10 +29,6 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 
 ```
 
-
-
-
-
 ```{r}
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
 ## with at least n observations to compare!
@@ -61,19 +57,12 @@ Net ecosystem exchange of CO2 (NEE)
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "nee") |> forecast_plots()
 ```
-
-## vswc
-
-```{r}
- ex |> filter(reference_datetime == ref, variable == "vswc") |> forecast_plots()
-```
 :::
-
 
 ## Leaderboard
 
-Average skill scores of each model across all sites.  
-Scores are shown by reference date and forecast horizon (in days).  
+Average skill scores of each model across all sites.\
+Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since cutoff date.
 
 ```{r include=TRUE}
