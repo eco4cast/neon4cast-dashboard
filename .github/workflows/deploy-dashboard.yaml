@@ -29,12 +29,12 @@ jobs:
         run: |
           R -e 'source("cache.R")'
 
-      - name: Cache scores
-        id: cache-scores
-        uses: actions/cache@v3
-        with:
-          path: cache
-          key: ${{ runner.os }}-cache
+      #- name: Cache scores
+      #  id: cache-scores
+      #  uses: actions/cache@v3
+      #  with:
+      #    path: cache
+      #    key: ${{ runner.os }}-cache
 
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
