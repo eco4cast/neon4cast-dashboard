@@ -26,10 +26,6 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 
 ## Most recent forecasts
 
-
-
-
-
 ```{r}
 sites <- combined |> distinct(site_id) |> slice_head(n=6) |> collect() |> pull(site_id)
 ## with at least n observations to compare!
@@ -39,13 +35,11 @@ ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
 ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
 ```
 
-Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected.  Mouse over to see the team id, scroll to zoom.
+Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.
 
 ```{r}
 ref
 ```
-
-
 
 ::: panel-tabset
 ## Oxygen
@@ -71,7 +65,6 @@ ex |> filter(reference_datetime == ref, variable == "chla") |> forecast_plots()
 
 Average skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff date, `r cutoff`.
 
-
 ::: panel-tabset
 ## Oxygen
 
@@ -92,21 +85,19 @@ leaderboard_plots(combined, "chla")
 ```
 :::
 
-
 ## Submission statistics
-
 
 ```{r}
 n_models <- combined |> distinct(model_id) |> nrow()
 ```
 
+Between `r cutoff` and `r Sys.Date()`:
 
-Between `r cutoff` and  `r Sys.Date()`:
-
-- `r n_models` submitted to this challenge
-
+-   `r n_models` submitted to this challenge
 
 ```{r}
+current_day <- Sys.Date()
+
 combined |> 
   distinct(model_id, reference_datetime) |>
   count(model_id, sort=TRUE) |>
@@ -117,14 +108,12 @@ combined |>
   coord_flip() + 
   theme_bw() + 
   theme(axis.text=element_text(size=6)) +
-  ggtitle(glue("Number of forecast submissions since {cutoff}"))
+  ggtitle(glue("Number of forecast submissions since {current_day}"))
 ```
-
 
 ## Long-term patterns
 
-
-Here we look at some long term patterns in the median scores across all models.  Are some months more predictable than others?  Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties.
+Here we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties.
 
 ```{r}
 annual <- arrow::open_dataset("cache/parquet/aquatics") |>
@@ -140,6 +129,7 @@ gg <- ggplot(annual) +
 
 girafe(gg)
 ```
+
 ```{r}
 sites <- arrow::open_dataset("cache/parquet/aquatics") |>
   group_by(site_id) |>
@@ -158,4 +148,3 @@ ggplot(aes(site_id, score, fill=metric)) + geom_col() +
 girafe(ggobj = gg)
 
 ```
-
