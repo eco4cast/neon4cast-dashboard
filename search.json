@@ -21,6 +21,13 @@
     "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-09\"\n\n\n\nrichnessabundance"
   },
   {
+    "objectID": "beetles.html#submission-statistics",
+    "href": "beetles.html#submission-statistics",
+    "title": "Beetles",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-02-09 and 2023-06-09:\n\n19 submitted to this challenge"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "home",
@@ -39,21 +46,28 @@
     "href": "ticks.html",
     "title": "Ticks",
     "section": "",
-    "text": "# A tibble: 0 × 17\n# … with 17 variables: reference_datetime &lt;chr&gt;, site_id &lt;chr&gt;,\n#   datetime &lt;dttm&gt;, family &lt;chr&gt;, variable &lt;chr&gt;, observation &lt;dbl&gt;,\n#   crps &lt;dbl&gt;, logs &lt;dbl&gt;, mean &lt;dbl&gt;, median &lt;dbl&gt;, sd &lt;dbl&gt;,\n#   quantile97.5 &lt;dbl&gt;, quantile02.5 &lt;dbl&gt;, quantile90 &lt;dbl&gt;, quantile10 &lt;dbl&gt;,\n#   model_id &lt;chr&gt;, date &lt;chr&gt;"
+    "text": "Sites 1 - 9"
   },
   {
     "objectID": "ticks.html#most-recent-forecasts",
     "href": "ticks.html#most-recent-forecasts",
     "title": "Ticks",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\n\nAmblyomma americanum\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIxodes scapularis\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+    "section": "",
+    "text": "Sites 1 - 9"
   },
   {
     "objectID": "ticks.html#leaderboard",
     "href": "ticks.html#leaderboard",
     "title": "Ticks",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\nAmblyomma americanumIxodes scapularis"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-09\"\n\n\n\nAmblyomma americanum\n\n\n\n\n[1] \"Leaderboard pending\""
+  },
+  {
+    "objectID": "ticks.html#submission-statistics",
+    "href": "ticks.html#submission-statistics",
+    "title": "Ticks",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-02-09 and 2023-06-09:\n\n16 submitted to this challenge"
   },
   {
     "objectID": "phenology.html",
@@ -75,6 +89,13 @@
     "title": "Phenology",
     "section": "Leaderboard",
     "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2023-05-10\""
+  },
+  {
+    "objectID": "phenology.html#submission-statistics",
+    "href": "phenology.html#submission-statistics",
+    "title": "Phenology",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-05-10 and 2023-06-09:\n\n19 submitted to this challenge"
   },
   {
     "objectID": "noaa.html",
@@ -144,21 +165,28 @@
     "href": "terrestrial.html",
     "title": "Terrestrial",
     "section": "",
-    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\nNULL\n\n\n\n\n\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-10\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Flux\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-10\"\n\n\n\nLatent evaporationCO2 flux\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBetween 2023-05-10 and 2023-06-09:\n\n19 submitted to this challenge"
   },
   {
     "objectID": "terrestrial.html#most-recent-forecasts",
     "href": "terrestrial.html#most-recent-forecasts",
     "title": "Terrestrial",
     "section": "",
-    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Fluxvswc\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\nNULL"
+    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Flux\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)"
   },
   {
     "objectID": "terrestrial.html#leaderboard",
     "href": "terrestrial.html#leaderboard",
     "title": "Terrestrial",
     "section": "",
-    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-10\"\n\n\n\nLatent evaporationCO2 fluxvswc\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(no data)"
+    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-10\"\n\n\n\nLatent evaporationCO2 flux"
+  },
+  {
+    "objectID": "terrestrial.html#submission-statistics",
+    "href": "terrestrial.html#submission-statistics",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Between 2023-05-10 and 2023-06-09:\n\n19 submitted to this challenge"
   },
   {
     "objectID": "status.html",
