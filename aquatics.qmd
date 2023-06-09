@@ -108,7 +108,7 @@ combined |>
   coord_flip() + 
   theme_bw() + 
   theme(axis.text=element_text(size=6)) +
-  ggtitle(glue("Number of forecast submissions since {current_day}"))
+  ggtitle(glue("Number of forecast submissions since {cutoff}"))
 ```
 
 ## Long-term patterns

@@ -150,4 +150,28 @@ leaderboard_plots(combined, "abundance", horizon_cutoff=100)
 ```
 :::
 
-<!-- Consider adding site-by-site breakout on scores -->
+## Submission statistics
+
+```{r}
+n_models <- combined |> distinct(model_id) |> nrow()
+```
+
+Between `r cutoff` and `r Sys.Date()`:
+
+-   `r n_models` submitted to this challenge
+
+```{r}
+current_day <- Sys.Date()
+
+combined |> 
+  distinct(model_id, reference_datetime) |>
+  count(model_id, sort=TRUE) |>
+  filter(n > 1) |>
+  mutate(model_id = fct_reorder(model_id, n)) |>
+  ggplot(aes(model_id, n, fill=model_id)) +
+  geom_col(show.legend = FALSE) + 
+  coord_flip() + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=6)) +
+  ggtitle(glue("Number of forecast submissions since {cutoff}"))
+```
