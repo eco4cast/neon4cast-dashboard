@@ -20,7 +20,7 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 ```
 
 ```{r}
-knitr::opts_chunk$set(eval=FALSE) # no tick data
+#knitr::opts_chunk$set(eval=FALSE) # no tick data
 ```
 
 ## Most recent forecasts
@@ -48,7 +48,7 @@ richness <- combined |>
 ## Sites 1 - 9
 
 ```{r}
-richness |>  filter(site_id %in% sites[1:9]) |> forecast_plots(ncol=4)
+richness |>  filter(site_id %in% sites[1:9]) |> forecast_plots(ncol=3)
 ```
 :::
 
