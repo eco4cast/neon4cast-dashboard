@@ -25,8 +25,8 @@ combined <- arrow::open_dataset("cache/parquet/phenology") |>
 
 ## Most recent forecasts
 
-These plots show the the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.  
-Models which did not submit a forecast on the given reference date are not shown. 
+These plots show the the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.\
+Models which did not submit a forecast on the given reference date are not shown.
 
 ```{r}
 
@@ -40,9 +40,7 @@ ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
 ex <- combined |> filter(reference_datetime == ref) |> collect()
 ```
 
-
 ::: panel-tabset
-
 ## Sites 1 - 6
 
 ```{r}
@@ -67,8 +65,8 @@ combined |>  filter(reference_datetime == ref, site_id %in% sites[13:18]) |>   f
 
 ## Leaderboard
 
-Average skill scores of each model across all sites.  
-Scores are shown by reference date and forecast horizon (in days).  
+Average skill scores of each model across all sites.\
+Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff.
 
 ```{r include=TRUE}
@@ -77,4 +75,31 @@ cutoff
 
 ```{r}
 leaderboard_plots(combined, "gcc_90")
+```
+
+
+## Submission statistics
+
+```{r}
+n_models <- combined |> distinct(model_id) |> nrow()
+```
+
+Between `r cutoff` and `r Sys.Date()`:
+
+-   `r n_models` submitted to this challenge
+
+```{r}
+current_day <- Sys.Date()
+
+combined |> 
+  distinct(model_id, reference_datetime) |>
+  count(model_id, sort=TRUE) |>
+  filter(n > 1) |>
+  mutate(model_id = fct_reorder(model_id, n)) |>
+  ggplot(aes(model_id, n, fill=model_id)) +
+  geom_col(show.legend = FALSE) + 
+  coord_flip() + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=6)) +
+  ggtitle(glue("Number of forecast submissions since {cutoff}"))
 ```

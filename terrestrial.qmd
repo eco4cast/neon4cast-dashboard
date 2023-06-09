@@ -29,10 +29,6 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 
 ```
 
-
-
-
-
 ```{r}
 sites <- combined |> distinct(site_id) |> collect() |> slice_head(n= 6) |> pull(site_id)
 ## with at least n observations to compare!
@@ -61,19 +57,12 @@ Net ecosystem exchange of CO2 (NEE)
 ```{r}
 ex |> filter(reference_datetime == ref, variable == "nee") |> forecast_plots()
 ```
-
-## vswc
-
-```{r}
- ex |> filter(reference_datetime == ref, variable == "vswc") |> forecast_plots()
-```
 :::
-
 
 ## Leaderboard
 
-Average skill scores of each model across all sites.  
-Scores are shown by reference date and forecast horizon (in days).  
+Average skill scores of each model across all sites.\
+Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since cutoff date.
 
 ```{r include=TRUE}
@@ -92,12 +81,30 @@ leaderboard_plots(combined, "le")
 ```{r}
 leaderboard_plots(combined, "nee")
 ```
+:::
 
-## vswc
-
-(no data)
+## Submission statistics
 
 ```{r}
-# leaderboard_plots(combined, "vswc")
+n_models <- combined |> distinct(model_id) |> nrow()
 ```
-:::
+
+Between `r cutoff` and `r Sys.Date()`:
+
+-   `r n_models` submitted to this challenge
+
+```{r}
+current_day <- Sys.Date()
+
+combined |> 
+  distinct(model_id, reference_datetime) |>
+  count(model_id, sort=TRUE) |>
+  filter(n > 1) |>
+  mutate(model_id = fct_reorder(model_id, n)) |>
+  ggplot(aes(model_id, n, fill=model_id)) +
+  geom_col(show.legend = FALSE) + 
+  coord_flip() + 
+  theme_bw() + 
+  theme(axis.text=element_text(size=6)) +
+  ggtitle(glue("Number of forecast submissions since {cutoff}"))
+```

@@ -115,7 +115,7 @@ horizon_filter <- function(df, horizon_cutoff=35, horizon_units="days") {
   df |>
     mutate(horizon =
              difftime(
-               lubridate::as_datetime(datetime),
+               lubridate::as_datetime(date),
                lubridate::as_datetime(reference_datetime),
                units = horizon_units)
     ) |>
@@ -130,7 +130,7 @@ leaderboard_plots <- function(df,
 
   df <- df |> filter(variable == var) |> filter(!is.na(observation))
   df <- horizon_filter(df, horizon_cutoff, horizon_units)
-  if(nrow(df)==0) return(NULL)
+  if(nrow(df)==0) return('Leaderboard pending')
 
   board1 <- by_model_id(df, show.legend = FALSE)
   board2 <- by_reference_datetime(df, show.legend = FALSE) + theme_bw()
