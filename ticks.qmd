@@ -75,11 +75,12 @@ leaderboard_plots(combined, "amblyomma_americanum")
 
 ```{r}
 n_models <- combined |> distinct(model_id) |> nrow()
+n_forecasts <- combined |> distinct(reference_datetime, model_id) |> nrow()
 ```
 
 Between `r cutoff` and `r Sys.Date()`:
 
--   `r n_models` submitted to this challenge
+- `r n_models` models have submitted a total of `r n_forecasts` forecasts to this challenge
 
 ```{r}
 current_day <- Sys.Date()
