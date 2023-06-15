@@ -24,7 +24,10 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 
 ```
 
-## Most recent forecasts
+## Forecasts
+
+These plots show the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.\
+Models which did not submit a forecast on the given reference date are not shown.
 
 ```{r}
 sites <- combined |> distinct(site_id) |> slice_head(n=6) |> collect() |> pull(site_id)
@@ -33,12 +36,6 @@ n_data <- 15
 who <- combined |> filter(!is.na(observation)) |> summarise(has_data = max(reference_datetime)) |> collect()
 ref <- as.character ( as.Date(who$has_data[[1]]) - n_data )
 ex <- combined |> filter(reference_datetime == ref, site_id %in% sites) 
-```
-
-Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.
-
-```{r}
-ref
 ```
 
 ::: panel-tabset

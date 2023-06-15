@@ -17,8 +17,10 @@ combined <- arrow::open_dataset(glue("cache/parquet/{theme}")) |>
 
 ```
 
-## Most recent forecasts
+## Forecasts
 
+These plots show forecasts that were submitted on `r cutoff` for which we have at least 10 observations.\
+Models which did not submit a forecast on the given reference date are not shown.
 ```{r}
 sites <- combined |>
   distinct(site_id) |>
@@ -130,10 +132,6 @@ abundance |> filter(site_id %in% sites[41:47]) |> forecast_plots(ncol=4)
 Average skill scores of each model across all sites.\
 Scores are shown by reference date and forecast horizon (in days).\
 Scores are averaged across all submissions of the model with a given horizon or a given `reference_datetime` out of submissions made since the cutoff date.
-
-```{r include=TRUE}
-cutoff
-```
 
 ::: panel-tabset
 ## richness
