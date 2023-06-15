@@ -18,14 +18,14 @@
     "href": "beetles.html#leaderboard",
     "title": "Beetles",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-14\"\n\n\n\nrichnessabundance"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-15\"\n\n\n\nrichnessabundance"
   },
   {
     "objectID": "beetles.html#submission-statistics",
     "href": "beetles.html#submission-statistics",
     "title": "Beetles",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-02-14 and 2023-06-14:\n\n19 models have submitted a total of 237 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-02-15 and 2023-06-15:\n\n19 models have submitted a total of 237 forecasts to this challenge"
   },
   {
     "objectID": "index.html",
@@ -60,14 +60,14 @@
     "href": "ticks.html#leaderboard",
     "title": "Ticks",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-14\"\n\n\n\nAmblyomma americanum\n\n\n\n\n[1] \"Leaderboard pending\""
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\n\n[1] \"2023-02-15\"\n\n\n\nAmblyomma americanum\n\n\n\n\n[1] \"Leaderboard pending\""
   },
   {
     "objectID": "ticks.html#submission-statistics",
     "href": "ticks.html#submission-statistics",
     "title": "Ticks",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-02-14 and 2023-06-14:\n\n16 models have submitted a total of 196 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-02-15 and 2023-06-15:\n\n16 models have submitted a total of 196 forecasts to this challenge"
   },
   {
     "objectID": "phenology.html",
@@ -88,14 +88,14 @@
     "href": "phenology.html#leaderboard",
     "title": "Phenology",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2023-05-15\""
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff.\n\n\n[1] \"2023-05-16\""
   },
   {
     "objectID": "phenology.html#submission-statistics",
     "href": "phenology.html#submission-statistics",
     "title": "Phenology",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-05-15 and 2023-06-14:\n\n19 models have submitted a total of 921 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-05-16 and 2023-06-15:\n\n19 models have submitted a total of 941 forecasts to this challenge"
   },
   {
     "objectID": "noaa.html",
@@ -130,28 +130,28 @@
     "href": "aquatics.html",
     "title": "Aquatics",
     "section": "",
-    "text": "Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-05-27\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-05-28\"\n\n\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#most-recent-forecasts",
     "href": "aquatics.html#most-recent-forecasts",
     "title": "Aquatics",
     "section": "",
-    "text": "Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-05-27\"\n\n\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Below is the forecasts submitted on the date indicated below. Updates daily, selected to show forecasts for which at least some observational data has since been collected. Mouse over to see the team id, scroll to zoom.\n\n\n[1] \"2023-05-28\"\n\n\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#leaderboard",
     "href": "aquatics.html#leaderboard",
     "title": "Aquatics",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-05-15.\n\nOxygenTemperatureChlorophyll-A"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-05-16.\n\nOxygenTemperatureChlorophyll-A"
   },
   {
     "objectID": "aquatics.html#submission-statistics",
     "href": "aquatics.html#submission-statistics",
     "title": "Aquatics",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-05-15 and 2023-06-14:\n\n48 models have submitted a total of 1174 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-05-16 and 2023-06-15:\n\n48 models have submitted a total of 1221 forecasts to this challenge"
   },
   {
     "objectID": "aquatics.html#long-term-patterns",
@@ -165,7 +165,7 @@
     "href": "terrestrial.html",
     "title": "Terrestrial",
     "section": "",
-    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Flux\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-15\"\n\n\n\nLatent evaporationCO2 flux\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBetween 2023-05-15 and 2023-06-14:\n\n19 models have submitted a total of 912 forecasts to this challenge"
+    "text": "Below is the latest forecasts for which we have at least 10 observations. Mouse over to see the team id, scroll to zoom.\n\nLatent evaporationCO2 Flux\n\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n\n\n\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-16\"\n\n\n\nLatent evaporationCO2 flux\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBetween 2023-05-16 and 2023-06-15:\n\n19 models have submitted a total of 932 forecasts to this challenge"
   },
   {
     "objectID": "terrestrial.html#most-recent-forecasts",
@@ -179,27 +179,27 @@
     "href": "terrestrial.html#leaderboard",
     "title": "Terrestrial",
     "section": "",
-    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-15\"\n\n\n\nLatent evaporationCO2 flux"
+    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\n\n[1] \"2023-05-16\"\n\n\n\nLatent evaporationCO2 flux"
   },
   {
     "objectID": "terrestrial.html#submission-statistics",
     "href": "terrestrial.html#submission-statistics",
     "title": "Terrestrial",
     "section": "",
-    "text": "Between 2023-05-15 and 2023-06-14:\n\n19 models have submitted a total of 912 forecasts to this challenge"
+    "text": "Between 2023-05-16 and 2023-06-15:\n\n19 models have submitted a total of 932 forecasts to this challenge"
   },
   {
     "objectID": "status.html",
     "href": "status.html",
     "title": "Status",
     "section": "",
-    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 86\nForecasts submitted over the last month: 467\nForecasts submitted over the last year: 2482\nTotal Forecasts submitted: 4866\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 203\nForecasts submitted over the last month: 1174\nForecasts submitted over the last year: 5549\nTotal Forecasts submitted: 5753\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 33\nThirty minute forecasts submitted over the last year: 630\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 81\nDaily forecasts submitted over the last month: 443\nDaily forecasts submitted over the last year: 2308\nTotal Forecasts submitted: 2566\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 54\nForecasts submitted over the last year: 196\nTotal Forecasts submitted: 254\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 58\nForecasts submitted over the last year: 236\nTotal Forecasts submitted: 245"
+    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 107\nForecasts submitted over the last month: 487\nForecasts submitted over the last year: 2515\nTotal Forecasts submitted: 4903\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 254\nForecasts submitted over the last month: 1221\nForecasts submitted over the last year: 5642\nTotal Forecasts submitted: 5848\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 31\nThirty minute forecasts submitted over the last year: 629\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 101\nDaily forecasts submitted over the last month: 462\nDaily forecasts submitted over the last year: 2341\nTotal Forecasts submitted: 2601\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 54\nForecasts submitted over the last year: 196\nTotal Forecasts submitted: 254\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 57\nForecasts submitted over the last year: 236\nTotal Forecasts submitted: 245"
   },
   {
     "objectID": "status.html#data-and-forecasts",
     "href": "status.html#data-and-forecasts",
     "title": "Status",
     "section": "",
-    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 86\nForecasts submitted over the last month: 467\nForecasts submitted over the last year: 2482\nTotal Forecasts submitted: 4866\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 203\nForecasts submitted over the last month: 1174\nForecasts submitted over the last year: 5549\nTotal Forecasts submitted: 5753\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 33\nThirty minute forecasts submitted over the last year: 630\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 81\nDaily forecasts submitted over the last month: 443\nDaily forecasts submitted over the last year: 2308\nTotal Forecasts submitted: 2566\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 54\nForecasts submitted over the last year: 196\nTotal Forecasts submitted: 254\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 58\nForecasts submitted over the last year: 236\nTotal Forecasts submitted: 245"
+    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 107\nForecasts submitted over the last month: 487\nForecasts submitted over the last year: 2515\nTotal Forecasts submitted: 4903\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 254\nForecasts submitted over the last month: 1221\nForecasts submitted over the last year: 5642\nTotal Forecasts submitted: 5848\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 31\nThirty minute forecasts submitted over the last year: 629\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 101\nDaily forecasts submitted over the last month: 462\nDaily forecasts submitted over the last year: 2341\nTotal Forecasts submitted: 2601\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 54\nForecasts submitted over the last year: 196\nTotal Forecasts submitted: 254\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 57\nForecasts submitted over the last year: 236\nTotal Forecasts submitted: 245"
   }
 ]
