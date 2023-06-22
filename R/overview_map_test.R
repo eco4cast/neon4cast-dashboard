@@ -39,8 +39,7 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 # only use 7 day forecasts
 first_week_forecasts <- combined |>
   mutate(horizon = as.numeric(datetime - as_date(reference_datetime))) |>
-  filter(horizon <= 7,
-         horizon >= 0)
+  filter(horizon == 7)
 
 clim_score_deduplicate_weekly <- first_week_forecasts |>
   distinct(model_id, site_id, reference_datetime, datetime, variable, .keep_all = TRUE)
@@ -59,7 +58,7 @@ site_model_id <- map_dfr(site_ids,
 
 clim_score_df_weekly <- clim_score_deduplicate_weekly |>
   mutate(horizon = as.numeric(datetime - as_date(reference_datetime))) |>
-  filter(variable == 'temperature') |>
+  filter(variable == 'oxygen') |>
   select(reference_datetime, datetime, site_id, variable, crps, model_id, horizon) |>
   pivot_wider(names_from = model_id,
               values_from = crps) |>
@@ -81,8 +80,3 @@ clim_score_df_weekly <- clim_score_deduplicate_weekly |>
 # create spatial object and plot
 us_sf <- st_as_sf(clim_score_df_weekly, coords = c("field_longitude", "field_latitude"), crs = 4326)
 
-tmap_mode("view")
-tm_shape(us_sf) +
-  tm_bubbles(col ="crps_median", size = 'perc_skilled', id = 'field_site_name',
-             alpha = 0.5, xmod = 1,
-             popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))

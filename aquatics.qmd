@@ -24,6 +24,15 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 
 ```
 
+```{r}
+source("R/overview_map_test.R")
+tmap_mode("view")
+tm_shape(us_sf) +
+  tm_bubbles(col ="crps_median", size = 'perc_skilled', id = 'field_site_name', title.col = 'CRPS skill relative to climatology',
+             alpha = 0.5, xmod = 1,
+             popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))
+```
+
 ## Forecasts
 
 These plots show the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.\
