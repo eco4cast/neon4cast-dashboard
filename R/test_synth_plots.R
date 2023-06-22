@@ -2,17 +2,16 @@
 library(tidyverse)
 
 #grab from the local cache
-
-cutoff <- as.character(Sys.Date() - 90)
-combined <- arrow::open_dataset("aquatics_cache/") |>
-  filter(reference_datetime >= cutoff) |> collect() |>
-  mutate(Type = ifelse(site_id %in% lake_sites$field_site_id, 'Lake', 'River'))
-
 site_data <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv") |>
   dplyr::filter(aquatics == 1)
 
 lake_sites <- site_data |>
   filter(field_site_subtype == 'Lake')
+
+cutoff <- as.character(Sys.Date() - 90)
+combined <- arrow::open_dataset("cache/parquet/aquatics") |>
+  filter(reference_datetime >= cutoff) |> collect() |>
+  mutate(Type = ifelse(site_id %in% lake_sites$field_site_id, 'Lake', 'River'))
 
 
 
@@ -31,7 +30,7 @@ type_model_id <- combined |>
   group_by(Type) |>
   summarise(n_mod = n())
 
-combined |>
+lake_plot <- combined |>
   mutate(horizon = as.numeric(datetime - as_date(reference_datetime))) |>
   filter(site_id %in% lake_sites$field_site_id,
          horizon <= 30,
@@ -55,22 +54,22 @@ combined |>
             n_skilled = sum(skilled, na.rm = T)) |>
   left_join(site_model_id) |>
   mutate(perc_skilled = 100*(n_skilled/n_mod),
-         Type = ifelse(site_id %in% lake_sites$field_site_id, 'Lake', 'River')) |>
+         Type = ifelse(site_id %in% lake_sites$field_site_id, 'Lake', 'River'))
 
-  ggplot(aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
-  geom_line(linewidth = 1.2) +
-  theme_bw(base_size = 20) +
-  scale_colour_viridis_d(option = 'turbo', name = 'Site') +
-  scale_fill_viridis_d(option = 'turbo', name = 'Site') +
-  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
-  theme(legend.position = 'right') +
-  guides(color = guide_legend(nrow = 5)) +
-  facet_wrap(~Type)
-
-
+  # ggplot(aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
+  # geom_line(linewidth = 1.2) +
+  # theme_bw(base_size = 20) +
+  # scale_colour_viridis_d(option = 'turbo', name = 'Site') +
+  # scale_fill_viridis_d(option = 'turbo', name = 'Site') +
+  # labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  # theme(legend.position = 'right') +
+  # guides(color = guide_legend(nrow = 5)) +
+  # facet_wrap(~Type)
 
 
-combined |>
+
+
+lakes_rivers_plot <- combined |>
   mutate(horizon = as.numeric(datetime - as_date(reference_datetime))) |>
   filter(#site_id %in% lake_sites$field_site_id,
          horizon <= 30,
@@ -94,14 +93,14 @@ combined |>
   summarise(diff_crps = mean(median_diff, na.rm = T),
             n_skilled = sum(skilled, na.rm = T)) |>
   left_join(type_model_id) |>
-  mutate(perc_skilled = 100*(n_skilled/n_mod)) |>
-
-  ggplot(aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
-  geom_line(linewidth = 1.2) +
-  theme_bw(base_size = 20) +
-  scale_colour_viridis_d(option = 'turbo', name = 'Type') +
-  scale_fill_viridis_d(option = 'turbo', name = 'Type') +
-  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
-  theme(legend.position = 'right') +
-  guides(color = guide_legend(nrow = 5))
+  mutate(perc_skilled = 100*(n_skilled/n_mod))
+#
+  # ggplot(aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
+  # geom_line(linewidth = 1.2) +
+  # theme_bw(base_size = 20) +
+  # scale_colour_viridis_d(option = 'turbo', name = 'Type') +
+  # scale_fill_viridis_d(option = 'turbo', name = 'Type') +
+  # labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  # theme(legend.position = 'right') +
+  # guides(color = guide_legend(nrow = 5))
 

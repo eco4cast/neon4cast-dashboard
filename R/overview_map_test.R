@@ -9,6 +9,8 @@ library(maps)
 library(tmap)
 
 
+
+
 # extract NEON aquatic site info
 sites_map <- read_csv("https://raw.githubusercontent.com/eco4cast/neon4cast-targets/main/NEON_Field_Site_Metadata_20220412.csv")
 

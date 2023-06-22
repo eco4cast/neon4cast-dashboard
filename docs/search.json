@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "aquatics.html#forecasts",
+    "href": "aquatics.html#forecasts",
+    "title": "Aquatics",
+    "section": "Forecasts",
+    "text": "Forecasts\nThese plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#leaderboard",
+    "href": "aquatics.html#leaderboard",
+    "title": "Aquatics",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-03-24.\n\nOxygenTemperatureChlorophyll-A"
+  },
+  {
+    "objectID": "aquatics.html#submission-statistics",
+    "href": "aquatics.html#submission-statistics",
+    "title": "Aquatics",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-03-24 and 2023-06-22:\n\n55 models have submitted a total of 2753 forecasts to this challenge"
+  },
+  {
+    "objectID": "aquatics.html#long-term-patterns",
+    "href": "aquatics.html#long-term-patterns",
+    "title": "Aquatics",
+    "section": "Long-term patterns",
+    "text": "Long-term patterns\nHere we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties."
+  }
+]

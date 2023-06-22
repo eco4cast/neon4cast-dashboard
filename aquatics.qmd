@@ -33,6 +33,32 @@ tm_shape(us_sf) +
              popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))
 ```
 
+
+```{r}
+source("R/test_synth_plots.R")
+
+# plotting lakes 
+  ggplot(lake_plot, aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
+  geom_line(linewidth = 1.2) +
+  theme_bw(base_size = 20) +
+  scale_colour_viridis_d(option = 'turbo', name = 'Site') +
+  scale_fill_viridis_d(option = 'turbo', name = 'Site') +
+  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  theme(legend.position = 'right') +
+  guides(color = guide_legend(nrow = 5)) +
+  facet_wrap(~Type)
+
+# plotting lakes and rivers
+  ggplot(lakes_rivers_plot,aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
+  geom_line(linewidth = 1.2) +
+  theme_bw(base_size = 20) +
+  scale_colour_viridis_d(option = 'turbo', name = 'Type') +
+  scale_fill_viridis_d(option = 'turbo', name = 'Type') +
+  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  theme(legend.position = 'right') +
+  guides(color = guide_legend(nrow = 5))
+
+```
 ## Forecasts
 
 These plots show the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.\
