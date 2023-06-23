@@ -24,6 +24,49 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 
 ```
 
+This map shows the NEON sites with and their CRPS score relative to the climatology model for the seven day ahead forecast, indicated by color. The size of each bubble shows the percent of models which are more skilled than climatology. Included in each site description is the site name, site type, number of models submitted, and the number of models that are more skilled than climatology. We define a skillful model as having a lower CRPS forecast score than the climatology model.  
+
+```{r}
+source("R/overview_map_test.R")
+tmap_mode("view")
+tm_shape(us_sf) +
+  tm_bubbles(col ="crps_median", size = 'perc_skilled', id = 'field_site_name', title.col = 'CRPS skill relative to climatology',
+             alpha = 0.8, xmod = 1, palette = 'RdBu',
+             popup.vars = c('field_site_subtype','n_mod', 'perc_skilled'))
+```
+
+These plots show the percent of skillful water temperature forecasts over the thirty day forecast horizon. The first plot shows the percent of skillful forecasts over for NEON lake sites and river sites separately.
+
+```{r}
+source("R/test_synth_plots.R")
+
+
+# plotting lakes and rivers
+  ggplot(lakes_rivers_plot,aes(x=horizon, y = perc_skilled, group = Type, colour = Type)) +
+  geom_line(linewidth = 1.2) +
+  theme_bw(base_size = 20) +
+  scale_colour_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
+  scale_fill_viridis_d(begin = 0.2, end = 0.8, name = 'Type') +
+  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  theme(legend.position = 'right') +
+  guides(color = guide_legend(nrow = 5))
+```
+    
+The second plot shows the percent of skillful forecasts for each NEON lake site. 
+    
+```{r}
+# plotting lakes 
+  ggplot(lake_plot, aes(x=horizon, y = perc_skilled, group = site_id, colour = site_id)) +
+  geom_line(linewidth = 1.2) +
+  theme_bw(base_size = 20) +
+  scale_colour_viridis_d(option = 'turbo', name = 'Site') +
+  #scale_fill_viridis_d(option = 'turbo', name = 'Site') +
+  labs(y='% skillful forecasts', title = 'Water temperature forecasts') +
+  theme(legend.position = 'right') +
+  guides(color = guide_legend(nrow = 5)) +
+  facet_wrap(~Type)
+```
+
 ## Forecasts
 
 These plots show the most recently submitted forecast (a single `reference_datetime`) for which we have at least 10 observations.\
@@ -91,7 +134,7 @@ n_forecasts <- combined |> distinct(reference_datetime, model_id) |> nrow()
 
 Between `r cutoff` and `r Sys.Date()`:
 
-- `r n_models` models have submitted a total of `r n_forecasts` forecasts to this challenge
+-   `r n_models` models have submitted a total of `r n_forecasts` forecasts to this challenge
 
 ```{r}
 current_day <- Sys.Date()
