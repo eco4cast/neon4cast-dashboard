@@ -23,7 +23,8 @@ Depends: tidyverse,
          flareVis,
          vis4cast,
          remotes, 
-         bsicons
+         bsicons, 
+         ggmap
 Remotes:  
     github::flare-forecast/flareVis,
     github::eco4cast/score4cast, 
