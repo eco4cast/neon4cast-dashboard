@@ -15,11 +15,18 @@ Depends: tidyverse,
          bslib,
          remotes,
          minio,
+         rLakeAnalyzer,
          decor,
-         remotes,
          brio,
-         ggmap
+         reactable,
+         httr,
+         flareVis,
+         vis4cast,
+         remotes, 
+         bsicons
 Remotes:  
+    github::flare-forecast/flareVis,
     github::eco4cast/score4cast, 
     github::eco4cast/neon4cast, 
+    github::eco4cast/vis4cast,
     github::cboettig/minio
