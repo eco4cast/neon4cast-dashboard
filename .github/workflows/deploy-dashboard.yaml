@@ -30,6 +30,10 @@ jobs:
            GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         shell: Rscript {0}
         run: remotes::install_deps(".", dep=TRUE)
+        
+      - name: preload
+        run: |
+          R -e 'source("cache.R")'
 
       - name: Render
         run: |
