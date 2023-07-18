@@ -22,14 +22,15 @@ Depends: tidyverse,
          reactable,
          httr,
          flareVis,
-         vis4cast,
          remotes, 
          bsicons, 
-         ggmap
+         ggmap,
+         vis4cast
 Remotes:  
     github::flare-forecast/flareVis,
     github::eco4cast/score4cast, 
     github::eco4cast/neon4cast, 
-    github::eco4cast/vis4cast,
     github::cboettig/minio,
-    github::cboettig/minioclient
+    github::cboettig/minioclient, 
+    github::eco4cast/vis4cast
+
