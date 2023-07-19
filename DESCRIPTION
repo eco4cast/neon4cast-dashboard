@@ -14,12 +14,19 @@ Depends: tidyverse,
          tmap,
          bslib,
          remotes,
-         minio,
+         minioclient,
+         rLakeAnalyzer,
          decor,
-         remotes,
          brio,
-         ggmap
+         reactable,
+         reactablefmtr,
+         httr,
+         remotes, 
+         bsicons, 
+         ggmap,
+         vis4cast
 Remotes:  
     github::eco4cast/score4cast, 
     github::eco4cast/neon4cast, 
-    github::cboettig/minio
+    github::eco4cast/vis4cast
+
