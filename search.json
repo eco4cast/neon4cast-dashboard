@@ -1,54 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "home",
-    "section": "",
-    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions."
-  },
-  {
-    "objectID": "index.html#submit-a-forecast",
-    "href": "index.html#submit-a-forecast",
-    "title": "home",
-    "section": "Submit a forecast!",
-    "text": "Submit a forecast!\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
-  },
-  {
-    "objectID": "aquatics.html",
-    "href": "aquatics.html",
-    "title": "Aquatics",
-    "section": "",
-    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "aquatics.html#forecasts",
-    "href": "aquatics.html#forecasts",
-    "title": "Aquatics",
-    "section": "",
-    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "aquatics.html#leaderboard",
-    "href": "aquatics.html#leaderboard",
-    "title": "Aquatics",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-05-24.\n\nOxygenTemperatureChlorophyll-A"
-  },
-  {
-    "objectID": "aquatics.html#submission-statistics",
-    "href": "aquatics.html#submission-statistics",
-    "title": "Aquatics",
-    "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-05-24 and 2023-06-23:\n\n49 models have submitted a total of 1143 forecasts to this challenge"
-  },
-  {
-    "objectID": "aquatics.html#long-term-patterns",
-    "href": "aquatics.html#long-term-patterns",
-    "title": "Aquatics",
-    "section": "Long-term patterns",
-    "text": "Long-term patterns\nHere we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties."
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -56,130 +7,39 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "status.html",
-    "href": "status.html",
-    "title": "Status",
+    "objectID": "aquatics.html",
+    "href": "aquatics.html",
+    "title": "Aquatics",
     "section": "",
-    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 54\nForecasts submitted over the last month: 461\nForecasts submitted over the last year: 2567\nTotal Forecasts submitted: 4993\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 127\nForecasts submitted over the last month: 1143\nForecasts submitted over the last year: 5869\nTotal Forecasts submitted: 6090\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 16\nThirty minute forecasts submitted over the last year: 619\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 51\nDaily forecasts submitted over the last month: 437\nDaily forecasts submitted over the last year: 2405\nTotal Forecasts submitted: 2686\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 55\nForecasts submitted over the last year: 210\nTotal Forecasts submitted: 268\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 58\nForecasts submitted over the last year: 251\nTotal Forecasts submitted: 260"
+    "text": "This map shows the NEON sites with and their CRPS score relative to the climatology model for the seven day ahead forecast, indicated by color. The size of each bubble shows the percent of models which are more skilled than climatology. Included in each site description is the site name, site type, number of models submitted, and the number of models that are more skilled than climatology. We define a skillful model as having a lower CRPS forecast score than the climatology model.\nThese plots show the percent of skillful water temperature forecasts over the thirty day forecast horizon. The first plot shows the percent of skillful forecasts over for NEON lake sites and river sites separately.\nThe second plot shows the percent of skillful forecasts for each NEON lake site."
   },
   {
-    "objectID": "status.html#data-and-forecasts",
-    "href": "status.html#data-and-forecasts",
-    "title": "Status",
-    "section": "",
-    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 54\nForecasts submitted over the last month: 461\nForecasts submitted over the last year: 2567\nTotal Forecasts submitted: 4993\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 127\nForecasts submitted over the last month: 1143\nForecasts submitted over the last year: 5869\nTotal Forecasts submitted: 6090\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 16\nThirty minute forecasts submitted over the last year: 619\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 51\nDaily forecasts submitted over the last month: 437\nDaily forecasts submitted over the last year: 2405\nTotal Forecasts submitted: 2686\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 55\nForecasts submitted over the last year: 210\nTotal Forecasts submitted: 268\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 14\nForecasts submitted over the last month: 58\nForecasts submitted over the last year: 251\nTotal Forecasts submitted: 260"
+    "objectID": "aquatics.html#forecasts",
+    "href": "aquatics.html#forecasts",
+    "title": "Aquatics",
+    "section": "Forecasts",
+    "text": "Forecasts\nThese plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\nOxygenTemperatureChlorophyll-A"
   },
   {
-    "objectID": "noaa.html",
-    "href": "noaa.html",
-    "title": "Weather",
-    "section": "",
-    "text": "DRAFT\nAs a reference case, we can compare the NOAA Global Ensemble Forecast System (GEFS) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements."
-  },
-  {
-    "objectID": "noaa.html#most-recent-forecasts",
-    "href": "noaa.html#most-recent-forecasts",
-    "title": "Weather",
-    "section": "Most recent forecasts",
-    "text": "Most recent forecasts\nForecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.) The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this. Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:\nLets access that forecast from the NOAA snapshots.\n\nTemperatureRH"
-  },
-  {
-    "objectID": "noaa.html#skill-scores",
-    "href": "noaa.html#skill-scores",
-    "title": "Weather",
-    "section": "Skill scores",
-    "text": "Skill scores\n\nTemperatureHumidity"
-  },
-  {
-    "objectID": "beetles.html",
-    "href": "beetles.html",
-    "title": "Beetles",
-    "section": "",
-    "text": "These plots show forecasts that were submitted on 2023-02-23 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "beetles.html#forecasts",
-    "href": "beetles.html#forecasts",
-    "title": "Beetles",
-    "section": "",
-    "text": "These plots show forecasts that were submitted on 2023-02-23 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
-  },
-  {
-    "objectID": "beetles.html#leaderboard",
-    "href": "beetles.html#leaderboard",
-    "title": "Beetles",
+    "objectID": "aquatics.html#leaderboard",
+    "href": "aquatics.html#leaderboard",
+    "title": "Aquatics",
     "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\nrichnessabundance"
+    "text": "Leaderboard\nAverage skill scores of each model across all sites. Scores are shown by reference date and forecast horizon (in days). Scores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date, 2023-04-21.\n\nOxygenTemperatureChlorophyll-A"
   },
   {
-    "objectID": "beetles.html#submission-statistics",
-    "href": "beetles.html#submission-statistics",
-    "title": "Beetles",
+    "objectID": "aquatics.html#submission-statistics",
+    "href": "aquatics.html#submission-statistics",
+    "title": "Aquatics",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-02-23 and 2023-06-23:\n\n19 models have submitted a total of 252 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-04-21 and 2023-07-20:\n\n52 models have submitted a total of 3530 forecasts to this challenge"
   },
   {
-    "objectID": "terrestrial.html",
-    "href": "terrestrial.html",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown. ::: panel-tabset ## Latent evaporation\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n:::\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\nLatent evaporationCO2 flux\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBetween 2023-05-24 and 2023-06-23:\n\n19 models have submitted a total of 912 forecasts to this challenge"
-  },
-  {
-    "objectID": "terrestrial.html#forecasts",
-    "href": "terrestrial.html#forecasts",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown. ::: panel-tabset ## Latent evaporation"
-  },
-  {
-    "objectID": "terrestrial.html#co2-flux",
-    "href": "terrestrial.html#co2-flux",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "Net ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n:::"
-  },
-  {
-    "objectID": "terrestrial.html#leaderboard",
-    "href": "terrestrial.html#leaderboard",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\nLatent evaporationCO2 flux"
-  },
-  {
-    "objectID": "terrestrial.html#submission-statistics",
-    "href": "terrestrial.html#submission-statistics",
-    "title": "Terrestrial",
-    "section": "",
-    "text": "Between 2023-05-24 and 2023-06-23:\n\n19 models have submitted a total of 912 forecasts to this challenge"
-  },
-  {
-    "objectID": "ticks.html",
-    "href": "ticks.html",
-    "title": "Ticks",
-    "section": "",
-    "text": "These plots show forecasts that were submitted on 2023-02-23 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 3Sites 4 - 6Sites 7 - 9"
-  },
-  {
-    "objectID": "ticks.html#forecasts",
-    "href": "ticks.html#forecasts",
-    "title": "Ticks",
-    "section": "",
-    "text": "These plots show forecasts that were submitted on 2023-02-23 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 3Sites 4 - 6Sites 7 - 9"
-  },
-  {
-    "objectID": "ticks.html#leaderboard",
-    "href": "ticks.html#leaderboard",
-    "title": "Ticks",
-    "section": "Leaderboard",
-    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\nAmblyomma americanum\n\n\n\n\n[1] \"Leaderboard pending\""
-  },
-  {
-    "objectID": "ticks.html#submission-statistics",
-    "href": "ticks.html#submission-statistics",
-    "title": "Ticks",
-    "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-02-23 and 2023-06-23:\n\n16 models have submitted a total of 210 forecasts to this challenge"
+    "objectID": "aquatics.html#long-term-patterns",
+    "href": "aquatics.html#long-term-patterns",
+    "title": "Aquatics",
+    "section": "Long-term patterns",
+    "text": "Long-term patterns\nHere we look at some long term patterns in the median scores across all models. Are some months more predictable than others? Note that logs score penalties for observations that fall outside expected ranges are much higher than CRPS penalties."
   },
   {
     "objectID": "phenology.html",
@@ -207,6 +67,146 @@
     "href": "phenology.html#submission-statistics",
     "title": "Phenology",
     "section": "Submission statistics",
-    "text": "Submission statistics\nBetween 2023-05-24 and 2023-06-23:\n\n19 models have submitted a total of 921 forecasts to this challenge"
+    "text": "Submission statistics\nBetween 2023-06-20 and 2023-07-20:\n\n18 models have submitted a total of 890 forecasts to this challenge"
+  },
+  {
+    "objectID": "noaa.html",
+    "href": "noaa.html",
+    "title": "Weather",
+    "section": "",
+    "text": "DRAFT\nAs a reference case, we can compare the NOAA Global Ensemble Forecast System (GEFS) predictions to measurements made on the ground at individual NEON sites using the EFI standard and cyberinfrastructure tools. Keep in mind these are not the usual NOAA forecasts you see in daily life, GEFS are: 31 ensemble models at 1.0 degree lat/long squares resolution that extend a full 30 days in the future. We sample these at the NEON sites and compare to NEON measurements."
+  },
+  {
+    "objectID": "noaa.html#most-recent-forecasts",
+    "href": "noaa.html#most-recent-forecasts",
+    "title": "Weather",
+    "section": "Most recent forecasts",
+    "text": "Most recent forecasts\nForecasts are generated daily (actually 4 times daily in GEFS), while much NEON data is released only monthly. We obtain the date for the most recent observation (typically, the last day of the previous month.) The most recent forecast for which we would now have observations to compare against the full 35 day forecast horizon would thus be the one made 35 days before this. Thus the NEON latency and the forecast horizon mean that the most recent fully scored forecast will tend to be one made somewhere between 1 and 2 months ago:\nLets access that forecast from the NOAA snapshots.\n\nTemperatureRH"
+  },
+  {
+    "objectID": "noaa.html#skill-scores",
+    "href": "noaa.html#skill-scores",
+    "title": "Weather",
+    "section": "Skill scores",
+    "text": "Skill scores\n\nTemperatureHumidity"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "home",
+    "section": "",
+    "text": "Welcome the EFI NEON Forecast Challenge Dashboard.\nThis site provides daily updates to visualize recent scores of all forecasts submitted to the challenge. This site is generated using quarto and should be simple to customize for users familiar with RMarkdown. It is rendered daily using GitHub Actions."
+  },
+  {
+    "objectID": "index.html#submit-a-forecast",
+    "href": "index.html#submit-a-forecast",
+    "title": "home",
+    "section": "Submit a forecast!",
+    "text": "Submit a forecast!\nEFI currently has five open challenge themes! Browse the current forecasts or submit your own. Learn more about the current challenges.\n\nThis material is based upon work supported by the National Science Foundation under Grant DBI-1942280. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation."
+  },
+  {
+    "objectID": "beetles.html",
+    "href": "beetles.html",
+    "title": "Beetles",
+    "section": "",
+    "text": "These plots show forecasts that were submitted on 2023-03-22 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "beetles.html#forecasts",
+    "href": "beetles.html#forecasts",
+    "title": "Beetles",
+    "section": "",
+    "text": "These plots show forecasts that were submitted on 2023-03-22 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSites 1 - 8Sites 9 - 16Sites 17 - 24Sites 25 - 32Sites 33 - 40Sites 41 - 47"
+  },
+  {
+    "objectID": "beetles.html#leaderboard",
+    "href": "beetles.html#leaderboard",
+    "title": "Beetles",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\nrichnessabundance"
+  },
+  {
+    "objectID": "beetles.html#submission-statistics",
+    "href": "beetles.html#submission-statistics",
+    "title": "Beetles",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-03-22 and 2023-07-20:\n\n19 models have submitted a total of 264 forecasts to this challenge"
+  },
+  {
+    "objectID": "terrestrial.html",
+    "href": "terrestrial.html",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown. ::: panel-tabset ## Latent evaporation\n\n\n\n\n\n\n\n\n\nNet ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n:::\n\n\n\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\nLatent evaporationCO2 flux\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBetween 2023-06-20 and 2023-07-20:\n\n19 models have submitted a total of 904 forecasts to this challenge"
+  },
+  {
+    "objectID": "terrestrial.html#forecasts",
+    "href": "terrestrial.html#forecasts",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "These plots show the most recently submitted forecast (a single reference_datetime) for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown. ::: panel-tabset ## Latent evaporation"
+  },
+  {
+    "objectID": "terrestrial.html#co2-flux",
+    "href": "terrestrial.html#co2-flux",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Net ecosystem exchange of CO2 (NEE)\n\n\n\n\n\n\n:::"
+  },
+  {
+    "objectID": "terrestrial.html#leaderboard",
+    "href": "terrestrial.html#leaderboard",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Average skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since cutoff date.\n\nLatent evaporationCO2 flux"
+  },
+  {
+    "objectID": "terrestrial.html#submission-statistics",
+    "href": "terrestrial.html#submission-statistics",
+    "title": "Terrestrial",
+    "section": "",
+    "text": "Between 2023-06-20 and 2023-07-20:\n\n19 models have submitted a total of 904 forecasts to this challenge"
+  },
+  {
+    "objectID": "ticks.html",
+    "href": "ticks.html",
+    "title": "Ticks",
+    "section": "",
+    "text": "These plots show forecasts that were submitted on 2023-03-22 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 3Sites 4 - 6Sites 7 - 9"
+  },
+  {
+    "objectID": "ticks.html#forecasts",
+    "href": "ticks.html#forecasts",
+    "title": "Ticks",
+    "section": "",
+    "text": "These plots show forecasts that were submitted on 2023-03-22 for which we have at least 10 observations.\nModels which did not submit a forecast on the given reference date are not shown.\n\n\n\nSites 1 - 3Sites 4 - 6Sites 7 - 9"
+  },
+  {
+    "objectID": "ticks.html#leaderboard",
+    "href": "ticks.html#leaderboard",
+    "title": "Ticks",
+    "section": "Leaderboard",
+    "text": "Leaderboard\nAverage skill scores of each model across all sites.\nScores are shown by reference date and forecast horizon (in days).\nScores are averaged across all submissions of the model with a given horizon or a given reference_datetime out of submissions made since the cutoff date.\n\nAmblyomma americanum\n\n\n\n\n[1] \"Leaderboard pending\""
+  },
+  {
+    "objectID": "ticks.html#submission-statistics",
+    "href": "ticks.html#submission-statistics",
+    "title": "Ticks",
+    "section": "Submission statistics",
+    "text": "Submission statistics\nBetween 2023-03-22 and 2023-07-20:\n\n16 models have submitted a total of 218 forecasts to this challenge"
+  },
+  {
+    "objectID": "status.html",
+    "href": "status.html",
+    "title": "Status",
+    "section": "",
+    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 52\nForecasts submitted over the last month: 381\nForecasts submitted over the last year: 2858\nTotal Forecasts submitted: 5392\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 119\nForecasts submitted over the last month: 987\nForecasts submitted over the last year: 6916\nTotal Forecasts submitted: 7173\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 0\nThirty minute forecasts submitted over the last year: 583\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 49\nDaily forecasts submitted over the last month: 374\nDaily forecasts submitted over the last year: 2736\nTotal Forecasts submitted: 3077\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 0\nForecasts submitted over the last month: 32\nForecasts submitted over the last year: 242\nTotal Forecasts submitted: 300\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 0\nForecasts submitted over the last month: 34\nForecasts submitted over the last year: 288\nTotal Forecasts submitted: 297"
+  },
+  {
+    "objectID": "status.html#data-and-forecasts",
+    "href": "status.html#data-and-forecasts",
+    "title": "Status",
+    "section": "",
+    "text": "Met DataPhenology DataAquatics DataTerrestrial Data (30min)Terrestrial Data (Daily)Ticks DataBeetles DataAutomated Jobs\n\n\nNOAA related processes:\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 52\nForecasts submitted over the last month: 381\nForecasts submitted over the last year: 2858\nTotal Forecasts submitted: 5392\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 119\nForecasts submitted over the last month: 987\nForecasts submitted over the last year: 6916\nTotal Forecasts submitted: 7173\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThirty minute forecasts submitted over the last week: 0\nThirty minute forecasts submitted over the last month: 0\nThirty minute forecasts submitted over the last year: 583\nTotal Forecasts submitted: 726\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDaily forecasts submitted over the last week: 49\nDaily forecasts submitted over the last month: 374\nDaily forecasts submitted over the last year: 2736\nTotal Forecasts submitted: 3077\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 0\nForecasts submitted over the last month: 32\nForecasts submitted over the last year: 242\nTotal Forecasts submitted: 300\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nForecasts submitted over the last week: 0\nForecasts submitted over the last month: 34\nForecasts submitted over the last year: 288\nTotal Forecasts submitted: 297"
   }
 ]
