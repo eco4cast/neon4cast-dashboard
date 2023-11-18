@@ -24,7 +24,8 @@ Depends: tidyverse,
          remotes, 
          bsicons, 
          ggmap,
-         vis4cast
+         vis4cast,
+         maptools
 Remotes:  
     github::eco4cast/score4cast, 
     github::eco4cast/neon4cast, 
