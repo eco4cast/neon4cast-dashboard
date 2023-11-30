@@ -29,7 +29,9 @@ jobs:
         env:
            GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
         shell: Rscript {0}
-        run: remotes::install_deps(".", dep=TRUE)
+        run: | 
+          remotes::install_deps(".", dep=TRUE)
+          install.packages("maptools")
         
       - name: preload
         run: |
