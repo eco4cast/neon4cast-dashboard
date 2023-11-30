@@ -27,7 +27,7 @@ combined <- arrow::open_dataset("cache/parquet/aquatics") |>
 
 This map shows the NEON sites with and their CRPS score relative to the climatology model for the seven day ahead forecast, indicated by color. The size of each bubble shows the percent of models which are more skilled than climatology. Included in each site description is the site name, site type, number of models submitted, and the number of models that are more skilled than climatology. We define a skillful model as having a lower CRPS forecast score than the climatology model.  
 
-```{r}
+```{r eval = FALSE}
 source("R/overview_map_test.R")
 tmap_mode("view")
 tm_shape(us_sf) +
