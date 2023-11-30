@@ -12,6 +12,7 @@ library(neon4cast)
 library(score4cast)
 library(vis4cast)
 library(glue)
+library(lubridate)
 source("R/plot-utils.R")
 score4cast::ignore_sigpipe()
 
